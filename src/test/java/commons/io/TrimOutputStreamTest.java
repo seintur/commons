@@ -1,0 +1,97 @@
+/***
+ * Commons
+ * Copyright (C) 2015 University of Lille 1
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Contact: Lionel.Seinturier@univ-lille1.fr
+ *
+ * Author: Lionel Seinturier
+ */
+
+package commons.io;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import junit.framework.TestCase;
+
+/**
+ * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
+ */
+public class TrimOutputStreamTest extends TestCase {
+
+    public TrimOutputStreamTest(String arg0) {
+        super(arg0);
+    }
+
+    public static void main(String[] args) {
+        junit.textui.TestRunner.run(TrimOutputStreamTest.class);
+    }
+
+    private void testPattern(
+            String input,
+            String begin,
+            String end,
+            String expectedResult ) throws IOException {
+        
+        ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        OutputStream os = TrimOutputStream.create(baos,begin,end);
+        
+        PipedStreams.dump(bais,os);
+        os.close();
+        
+        final String result = baos.toString();
+        
+        System.out.println("Input : "+input);
+        System.out.println("Begin : "+begin);
+        System.out.println("End   : "+end);
+        System.out.println("Result: "+result);
+        
+        if ( ! result.equals(expectedResult) )
+            throw new RuntimeException("Bad expected result: "+expectedResult);
+    }
+    
+    public void testMarkersInTheMiddle() throws IOException {
+
+        System.out.println(
+                "=== TrimOutputStreamTest.testMarkersInTheMiddle ===");
+        
+        final String input = "abdcdeazyx";
+        final String begin = "dc";
+        final String end = "zy";
+        final String expectedResult = "dea";
+        
+        testPattern(input,begin,end,expectedResult);
+    }
+    
+    public void testMarkersAtTheEnds() throws IOException {
+
+        System.out.println(
+                "=== TrimOutputStreamTest.testMarkersAtTheEnds ===");
+        
+        final String input = "abdcdeazyx";
+        final String begin = "abd";
+        final String end = "yx";
+        final String expectedResult = "cdeaz";
+        
+        testPattern(input,begin,end,expectedResult);
+    }
+    
+}
