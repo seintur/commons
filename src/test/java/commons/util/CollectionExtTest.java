@@ -27,21 +27,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class CollectionExtTest extends TestCase {
+public class CollectionExtTest {
 
-	public CollectionExtTest(String arg0) {
-		super(arg0);
-	}
-
-	public static void main(String[] args) {
-		junit.textui.TestRunner.run(CollectionExtTest.class);
-	}
-
+    @Test
 	public void testRecursiveGet() {
         
         System.out.println("=== CollectionExtTest.recursiveGet() ===");
@@ -71,7 +64,7 @@ public class CollectionExtTest extends TestCase {
         Model src, String[] methodNames, String expected ) {
         
         try {
-			Collection res = CollectionExt.recursiveGet(src,methodNames);
+			Collection<?> res = CollectionExt.recursiveGet(src,methodNames);
             System.out.println( expected + " = " + res );
 		} catch (Exception e) {
             e.printStackTrace();
@@ -86,20 +79,21 @@ public class CollectionExtTest extends TestCase {
      */
     public static class Model {
         private String name;
-        private Collection classes;
+        private Collection<Clazz> classes;
         
-        private Model( String name, Clazz[] classes ) {
+        private Model( String name, Clazz... classes ) {
             this.name = name;
             this.classes = Arrays.asList(classes);
         }
         
         public String getName() { return name; }
-        public Collection getClasses() { return classes; }
+        public Collection<Clazz> getClasses() { return classes; }
+        @Override
         public String toString() { return "Model: " + name; }
         
         private static Model model1;
         /**
-         * @return  a sample instance of the model with 3 clazzes and 2 associtions.
+         * @return  a sample instance of the model with 3 classes and 2 associations.
          */
         public static Model getSampleModel1() {
             
@@ -128,7 +122,7 @@ public class CollectionExtTest extends TestCase {
             ae3.setAssociation(a2);
             ae4.setAssociation(a2);
             
-            model1 = new Model("Model1",new Clazz[]{client});
+            model1 = new Model("Model1",client);
             return model1;
         }
     }

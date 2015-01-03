@@ -28,20 +28,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class TrimOutputStreamTest extends TestCase {
-
-    public TrimOutputStreamTest(String arg0) {
-        super(arg0);
-    }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TrimOutputStreamTest.class);
-    }
+public class TrimOutputStreamTest {
 
     private void testPattern(
             String input,
@@ -68,6 +60,7 @@ public class TrimOutputStreamTest extends TestCase {
             throw new RuntimeException("Bad expected result: "+expectedResult);
     }
     
+    @Test
     public void testMarkersInTheMiddle() throws IOException {
 
         System.out.println(
@@ -81,6 +74,7 @@ public class TrimOutputStreamTest extends TestCase {
         testPattern(input,begin,end,expectedResult);
     }
     
+    @Test
     public void testMarkersAtTheEnds() throws IOException {
 
         System.out.println(
@@ -92,6 +86,5 @@ public class TrimOutputStreamTest extends TestCase {
         final String expectedResult = "cdeaz";
         
         testPattern(input,begin,end,expectedResult);
-    }
-    
+    }    
 }

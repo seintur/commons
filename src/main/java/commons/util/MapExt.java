@@ -236,32 +236,33 @@ public class MapExt {
      * @return     a new map containing the elements of src
      *             whose keys are not found in dst
      */
-    public static Map subtract( Map src, Set dst ) {
+    public static <K,V> Map<K,V> subtract( Map<K,V> src, Set<K> dst ) {
         
         /**
          * Construct an empty map of the same class as src
          * or construct an empty HashMap
          * if the class of src does not provide an empty constructor. 
          */
-        Map result = null;
-        Class cl = src.getClass();
+        Map<K,V> result = null;
+        Class<Map<K,V>> cl = (Class<Map<K,V>>) src.getClass();
         try {
-            result = (Map) cl.newInstance();
-        } catch (InstantiationException e) {
-            result = new HashMap<Object,Object>();
-        } catch (IllegalAccessException e) {
-            result = new HashMap<Object,Object>();
+            result = cl.newInstance();
+        }
+        catch (InstantiationException e) {
+            result = new HashMap<K,V>();
+        }
+        catch (IllegalAccessException e) {
+            result = new HashMap<K,V>();
         }
         
         /**
          * Add to result the elements of src
          * whose keys are not found in dst.
          */
-        for ( Iterator iter=src.entrySet().iterator() ; iter.hasNext() ; ) {
-            Map.Entry element = (Map.Entry) iter.next();
-            Object key = element.getKey();
+        for (Map.Entry<K,V> entry : src.entrySet()) {
+            K key = entry.getKey();
             if ( ! dst.contains(key) )
-                result.put(key,element.getValue());
+                result.put(key,entry.getValue());
         }
         
         return result;

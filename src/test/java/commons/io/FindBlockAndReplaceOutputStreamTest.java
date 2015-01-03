@@ -28,20 +28,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class FindBlockAndReplaceOutputStreamTest extends TestCase {
-
-    public FindBlockAndReplaceOutputStreamTest(String arg0) {
-        super(arg0);
-    }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(FindBlockAndReplaceOutputStreamTest.class);
-    }
+public class FindBlockAndReplaceOutputStreamTest {
 
     private void testPattern(
             String input,
@@ -71,6 +63,7 @@ public class FindBlockAndReplaceOutputStreamTest extends TestCase {
             throw new RuntimeException("Bad expected result: "+expectedResult);
     }
     
+    @Test
     public void testSingleFindInTheMiddle() throws IOException {
 
         System.out.println(
@@ -85,6 +78,7 @@ public class FindBlockAndReplaceOutputStreamTest extends TestCase {
         testPattern(input,begin,end,replace,expectedResult);
     }
     
+    @Test
     public void testMultipleFindInTheMiddle() throws IOException {
 
         System.out.println(
@@ -99,6 +93,7 @@ public class FindBlockAndReplaceOutputStreamTest extends TestCase {
         testPattern(input,begin,end,replace,expectedResult);
     }
     
+    @Test
     public void testSingleFindAtTheBeginning() throws IOException {
 
         System.out.println(
@@ -113,6 +108,7 @@ public class FindBlockAndReplaceOutputStreamTest extends TestCase {
         testPattern(input,begin,end,replace,expectedResult);
     }
     
+    @Test
     public void testSingleFindAtTheEnd() throws IOException {
 
         System.out.println(
@@ -126,5 +122,4 @@ public class FindBlockAndReplaceOutputStreamTest extends TestCase {
         
         testPattern(input,begin,end,replace,expectedResult);
     }
-    
 }

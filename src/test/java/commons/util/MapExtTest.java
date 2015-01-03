@@ -28,21 +28,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class MapExtTest extends TestCase {
+public class MapExtTest {
 
-	public MapExtTest(String arg0) {
-		super(arg0);
-	}
-
-	public static void main(String[] args) {
-		junit.textui.TestRunner.run(MapExtTest.class);
-	}
-
+	@Test
 	public void testSubtract() {
 
         System.out.println("=== MapExtTest.subtract() ===");
@@ -59,7 +52,7 @@ public class MapExtTest extends TestCase {
         dst.add( new Integer(12) );
         dst.add( new Integer(14) );
         
-        Map result = MapExt.subtract(src,dst);
+        Map<Integer,String> result = MapExt.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 1 || !result.keySet().contains(new Integer(13)) )
             throw new RuntimeException("MapExt.subtract() failed");
@@ -143,5 +136,4 @@ public class MapExtTest extends TestCase {
         if ( result.size() != 0 )
             throw new RuntimeException("MapExt.subtract() failed");
 	}
-
 }

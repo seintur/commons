@@ -27,20 +27,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class SplitOutputStreamTest extends TestCase {
-
-    public SplitOutputStreamTest(String arg0) {
-        super(arg0);
-    }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(SplitOutputStreamTest.class);
-    }
+public class SplitOutputStreamTest {
 
     private void testPattern(
             String input,
@@ -71,6 +63,7 @@ public class SplitOutputStreamTest extends TestCase {
             throw new RuntimeException("Bad expected after: "+expectedAfter);
     }
     
+    @Test
     public void testPatternInTheMiddle() throws IOException {
 
         System.out.println(
@@ -84,6 +77,7 @@ public class SplitOutputStreamTest extends TestCase {
         testPattern(input,pattern,expectedBefore,expectedAfter);
     }
     
+    @Test
     public void testPatternAtTheBeginning() throws IOException {
 
         System.out.println(
@@ -97,7 +91,8 @@ public class SplitOutputStreamTest extends TestCase {
         testPattern(input,pattern,expectedBefore,expectedAfter);
     }
     
-    public void testPatternAtTheEnd() throws IOException {
+    @Test
+   public void testPatternAtTheEnd() throws IOException {
 
         System.out.println(
                 "=== SplitOutputStreamTest.testPatternAtTheEnd ===");
