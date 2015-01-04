@@ -33,7 +33,7 @@ import java.util.Set;
  */
 public class RangeSet {
     
-    /** A description of the ranges, eg "7;2-5;3-4;10" */
+    /** A description of the ranges, e.g. "7;2-5;3-4;10" */
     private String descr;
     
     /** A set of integers containing the elements of the ranges. */
@@ -46,7 +46,7 @@ public class RangeSet {
     
     /**
      * Set a new description and
-     * clean elements to enable its regenerationat the next
+     * clean elements to enable its regeneration at the next
      * call to getElements().
      */
     public void setDescr( String descr ) {
@@ -65,7 +65,7 @@ public class RangeSet {
         
         elements = new HashSet<Integer>();
         
-        /** Ignore null and empty strings. */
+        // Ignore null and empty strings
         if ( descr==null || descr.length()==0 )
             return elements;
             
@@ -94,7 +94,7 @@ public class RangeSet {
                     elements.add( new Integer(value) );
                 }
                 catch( NumberFormatException nfe ) {
-                    /** Ignore errors in number formats. */
+                    // Ignore errors in number formats
                 }
             }
             else {
@@ -130,10 +130,9 @@ public class RangeSet {
      * 
      * @return  a set of Integer instances
      * @throws RangeSetFormatException 
-     *   thrown to indicate that the description is badly
-     *   formatted. 
+     *   thrown to indicate that the description is badly formatted. 
      */
-    public Set validate() throws RangeSetFormatException {
+    public Set<Integer> validate() throws RangeSetFormatException {
         
         elements = new HashSet<Integer>();
         
