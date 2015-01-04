@@ -62,7 +62,7 @@ public class CollectionExt {
         	return ret;
         }
         catch (Exception e) {
-            /** InstantiationException or IllegalAccessException. */
+            // InstantiationException or IllegalAccessException
         	Collection<E> ret = new ArrayList<>();
         	return ret;
         }
@@ -80,9 +80,9 @@ public class CollectionExt {
     public static <E> Collection<Object> getAttributes(
         Collection<E> src, String attributeName ) {
 
-        /**
+        /*
          * LinkedList is the lighter implementation of
-         * the Collection interface, isn't it ?
+         * the Collection interface, isn't it?
          */
         Collection<Object> ret = new LinkedList<>();
         return getAttributes( src, attributeName, ret );
@@ -100,15 +100,15 @@ public class CollectionExt {
      * @param orderingAttributeName  the attribute used to order the collection
      * @return                       a collection with attribute values
      */
-    public static Collection<?> getAttributesOrderedBy(
-        Collection<?> src, String attributeName, String orderingAttributeName ) {
+    public static <E> Collection<Object> getAttributesOrderedBy(
+        Collection<E> src, String attributeName, String orderingAttributeName ) {
 
-        /**
+        /*
          * TreeSet is the only ordered collection
-         * (i.e. implementing the OrderedSet interface), isn't it ?
+         * (i.e. implementing the OrderedSet interface), isn't it?
          */
-        Comparator<Object> comp = new IntegerAttributeComparator(orderingAttributeName);
-        Collection<Object> ret = new TreeSet<Object>(comp);
+        Comparator<Object> comp = new IntegerAttributeComparator<>(orderingAttributeName);
+        Collection<Object> ret = new TreeSet<>(comp);
         return getAttributes( src, attributeName, ret );
     }
 
@@ -144,7 +144,7 @@ public class CollectionExt {
                 dst.add( value );
             }
             catch( IllegalAccessException iae ) {
-                /**
+                /*
                  * The attribute value cannot be fetched.
                  * Ignore the element.
                  */
@@ -195,7 +195,7 @@ public class CollectionExt {
         throws  NoSuchMethodException,
                 IllegalAccessException, InvocationTargetException {
             
-        /**
+        /*
          * Invoke the first method whose name is in methodNames.
          * It is supposed to return either a collection
          * or a single element.
@@ -205,7 +205,7 @@ public class CollectionExt {
         Method method = cl.getMethod(methodName,new Class[]{});
         Object ret = method.invoke(src,new Object[]{});
         
-        /**
+        /*
          * Add the current object to the set of visited objects.
          * When methodNames contains only one element,
          * the leaf of the path is reached,
@@ -220,7 +220,7 @@ public class CollectionExt {
                 leaf.add(ret);
         }
         else {
-            /**
+            /*
              * Compute a new list of method names without the first one.
              * Iterate on the ret and
              * recursively call recursiveGet

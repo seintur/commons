@@ -34,7 +34,7 @@ import commons.lang.ObjectExt;
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class IntegerAttributeComparator implements Comparator<Object> {
+public class IntegerAttributeComparator<T> implements Comparator<T> {
 
     private String orderingAttributeName;
 
@@ -42,7 +42,7 @@ public class IntegerAttributeComparator implements Comparator<Object> {
         this.orderingAttributeName = orderingAttributeName;
     }
     
-    public int compare( Object o1, Object o2 ) {
+    public int compare( T o1, T o2 ) {
 
         Object v1 = null;
         Object v2 = null;

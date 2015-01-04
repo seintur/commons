@@ -28,7 +28,6 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -101,13 +100,13 @@ public class MapExt {
      * @param target  the values used to select keys
      * @return        a collection of values associated with matching keys
      */
-    public static Collection<Object> match( Map src, Object[] target ) {
+    public static <K,V> Collection<V> match( Map<K,V> src, Object[] target ) {
 
         /*
          * The result is stored in a LinkedList.
          * A multiset would have been enough if it were existing in the Java API.
          */
-        Collection<Object> dst = new LinkedList<Object>();
+        Collection<V> dst = new LinkedList<>();
         return match( src, target, dst );
     }
 
@@ -122,20 +121,15 @@ public class MapExt {
      * @param dst     the destination collection where values associated with matching keys are stored
      * @return        redundantly returns the destination collection
      */
-    public static Collection<Object> match( Map src, Object[] target, Collection<Object> dst ) {
+    public static <K,V> Collection<V> match( Map<K,V> src, Object[] target, Collection<V> dst ) {
 
-        Set entrySet = src.entrySet();
-        Iterator iterator = entrySet.iterator();
-
-        while ( iterator.hasNext() ) {
-            
-            Map.Entry entry = (Map.Entry) iterator.next();
-            Object key = entry.getKey();
-
+    	for (Map.Entry<K,V> entry : src.entrySet()) {
+    		K key = entry.getKey();
             if ( key instanceof Selector ) {
             	Selector keySel = (Selector) key;
                 if ( keySel.equals(target) ) {
-                	dst.add( entry.getValue() );
+                	V value = entry.getValue();
+                	dst.add(value);
                 }
             }
         }
@@ -155,21 +149,21 @@ public class MapExt {
      * @param orderingAttributeName  the attribute used to order the collection
      * @return                       redundantly returns the destination collection
      */
-    public static Collection<Object> matchOrderedBy(
-        Map src, Object[] target, String orderingAttributeName ) {
+    public static <K,V> Collection<V> matchOrderedBy(
+        Map<K,V> src, Object[] target, String orderingAttributeName ) {
 
         /*
          * TreeSet is the only ordered collection
          * (i.e. implementing the OrderedSet interface), isn't it ?
          */
-        Comparator<Object> comp = new IntegerAttributeComparator(orderingAttributeName);
-        Collection<Object> ret = new TreeSet<Object>(comp);
+        Comparator<V> comp = new IntegerAttributeComparator<>(orderingAttributeName);
+        Collection<V> ret = new TreeSet<>(comp);
         return match( src, target, ret );
     }
 
 
     /**
-     * Search for keys where a given matcher method return true.
+     * Search for keys where a given matcher method return <code>true</code>.
      * Return the associated values.
      *
      * @param src                          the source map
@@ -178,31 +172,29 @@ public class MapExt {
      * @param target                       the values used when the matcher method is called
      * @return                             a collection of values associated with matching keys
      */
-    public static Collection<Object> match(
-        Map src, String matcherMethodName,
-        Class[] matcherMethodParameterTypes, Object[] target ) {
+    public static <K,V> Collection<V> match(
+        Map<K,V> src, String matcherMethodName,
+        Class<?>[] matcherMethodParameterTypes, Object[] target ) {
 
         /*
          * The result is stored in a LinkedList.
          * A multiset would have been enough if it were existing in the Java API.
          */
-        Set entrySet = src.entrySet();
-        Iterator iterator = entrySet.iterator();
-        Collection<Object> result = new LinkedList<Object>();
+        Collection<V> result = new LinkedList<>();
 
-        while ( iterator.hasNext() ) {
-            
-            Map.Entry entry = (Map.Entry) iterator.next();
-            Object key = entry.getKey();
+        for (Map.Entry<K,V> entry : src.entrySet()) {
+			
+            K key = entry.getKey();
 
-            Class cl = key.getClass();
+            Class<?> cl = key.getClass();
             try {
             	Method method = cl.getMethod( matcherMethodName, matcherMethodParameterTypes );
                 Object returnedValue = method.invoke( key, target );
                 if ( returnedValue instanceof Boolean ) {
                 	boolean ret = ((Boolean)returnedValue) . booleanValue();
                     if (ret) {
-                    	result.add( entry.getValue() );
+                    	V value = entry.getValue();
+                    	result.add(value);
                     }
                 }
             }
@@ -225,12 +217,12 @@ public class MapExt {
     }
 
     /**
-     * Perform a minus operation between the keys of src and dst.
+     * Perform a minus operation between the keys of two maps.
      * 
      * @param src  the source map
      * @param dst  the set whose elements are to be removed
-     * @return     a new map containing the elements of src
-     *             whose keys are not found in dst
+     * @return     a new map containing the elements of the source map
+     *             whose keys are not found in the set
      */
     public static <K,V> Map<K,V> subtract( Map<K,V> src, Set<K> dst ) {
         
