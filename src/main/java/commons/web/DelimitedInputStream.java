@@ -44,10 +44,10 @@ public class DelimitedInputStream extends FilterInputStream {
 
     /**
      * The separator delimiting the end of the part is stored
-     * as an array of ints rather than bytes.
-     * When reading data from the stream, an int is returned.
+     * as an array of integers rather than bytes.
+     * When reading data from the stream, an integer is returned.
      * Comparing values greater than 127 leads to problems:
-     * the int value is interpreted correctly whereas the byte value
+     * the integer value is interpreted correctly whereas the byte value
      * is considered negative (the 8th bit correspond to the sign).
      */
     private int[] separator;
@@ -90,16 +90,17 @@ public class DelimitedInputStream extends FilterInputStream {
     /**
      * Read an byte from the underlying input stream
      * until either the end of stream is found
-     * or the seperator is met.
+     * or the separator is met.
      *
      * @return  -1 if the end of stream or the separator is met,
      *          the read byte in other cases
      */
+    @Override
     public int read() throws IOException {
 
         while (true) {
         	
-            /**
+            /*
              * Test whether the separator is met.
              * The separator is either followed by 0xd 0xa
              * or by -- 0xd 0xa (end of stream).
@@ -108,7 +109,7 @@ public class DelimitedInputStream extends FilterInputStream {
                 int b1 = in.read();
                 int b2 = in.read();
                 if ( b1=='-' && b2=='-' ) {
-                    /** Just skip the end of line. */
+                    // Just skip the end of line
                     in.read();
                     in.read();
                 }
@@ -131,7 +132,7 @@ public class DelimitedInputStream extends FilterInputStream {
             int b = in.read();
             
             if ( b == -1 ) {
-                /**
+                /*
                  * The end of the stream has been met.
                  * Test whether bytes have been accumulated in the buffer
                  * before returning -1
@@ -159,7 +160,6 @@ public class DelimitedInputStream extends FilterInputStream {
                 firstNonMatching = b;
             }
         }
-
     }
 
 
@@ -168,5 +168,6 @@ public class DelimitedInputStream extends FilterInputStream {
      * We don't want to close the underlying input stream
      * when this instance is closed.
      */
+    @Override
     public void close() throws IOException {}
 }

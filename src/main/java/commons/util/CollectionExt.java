@@ -47,24 +47,25 @@ import commons.lang.ObjectExt;
 public class CollectionExt {    
 
     /**
-     * Return an empty collection whose implementation is of the same
-     * class as the specified collection.
-     * If the specified collection can not be instanciated,
-     * use a default class.
+     * Return an empty collection whose implementation is of the same class as
+     * the specified collection. If the specified collection cannot be
+     * instantiated, return an empty {@link ArrayList}.
      * 
      * @param src  the source collection whose class is to used as a template
-     * @return     a new collection of the same class as src
+     * @return     a new collection of the same class as the source collection
      */
-    public static Collection createOfSameClass( Collection src ) {
-        Class cl = src.getClass();
-        Collection ret;
+    public static <E> Collection<E> createOfSameClass( Collection<E> src ) {
+        @SuppressWarnings("unchecked")
+		Class<Collection<E>> cl = (Class<Collection<E>>) src.getClass();
         try {
-            ret = (Collection) cl.newInstance();
-        } catch (Exception e) {
-            /** InstantiationException or IllegalAccessException. */
-            ret = new ArrayList();
+        	Collection<E> ret = cl.newInstance();
+        	return ret;
         }
-        return ret;
+        catch (Exception e) {
+            /** InstantiationException or IllegalAccessException. */
+        	Collection<E> ret = new ArrayList<>();
+        	return ret;
+        }
     }
     
 
@@ -76,14 +77,14 @@ public class CollectionExt {
      * @param attributeName  the attribute name
      * @return               a collection with attribute values
      */
-    public static Collection<Object> getAttributes(
-        Collection src, String attributeName ) {
+    public static <E> Collection<Object> getAttributes(
+        Collection<E> src, String attributeName ) {
 
         /**
-         * LinkedList is the ligher implementation of
+         * LinkedList is the lighter implementation of
          * the Collection interface, isn't it ?
          */
-        Collection<Object> ret = new LinkedList<Object>();
+        Collection<Object> ret = new LinkedList<>();
         return getAttributes( src, attributeName, ret );
     }
 
@@ -92,19 +93,19 @@ public class CollectionExt {
      * Iterate on all the elements of a collection and extract the value
      * of an attribute. The values are returned as a collection.
      * The collection is ordered according to the value of another attribute
-     * (assumed to be an int).
+     * (assumed to be an integer).
      * 
      * @param src                    the source collection
      * @param attributeName          the attribute name
      * @param orderingAttributeName  the attribute used to order the collection
      * @return                       a collection with attribute values
      */
-    public static Collection<Object> getAttributesOrderedBy(
-        Collection src, String attributeName, String orderingAttributeName ) {
+    public static Collection<?> getAttributesOrderedBy(
+        Collection<?> src, String attributeName, String orderingAttributeName ) {
 
         /**
          * TreeSet is the only ordered collection
-         * (ie implementing the OrderedSet interface), isn't it ?
+         * (i.e. implementing the OrderedSet interface), isn't it ?
          */
         Comparator<Object> comp = new IntegerAttributeComparator(orderingAttributeName);
         Collection<Object> ret = new TreeSet<Object>(comp);
@@ -125,18 +126,18 @@ public class CollectionExt {
      *                       where attribute values are stored
      * @return               redundantly returns the destination collection
      */
-    public static Collection<Object> getAttributes(
-        Collection src, String attributeName, Collection<Object> dst ) {
+    public static <E> Collection<Object> getAttributes(
+        Collection<E> src, String attributeName, Collection<Object> dst ) {
 
         if ( attributeName.length() == 0 ) {
         	throw new IllegalArgumentException(
                 "Parameter attributeName must be non-empty");
         }
 
-        Iterator iterator = src.iterator();
+        Iterator<E> iterator = src.iterator();
         while ( iterator.hasNext() ) {
         	
-            Object element = iterator.next();
+            E element = iterator.next();
             try {
             	Object value =
                     ObjectExt.getAttributeValue( element, attributeName );
@@ -144,7 +145,7 @@ public class CollectionExt {
             }
             catch( IllegalAccessException iae ) {
                 /**
-                 * The attribute value can not be fetched.
+                 * The attribute value cannot be fetched.
                  * Ignore the element.
                  */
             }
@@ -200,7 +201,7 @@ public class CollectionExt {
          * or a single element.
          */
         String methodName = (String) methodNames.get(0);
-        Class cl = src.getClass();
+        Class<?> cl = src.getClass();
         Method method = cl.getMethod(methodName,new Class[]{});
         Object ret = method.invoke(src,new Object[]{});
         
@@ -225,13 +226,11 @@ public class CollectionExt {
              * recursively call recursiveGet
              * if the element has not already been visited.
              */
-            List<String> trailingMethodNames =
-            	new LinkedList<String>(methodNames);
+            List<String> trailingMethodNames = new LinkedList<>(methodNames);
             trailingMethodNames.remove(0);
             if ( ret instanceof Collection ) {
-                Collection elements = (Collection) ret;
-                for ( Iterator iter=elements.iterator() ; iter.hasNext() ; ) {
-                    Object element = iter.next();
+                Collection<?> elements = (Collection<?>) ret;
+                for (Object element : elements) {
                     if ( ! visited.contains(element) )
                         recursiveGet(element,trailingMethodNames,visited,leaf);
                 }
@@ -241,21 +240,5 @@ public class CollectionExt {
                     recursiveGet(ret,trailingMethodNames,visited,leaf);
             }
         }
-    }
-    
-
-    /**
-     * Create a set from a collection.
-     * This method eliminates identical elements in a collection.
-     * 
-     * @param src  the source collection
-     * @return     the set created from the specified collection
-     */
-    public static Set<Object> toSet( Collection<Object> src ) {
-        Set<Object> ret = new HashSet<Object>();
-        for ( Iterator iter=src.iterator() ; iter.hasNext() ; ) {
-			ret.add( iter.next() );
-		}
-        return ret;
     }
 }

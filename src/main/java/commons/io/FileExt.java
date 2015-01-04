@@ -73,25 +73,6 @@ public class FileExt extends File {
         return filesExt;
     }
 
-    /** Override File[] listFiles() to make her return FileExts. */
-    @Override
-    public FileExt[] listFiles() {
-        return toFileExt( super.listFiles() );
-    }
-
-    /** Override File[] listFiles(FileFilter) to make her return FileExts. */
-    @Override
-    public FileExt[] listFiles( FileFilter ff ) {
-        return toFileExt( super.listFiles(ff) );
-    }
-
-    /** Override File[] listFiles(FilenameFilter) to make her return FileExts. */
-    @Override
-    public FileExt[] listFiles( FilenameFilter fnf ) {
-        return toFileExt( super.listFiles(fnf) );
-    }
-
-
     /**
      * Compare the content of two files.
      *
@@ -232,7 +213,7 @@ public class FileExt extends File {
         File[] files = listFiles();
         if ( files == null )  return;
 
-        /**
+        /*
          * Copy each file individually.
          * Do not use moveFile() as we want to delete only once
          * all files have been copied.
@@ -241,7 +222,7 @@ public class FileExt extends File {
             ((FileExt)files[i]).copyFile(dst);
         }
 
-        /** Delete files. */
+        // Delete files
         for ( int i=0 ; i < files.length ; i++ ) {
             files[i].delete();
         }
@@ -312,10 +293,10 @@ public class FileExt extends File {
     }
     
 	/**
-     * Return a filesystem compliant path name from an array of directory names.
+     * Return a file system compliant path name from an array of directory names.
      *
      * @param pathNames  an array of directory names
-     * @return           the corresponding filesystem compliant path name 
+     * @return           the corresponding file system compliant path name 
      */
     public static String toPath( String[] pathNames ) {
         return StringExt.insert(pathNames,File.separator);

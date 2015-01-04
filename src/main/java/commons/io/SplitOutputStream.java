@@ -125,7 +125,7 @@ public class SplitOutputStream extends OutputStream {
         else {
             if ( index > 0 ) {
                 /*
-                 * Previous bytes matched the begining of find.
+                 * Previous bytes matched the beginning of find.
                  * Write them back.
                  *
                  * Caution: we should restart the search

@@ -28,6 +28,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -40,7 +41,7 @@ public class MapExtTest {
 
         System.out.println("=== MapExtTest.subtract() ===");
 
-        /**
+        /*
          * [13, 14, 12] - [14, 12] =? [13]
          */
         Map<Integer,String> src = new HashMap<Integer,String>();
@@ -55,9 +56,9 @@ public class MapExtTest {
         Map<Integer,String> result = MapExt.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 1 || !result.keySet().contains(new Integer(13)) )
-            throw new RuntimeException("MapExt.subtract() failed");
+            Assert.fail();
 
-        /**
+        /*
          * [13, 14, 12] - [141, 121] =? [13, 14, 12]
          */
         dst = new HashSet<Integer>();
@@ -70,9 +71,9 @@ public class MapExtTest {
              !result.keySet().contains(new Integer(13)) ||
              !result.keySet().contains(new Integer(14)) ||
              !result.keySet().contains(new Integer(12)) )
-            throw new RuntimeException("MapExt.subtract() failed");
+            Assert.fail();
 
-        /**
+        /*
          * [13, 14, 12] - [13, 14, 12] =? []
          */
         dst = new HashSet<Integer>();
@@ -83,9 +84,9 @@ public class MapExtTest {
         result = MapExt.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
-            throw new RuntimeException("MapExt.subtract() failed");
+            Assert.fail();
 
-        /**
+        /*
          * [13, 14, 12] - [13, 14, 12, 11] =? []
          */
         dst = new HashSet<Integer>();
@@ -97,9 +98,9 @@ public class MapExtTest {
         result = MapExt.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
-            throw new RuntimeException("MapExt.subtract() failed");
+            Assert.fail();
         
-        /**
+        /*
          * [13, 14, 12] - [] =? [13, 14, 12]
          */
         dst = new HashSet<Integer>();
@@ -110,9 +111,9 @@ public class MapExtTest {
              !result.keySet().contains(new Integer(13)) ||
              !result.keySet().contains(new Integer(14)) ||
              !result.keySet().contains(new Integer(12)) )
-            throw new RuntimeException("MapExt.subtract() failed");
+            Assert.fail();
 
-        /**
+        /*
          * [] - [13, 14, 12] =? []
          */
         src = new HashMap<Integer,String>();
@@ -124,9 +125,9 @@ public class MapExtTest {
         result = MapExt.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
-            throw new RuntimeException("MapExt.subtract() failed");
+            Assert.fail();
 
-        /**
+        /*
          * [] - [] =? []
          */
         dst = new HashSet<Integer>();
@@ -134,6 +135,6 @@ public class MapExtTest {
         result = MapExt.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
-            throw new RuntimeException("MapExt.subtract() failed");
+            Assert.fail();
 	}
 }

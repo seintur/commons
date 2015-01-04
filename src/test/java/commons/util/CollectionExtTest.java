@@ -35,7 +35,7 @@ import org.junit.Test;
 public class CollectionExtTest {
 
     @Test
-	public void testRecursiveGet() {
+	public void testRecursiveGet() throws Exception {
         
         System.out.println("=== CollectionExtTest.recursiveGet() ===");
 
@@ -60,16 +60,10 @@ public class CollectionExtTest {
             "[ cl-co, co-cl, cl-in, in-cl ]");
     }
         
-    private void testRecursiveGet(
-        Model src, String[] methodNames, String expected ) {
-        
-        try {
-			Collection<?> res = CollectionExt.recursiveGet(src,methodNames);
-            System.out.println( expected + " = " + res );
-		} catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("CollectionExtTest.recursiveGet() failed.");
-		}
+    private void testRecursiveGet( Model src, String[] methodNames, String expected )
+    throws Exception {
+		Collection<?> res = CollectionExt.recursiveGet(src,methodNames);
+        System.out.println( expected + " = " + res );
 	}
     
     /**
@@ -146,6 +140,7 @@ public class CollectionExtTest {
 		public void addAssociationEnd(AssociationEnd end) {
 			associationEnds.add(end);
 		}
+		@Override
         public String toString() { return "Clazz: " + name; }
     }
 
@@ -165,6 +160,7 @@ public class CollectionExtTest {
         public void setAssociation(Association association) {
             this.association = association;
         }
+		@Override
         public String toString() { return "End: " + name; }
     }
 
@@ -189,6 +185,7 @@ public class CollectionExtTest {
         	return associationEnds;
         }
         public String getName() { return name; }
+		@Override
         public String toString() { return "Association: " + name; }
     }    
 }

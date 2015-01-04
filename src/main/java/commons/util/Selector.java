@@ -37,7 +37,7 @@ public interface Selector {
      * to the Object[] parameter.
      *
      * @param objs  the values needed to perform the comparison
-     * @return      true if the two compared objects arec considered equals
+     * @return      true if the two compared objects are considered equals
      */
     public boolean equals( Object[] objs );
 }

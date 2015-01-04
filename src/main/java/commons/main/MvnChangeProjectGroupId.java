@@ -84,7 +84,7 @@ public class MvnChangeProjectGroupId {
         poms.addAll( Arrays.asList(files) );
         
         /*
-         * Recursively scan subdirectories.
+         * Recursively scan sub directories.
          */
         File[] subs = dir.listFiles();
         for (File sub : subs) {
@@ -96,7 +96,7 @@ public class MvnChangeProjectGroupId {
     
     /**
      * Change the group identifier from <code>find</code> to
-     * <code>replace</code> in the specified pom file.
+     * <code>replace</code> in the specified POM file.
      * 
      * @param pom      the pom.xml file
      * @param find     the original project group identifier

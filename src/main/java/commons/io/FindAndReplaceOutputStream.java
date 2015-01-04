@@ -108,7 +108,7 @@ public class FindAndReplaceOutputStream extends FilterOutputStream {
         return faroses[0];
     }
 
-
+    @Override
     public void close() throws IOException {
         if ( index > 0 ) {
             super.write(find,0,index);

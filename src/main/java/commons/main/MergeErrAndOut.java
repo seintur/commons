@@ -47,22 +47,21 @@ public class MergeErrAndOut {
             System.exit(0);
         }
 
-        /** Read the command from the file. */
+        // Read the command from the file
         BufferedReader br = new BufferedReader( new FileReader(args[0]) );
         String command = br.readLine();
         br.close();
         
-        /** Execute the command. */
+        // Execute the command
         Runtime runtime = Runtime.getRuntime();
         System.out.println( command );
         Process process = runtime.exec( command );
 
-        /** Redirect the error stream to the output stream. */
+        // Redirect the error stream to the output stream
         InputStream err = process.getErrorStream();
         PipedStreams.dump(err,System.out);
 
-        /** Wait for the end of the process. */
+        // Wait for the end of the process
         process.waitFor();
     }
-    
 }

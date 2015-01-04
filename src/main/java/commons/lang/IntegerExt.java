@@ -32,9 +32,9 @@ package commons.lang;
 public class IntegerExt {
 
     /**
-     * Create an array of Integer instances from a array of int values.
+     * Create an array of Integer instances from a array of integer values.
      * 
-     * @param integers  an array of int values
+     * @param integers  an array of integer values
      * @return          an array of Integer instances
      */
     public static Integer[] create( int[] integers ) {
@@ -61,8 +61,8 @@ public class IntegerExt {
     }
 
     /**
-     * Return hexadecimal string representations of at most length bytes
-     * stored in an array.
+     * Return hexadecimal string representations of at most length bytes stored
+     * in an array.
      *
      * @param b       the given byte array
      * @param length  the maximum number of elements
@@ -77,8 +77,8 @@ public class IntegerExt {
     }
 
     /**
-     * Return hexadecimal string representations of at most length bytes stored in an array
-     * starting at at offset.
+     * Return hexadecimal string representations of at most length bytes stored
+     * in an array starting at offset.
      *
      * @param b       the given byte array
      * @param offset  the offset
@@ -92,5 +92,4 @@ public class IntegerExt {
         }
         return ret;
     }
-
 }

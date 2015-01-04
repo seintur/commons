@@ -63,7 +63,8 @@ public class StringExt {
 
 
    /**
-    * Insert the given separator sep between each element and at the end of the given array.
+    * Insert the given separator sep between each element and at the end of the
+    * given array.
     *
     * @param pathNames  an array
     * @param sep        the separator
@@ -127,7 +128,7 @@ public class StringExt {
 
 
    /**
-    * Replace occurences of pattern in the current string with newPattern.
+    * Replace occurrences of pattern in the current string with newPattern.
     *
     * @param src         the source string
     * @param pattern     the pattern to look for
@@ -153,7 +154,7 @@ public class StringExt {
    
    
    /**
-    * Perform succesively several replacements of a pattern in the a string.
+    * Perform successively several replacements of a pattern in the a string.
     *
     * @param src         the source string
     * @param pattern     the patterns to look for
@@ -162,9 +163,12 @@ public class StringExt {
     */
    public static String replace( String src, char[] pattern, String[] newPattern ) {
     
-      if ( src==null || (pattern.length>newPattern.length) )
-          throw new IllegalArgumentException("Parameter pattern and newPattern should be arrays of same length.");
-      
+      if ( src==null || (pattern.length>newPattern.length) ) {
+    	  final String msg =
+			  "Parameters pattern and newPattern should be arrays of same length";
+          throw new IllegalArgumentException(msg);
+      }
+
       for ( int i=0 ; i < pattern.length ; i++ )
         src = replace( src, pattern[i], newPattern[i] );
       
@@ -203,8 +207,11 @@ public class StringExt {
     */
    public static String replace( String src, byte[] pattern, String[] newPattern ) {
     
-      if ( src==null || (pattern.length>newPattern.length) )
-          throw new IllegalArgumentException("Parameter pattern and newPattern should be arrays of same length.");
+      if ( src==null || (pattern.length>newPattern.length) ) {
+    	  final String msg =
+			  "Parameters pattern and newPattern should be arrays of same length";
+          throw new IllegalArgumentException(msg);
+      }
       
       for ( int i=0 ; i < pattern.length ; i++ )
         src = replace( src, pattern[i], newPattern[i] );
@@ -271,15 +278,16 @@ public class StringExt {
     }
 
     /**
-     * Split a string into elements of the form (name,value) and return the elements
-     * in a hash map.
+     * Split a string into elements of the form (name,value) and return the
+     * elements in a hash map.
      *
      * @param src               the source string
      * @param elementSeparator  the separator string for elements
      * @param valueSeparator    the separator string between names and values
-     * @return                  a hashtable containing all the pairs (name,value)
+     * @return                  a hash table containing all the pairs (name,value)
      */
-    public static Map<String,Object> split( String src, String elementSeparator, String valueSeparator ) {
+    public static Map<String,Object> split(
+		String src, String elementSeparator, String valueSeparator ) {
 
         Map<String,Object> ret = new HashMap<String,Object>();
         StringTokenizer st = new StringTokenizer(src,elementSeparator);
@@ -297,5 +305,4 @@ public class StringExt {
         }
         return ret;
     }
-
 }

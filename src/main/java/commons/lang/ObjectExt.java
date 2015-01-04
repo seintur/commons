@@ -45,15 +45,15 @@ public class ObjectExt {
      * @return               the attribute value
      */
     public static Object getAttributeValue( Object obj, String attributeName )
-        throws IllegalAccessException {
+    throws IllegalAccessException {
 
         char firstLetter = attributeName.charAt(0);
         String rest = attributeName.substring(1);
         String getterMethodName = "get" + Character.toUpperCase(firstLetter) + rest;
 
-        /**
+        /*
          * The attribute type is unknown.
-         * We can't call getMethod(String,Class[]).
+         * We cannot call getMethod(String,Class[]).
          */
         Class<?> cl = obj.getClass();
         Method[] methods = cl.getMethods();
@@ -61,7 +61,7 @@ public class ObjectExt {
         int i;
         for ( i=0 ; i < methods.length ; i++ ) {
             if ( methods[i].getName().equals(getterMethodName) ) {
-                /**
+                /*
                  * Several getter methods may be present.
                  * Return the value given by the 1st working one.
                  * The call may failed if the getter requires
@@ -75,7 +75,7 @@ public class ObjectExt {
             }
         }
 
-        /**
+        /*
          * No getter method or no working getter method has been found.
          * Try getting the value of the attribute with the reflection API.
          */
@@ -86,11 +86,12 @@ public class ObjectExt {
         catch( NoSuchFieldException nsfe ) {}
         catch( IllegalAccessException iae ) {}
 
-        /**
+        /*
          * Everything failed.
          * Give up.
          */
-        throw new IllegalAccessException(
-            "Can't get the value of the " + attributeName + " field.");
+        final String msg =
+    		"Cannot get the value of the field " + attributeName;
+        throw new IllegalAccessException(msg);
     }
 }

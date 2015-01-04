@@ -52,7 +52,7 @@ public class ByteArraysInputStream extends InputStream {
         byte bb = arrays[i][j];
         int b = (bb<0) ? 256+bb : bb;
 
-        /**
+        /*
          * Compute the index of the next byte to read.
          * while loop in case the next array size is 0.
          */

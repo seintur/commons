@@ -107,6 +107,7 @@ public class URLExt {
         // Guess a file name with an extension related to the content type
         String type = conn.getContentType();
         String fileExtension = (String) fileExtensions.get(type);
+        
         // Unless createTempFile() is called, the returned file is not temporary.
         // The method is used to get an unique file name.
         File file = File.createTempFile("web",fileExtension,new File(dirName));
@@ -171,7 +172,7 @@ public class URLExt {
         HrefsExtractor hrefsExtractor =
     		new HrefsExtractor(initialUrl,urlsToGet,urlsLoaded,urlsAbsolute);
 
-        /**
+        /*
          * Get an URL, parse it to extract its links.
          * Iterate the process with the links.
          */
@@ -223,7 +224,7 @@ public class URLExt {
             urlsLoaded.put(currentUrl,currentFile);
         }
 
-        /**
+        /*
          * Get all URLs extracted URLs. Sort them.
          * Then, take the array in reverse order to look for most significant URLs first
          * e.g. if URLs http://f.com/a and http://f.com/aa are be looked for,
@@ -243,7 +244,7 @@ public class URLExt {
             System.out.println( urls[i] + " -> " + filenames[i] );
         }
 
-        /**
+        /*
          * Replace links with relative ones and save the file.
          */
         Set<Map.Entry<String,File>> entrySetUrlsLoaded = urlsLoaded.entrySet();

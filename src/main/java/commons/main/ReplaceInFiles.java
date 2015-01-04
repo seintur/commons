@@ -82,7 +82,7 @@ public class ReplaceInFiles {
         String pattern, String replacement )
         throws IOException {
 
-        /**
+        /*
          * Apply the patch to the .java file of the current directory.
          */
         File current = new File(parent,dir);
@@ -91,8 +91,8 @@ public class ReplaceInFiles {
         	patch(ls[i],pattern,replacement);
         }
 
-        /**
-         * Recursively perform the same operation in all subdirectories.
+        /*
+         * Recursively perform the same operation in all sub directories.
          */
         ls = current.listFiles(ffDirs);
         for ( int i=0 ; i < ls.length ; i++ ) {
@@ -100,11 +100,10 @@ public class ReplaceInFiles {
             String next = dir.length()==0 ? lsName : dir+File.separatorChar+lsName ;
         	dir( ret, parent, next, pattern, replacement );
         }
-        
     }
 
     /**
-     * Class for filtering regular files (ie that are not directories)
+     * Class for filtering regular files (i.e. that are not directories)
      * and its singleton instance.
      */
     private static FileFilter ffJavaFiles;

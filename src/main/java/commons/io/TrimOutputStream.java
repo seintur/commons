@@ -59,5 +59,4 @@ public class TrimOutputStream {
         
         return create(os,begin.getBytes(),end.getBytes());
     }
-
 }

@@ -36,10 +36,10 @@ public class Mask {
      * Given a string of the form "99;99-99;99-" defining a set of integer ranges
      * return the corresponding binary mask assuming each integer represents
      * a position in the mask.
-     * Eg: "2-4;6;9-" with limit=11 returns 111 0010 1110
+     * E.g.: "2-4;6;9-" with limit=11 returns 111 0010 1110
      *
      * @param src         the source string
-     * @param limit       the end element for unending ranges (eg 56-)
+     * @param limit       the end element for unending ranges (e.g. 56-)
      * @return            the corresponding binary mask
      */
     public static int getMask( String src, int limit ) throws NumberFormatException {
@@ -50,16 +50,16 @@ public class Mask {
      * Given a string of the form "99;99-99;99-" defining a set of integer ranges
      * return the corresponding binary mask assuming each integer represents
      * a position in the mask.
-     * Eg: "2-4;6;9-" with limit=11 returns 111 0010 1110
+     * E.g.: "2-4;6;9-" with limit=11 returns 111 0010 1110
      *
      * @param src         the source string
      * @param setDelim    the set elements delimiter (usually ;)
      * @param rangeDelim  the range delimiter (usually -)
-     * @param limit       the end element for unending ranges (eg 56-)
+     * @param limit       the end element for unending ranges (e.g. 56-)
      * @return            the corresponding binary mask
      */
     public static int getMask( String src, String setDelim, String rangeDelim, int limit )
-        throws NumberFormatException {
+    throws NumberFormatException {
 
         int mask = 0;
         StringTokenizer st = new StringTokenizer( src, setDelim );
@@ -85,5 +85,4 @@ public class Mask {
 
         return mask;
     }
-
 }

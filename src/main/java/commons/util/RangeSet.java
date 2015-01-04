@@ -69,25 +69,23 @@ public class RangeSet {
         if ( descr==null || descr.length()==0 )
             return elements;
             
-        /** Split the string around ; */
+        // Split the string around
         String[] ranges = descr.split(";");
         for ( int i=0 ; i < ranges.length ; i++ ) {
             String range = ranges[i];
             
-            /** Ignore null and empty ranges. */
+            // Ignore null and empty ranges
             if ( range==null || range.length()==0 )
                 continue;
             
-            /**
+            /*
              * Split each range around -
              * If there is only one element, this is a single value,
              * else this is really a range.
              */
             String[] pairs = range.split("-");
             if ( pairs.length == 1 ) {
-                /**
-                 * This is a single value.
-                 */
+                // This is a single value.
                 
                 try {
                     int value = Integer.parseInt(pairs[0]);
@@ -98,7 +96,7 @@ public class RangeSet {
                 }
             }
             else {
-                /**
+                /*
                  * This is a range:
                  * - get the 1st and 2nd integers.
                  * - use them as boundaries,
@@ -116,7 +114,7 @@ public class RangeSet {
                     }
                 }
                 catch( NumberFormatException nfe ) {
-                    /** Ignore errors in number formats. */
+                    // Ignore errors in number formats
                 }
             }
         }
@@ -129,38 +127,36 @@ public class RangeSet {
      * This method validates the ranges description.
      * 
      * @return  a set of Integer instances
-     * @throws RangeSetFormatException 
-     *   thrown to indicate that the description is badly formatted. 
+     * @throws  RangeSetFormatException 
+     *   thrown to indicate that the description is badly formatted
      */
     public Set<Integer> validate() throws RangeSetFormatException {
         
         elements = new HashSet<Integer>();
         
-        /** null and empty strings. */
+        // null and empty strings
         if ( descr==null || descr.length()==0 )
             throw new RangeSetFormatException("Bad description \""+descr+"\"");
             
-        /** Split the string around ; */
+        // Split the string around
         String[] ranges = descr.split(";");
         for ( int i=0 ; i < ranges.length ; i++ ) {
             String range = ranges[i];
             
-            /** null and empty ranges. */
+            // null and empty ranges
             if ( range==null || range.length()==0 )
                 throw new RangeSetFormatException(
                     "Bad range \"" + range +
                     "\" in description \"" + descr + "\"" );
             
-            /**
+            /*
              * Split each range around -
              * If there is only one element, this is a single value,
              * else this is really a range.
              */
             String[] pairs = range.split("-");
             if ( pairs.length == 1 ) {
-                /**
-                 * This is a single value.
-                 */
+                // This is a single value.
                 
                 try {
                     int value = Integer.parseInt(pairs[0]);
@@ -173,7 +169,7 @@ public class RangeSet {
                 }
             }
             else {
-                /**
+                /*
                  * This is a range:
                  * - get the 1st and 2nd integers.
                  * - use them as boundaries,

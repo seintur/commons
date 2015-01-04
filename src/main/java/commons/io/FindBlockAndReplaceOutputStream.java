@@ -45,7 +45,7 @@ public class FindBlockAndReplaceOutputStream extends FilterOutputStream {
     private FindAndReplaceOutputStream beginos;
     private FindAndReplaceOutputStream endos;
 
-    /** True if we are beetween begin (included) and find (included). */
+    /** True if we are between begin (included) and find (included). */
     private boolean found;
 
     /**
@@ -79,7 +79,7 @@ public class FindBlockAndReplaceOutputStream extends FilterOutputStream {
         this( os, begin.getBytes(), end.getBytes(), replace.getBytes() );
     }
 
-
+    @Override
     public void close() throws IOException {
         if (found) {
             // begin has been found, but not end.
@@ -90,6 +90,7 @@ public class FindBlockAndReplaceOutputStream extends FilterOutputStream {
         os.close();
     }
 
+    @Override
     public void flush() throws IOException {
         beginos.flush();
         endos.flush();
@@ -102,7 +103,7 @@ public class FindBlockAndReplaceOutputStream extends FilterOutputStream {
     // which, with FindAndReplaceOutputStream instances,
     // is (re)dispatched to this method.
     // Only call super.write(int).
-
+    @Override
     public void write( int b ) throws IOException {
         if ( !found ) {
             // begin not found
@@ -122,5 +123,4 @@ public class FindBlockAndReplaceOutputStream extends FilterOutputStream {
             }
         }
     }
-
 }

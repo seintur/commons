@@ -35,7 +35,7 @@ import commons.io.PipedStreams;
 /**
  * HtmlFilesConcat
  * loads HTML files from the current directory and recursively,
- * from all its subdirectories,
+ * from all its sub directories,
  * writes them in one single large HTML file (defaulAllFileName),
  * replaces blocks delimited by
  * a begin string (contained in defaulBeginFileName),
@@ -77,21 +77,21 @@ public class HtmlFilesConcat {
             return;
         
 
-        /** Delete the result file if it exists. */
+        // Delete the result file if it exists
         String allFileName = args.length==1 ? args[0] : defaultAllFileName;
         File allFile = new File(userDir,allFileName);
         allFile.delete();
 
-        /** Recursively get all .html files from the current directory. */
+        // Recursively get all HTML files from the current directory
         FileExt[] htmlFiles = userDir.recursiveListFiles( new HtmlFilesFilter() );
 
-        /** Construct an array of FileInputStream instances for all .html files. */
+        // Construct an array of FileInputStream instances for all HTML files
         FileInputStream[] fis = new FileInputStream[ htmlFiles.length ];
         for ( int i=0 ; i < htmlFiles.length ; i++ ) {
             fis[i] = new FileInputStream( htmlFiles[i] );
         }
 
-        /** Dump all .html files into the result file. */
+        // Dump all HTML files into the result file
         byte[] begin = beginFile.getContent();
         byte[] end = endFile.getContent();
         byte[] replace = replaceFile.getContent();

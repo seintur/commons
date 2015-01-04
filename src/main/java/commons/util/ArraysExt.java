@@ -34,7 +34,7 @@ public class ArraysExt {
     /**
      * Given a binary mask on the range of indexes of a given array,
      * extract all the elements that correspond to a bit set to 1 in the mask.
-     * Eg: {"one","two","three","four"} with mask=6 returns {"two","three"}.
+     * E.g.: {"one","two","three","four"} with mask=6 returns {"two","three"}.
      *
      * @param src   the source array
      * @param mask  the mask
@@ -72,5 +72,4 @@ public class ArraysExt {
         }
         return ret;
     }
-
 }

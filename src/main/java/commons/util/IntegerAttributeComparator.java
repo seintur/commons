@@ -53,13 +53,13 @@ public class IntegerAttributeComparator implements Comparator<Object> {
         }
         catch( IllegalAccessException iae ) {
             throw new IllegalArgumentException(
-                "Object can't be compared: no " + orderingAttributeName +
+                "Object cannot be compared: no " + orderingAttributeName +
                 " attribute found." );
         }
 
         if ( ! ( v1 instanceof Integer && v2 instanceof Integer) ) {
             throw new IllegalArgumentException(
-                "Object can't be compared: " + orderingAttributeName +
+                "Object cannot be compared: " + orderingAttributeName +
                 " is not an integer." );
         }
 
@@ -71,7 +71,8 @@ public class IntegerAttributeComparator implements Comparator<Object> {
              else return 1;
     }
     
+    @Override
     public boolean equals( Object obj ) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        throw new UnsupportedOperationException();
     }
 }

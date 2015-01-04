@@ -63,9 +63,9 @@ public class Directories2Packages {
     private static void dir( StringBuffer ret, File parent, String dir )
         throws IOException {
 
-        /**
+        /*
          * Test whether the directory contains only directories.
-         * If so, the package contains only subpackages,
+         * If so, the package contains only sub packages,
          * and we don't generate its name
          * (else javadoc raises an "empty package" error.
          */
@@ -76,8 +76,8 @@ public class Directories2Packages {
             ret.append( ' ' );
         }
 
-        /**
-         * Recursively perform the same operation in all subdirectories.
+        /*
+         * Recursively perform the same operation in all sub directories.
          */
         ls = current.listFiles(ffDirs);
         for ( int i=0 ; i < ls.length ; i++ ) {
@@ -89,7 +89,7 @@ public class Directories2Packages {
     }
 
     /**
-     * Class for filtering regular files (ie that are not directories)
+     * Class for filtering regular files (i.e. that are not directories)
      * and its singleton instance.
      */
     private static RegularFilesFileFilter ffRegularFiles =

@@ -79,14 +79,10 @@ public class MapExt {
      * @param keyStrToMatch  the string
      * @return               the value or null
      */
-    public static Object matchKeyWithString( Map map, String keyStrToMatch ) {
+    public static <K,V> V matchKeyWithString( Map<K,V> map, String keyStrToMatch ) {
 
-        Set entrySet = map.entrySet();
-        Iterator iterator = entrySet.iterator();
-
-        while ( iterator.hasNext() ) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            Object key = entry.getKey();
+    	for (Map.Entry<K,V> entry : map.entrySet()) {
+            K key = entry.getKey();
             if ( key instanceof String && keyStrToMatch.startsWith((String)key) ) {
                 return entry.getValue();
             }
@@ -107,7 +103,7 @@ public class MapExt {
      */
     public static Collection<Object> match( Map src, Object[] target ) {
 
-        /**
+        /*
          * The result is stored in a LinkedList.
          * A multiset would have been enough if it were existing in the Java API.
          */
@@ -154,7 +150,7 @@ public class MapExt {
      * Return the associated values ordered according to
      * an integer attribute of the values (assumed to all provide this attribute).
      *
-     * @param src                    sthe source map
+     * @param src                    the source map
      * @param target                 the values used to select keys
      * @param orderingAttributeName  the attribute used to order the collection
      * @return                       redundantly returns the destination collection
@@ -162,9 +158,9 @@ public class MapExt {
     public static Collection<Object> matchOrderedBy(
         Map src, Object[] target, String orderingAttributeName ) {
 
-        /**
+        /*
          * TreeSet is the only ordered collection
-         * (ie implementing the OrderedSet interface), isn't it ?
+         * (i.e. implementing the OrderedSet interface), isn't it ?
          */
         Comparator<Object> comp = new IntegerAttributeComparator(orderingAttributeName);
         Collection<Object> ret = new TreeSet<Object>(comp);
@@ -186,7 +182,7 @@ public class MapExt {
         Map src, String matcherMethodName,
         Class[] matcherMethodParameterTypes, Object[] target ) {
 
-        /**
+        /*
          * The result is stored in a LinkedList.
          * A multiset would have been enough if it were existing in the Java API.
          */
@@ -211,17 +207,17 @@ public class MapExt {
                 }
             }
             catch( NoSuchMethodException nsme ) {
-            	/**
+            	/*
                  * Raised by cl.getMethod()
                  * From a semantical point of view, not really an exception.
                  * The key class does not contain the searched method. Go on.
                  */
             }
             catch( InvocationTargetException ite ) {
-                /** Raised by method.invoke() */
+                // Raised by method.invoke()
             }
             catch( IllegalAccessException iae ) {
-                /** Raised by method.invoke() */
+                // Raised by method.invoke()
             }
         }
 
@@ -238,13 +234,14 @@ public class MapExt {
      */
     public static <K,V> Map<K,V> subtract( Map<K,V> src, Set<K> dst ) {
         
-        /**
+        /*
          * Construct an empty map of the same class as src
          * or construct an empty HashMap
          * if the class of src does not provide an empty constructor. 
          */
+        @SuppressWarnings("unchecked")
+		Class<Map<K,V>> cl = (Class<Map<K,V>>) src.getClass();
         Map<K,V> result = null;
-        Class<Map<K,V>> cl = (Class<Map<K,V>>) src.getClass();
         try {
             result = cl.newInstance();
         }
@@ -255,7 +252,7 @@ public class MapExt {
             result = new HashMap<K,V>();
         }
         
-        /**
+        /*
          * Add to result the elements of src
          * whose keys are not found in dst.
          */
@@ -267,5 +264,4 @@ public class MapExt {
         
         return result;
     }
-    
 }

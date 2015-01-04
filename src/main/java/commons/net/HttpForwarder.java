@@ -37,9 +37,9 @@ import commons.io.InputStreamLiner;
 
 /**
  * This class listens on a socket for a HTTP request of the form<br>
- * <code>GET url version</code><br>
+ * <code>GET URL version</code><br>
  * e.g. <code>GET http://some.host.com/some/file.html HTTP/1.0</code><br>
- * and forwards the request to the url.
+ * and forwards the request to the URL.
  * 
  * Most of the job is delegated to {@link HttpForwarderRequest}.
  * This class only accept connections on a source port.
@@ -78,12 +78,11 @@ public class HttpForwarder {
 
 /**
  * This class listens on a socket for a HTTP request of the form<br>
- * <code>GET url version</code><br>
+ * <code>GET URL version</code><br>
  * e.g. <code>GET http://some.host.com/some/file.html HTTP/1.0</code><br>
- * and forwards the request to the url.
+ * and forwards the request to the URL.
  * 
- * @author <a href="mailto:Lionel.Seinturier@lifl.fr">Lionel Seinturier</a>
- * @version 1.0
+ * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 class HttpForwarderRequest extends Thread {
         
@@ -185,8 +184,7 @@ class HttpForwarderRequest extends Thread {
  * This class reads data from an input stream and sends them to
  * an output stream.
  * 
- * @author <a href="mailto:Lionel.Seinturier@lifl.fr">Lionel Seinturier</a>
- * @version 1.0
+ * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 class HttpForwarderPipe extends Thread {
     
