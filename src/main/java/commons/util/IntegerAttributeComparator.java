@@ -25,7 +25,7 @@ package commons.util;
 
 import java.util.Comparator;
 
-import commons.lang.ObjectExt;
+import commons.reflect.Property;
 
 /**
  * This class provides a comparator based on the value of an field of
@@ -48,8 +48,8 @@ public class IntegerAttributeComparator<T> implements Comparator<T> {
         Object v2 = null;
 
         try {
-            v1 = ObjectExt.getAttributeValue( o1, orderingAttributeName );
-            v2 = ObjectExt.getAttributeValue( o2, orderingAttributeName );
+            v1 = Property.getAttributeValue( o1, orderingAttributeName );
+            v2 = Property.getAttributeValue( o2, orderingAttributeName );
         }
         catch( IllegalAccessException iae ) {
             throw new IllegalArgumentException(

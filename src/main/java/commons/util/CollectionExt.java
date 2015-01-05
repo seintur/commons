@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import commons.lang.ObjectExt;
+import commons.reflect.Property;
 
 /**
  * This class holds collections related functionalities not found in
@@ -140,7 +140,7 @@ public class CollectionExt {
             E element = iterator.next();
             try {
             	Object value =
-                    ObjectExt.getAttributeValue( element, attributeName );
+                    Property.getAttributeValue( element, attributeName );
                 dst.add( value );
             }
             catch( IllegalAccessException iae ) {

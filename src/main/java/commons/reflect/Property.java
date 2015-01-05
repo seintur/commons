@@ -21,24 +21,23 @@
  * Author: Lionel Seinturier
  */
 
-package commons.lang;
+package commons.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * This class holds object related functionalities not found in
- * java.lang.Object (hence the suffix Ext) or in the reflection API.
+ * This class defines functionalities to deal with properties declared by beans.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class ObjectExt {
+public class Property {
 
     /**
      * Given an attribute name, retrieve its value in the specified object
-     * first by invoking a getter method,
-     * and next if it fails, by getting the field value with the reflection API.
+     * first by invoking a getter method, and next if it fails, by getting the
+     * field value with the reflection API.
      *
      * @param obj            the target object
      * @param attributeName  the attribute name
