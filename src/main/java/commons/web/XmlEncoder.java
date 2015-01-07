@@ -36,7 +36,7 @@ import commons.util.MapExt;
 public class XmlEncoder {
 
     /** Store mappings between accentuated characters and XML encoded version. */
-    final protected static Map xmlEncodingMap =
+    final protected static Map<String,String> xmlEncodingMap =
         MapExt.create(
             new Object[][]{
                 {"<","&lt;"}, {">","&gt;"},

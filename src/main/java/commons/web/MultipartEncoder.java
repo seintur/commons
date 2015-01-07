@@ -24,7 +24,6 @@
 package commons.web;
 
 import java.util.Map;
-import java.util.Iterator;
 
 /**
  * This class constructs a multipart/form-data encoded input stream.
@@ -64,7 +63,7 @@ public class MultipartEncoder {
      *               reflect any relevant data structure. The return data
      *               structure is inherently one dimensional.
      */
-    public static byte[][] encode( Map parts ) throws Exception {
+    public static byte[][] encode( Map<String,Object> parts ) throws Exception {
 
         String id = Long.toHexString( (long) (Math.random()*1e6) );
 
@@ -91,16 +90,15 @@ public class MultipartEncoder {
 
         byte[] emptyline = new byte[] { 0xd, 0xa, 0xd, 0xa };
 
-        /** header + ( headers+emptyline+content+ (separator|trailer) ) + ... */
+        // header + ( headers+emptyline+content+ (separator|trailer) ) + ...
         len = 1 + 4*parts.size();
         byte[][] ret = new byte[len][];
         ret[0] = header;
 
-        Iterator iterator = parts.entrySet().iterator();
-        for ( int i=0 ; iterator.hasNext() ; i++ ) {
-
-            Map.Entry entry = (Map.Entry) iterator.next();
-            String key = (String) entry.getKey();
+        int i = 0;
+        for (Map.Entry<String,Object> entry : parts.entrySet()) {
+			
+            String key = entry.getKey();
             Object value = entry.getValue();
             String headers = "Content-Disposition: form-data; name=\"" + key + "\"";
             
@@ -120,15 +118,18 @@ public class MultipartEncoder {
                 ret[ i*4 + 3 ] = uf.data;
             }
             else {
-                throw new Exception("Map parts values must only contain String or UploadedFile instances");
+            	final String msg =
+        			"Map parts values must only contain String or "+
+					"UploadedFile instances";
+                throw new Exception(msg);
             }
 
             ret[ i*4 + 4 ] = separator;
+            i++;
         }
 
         ret[ ret.length - 1 ] = trailer;
 
         return ret;
     }
-
 }

@@ -36,18 +36,31 @@ import commons.util.MapExt;
 public class HtmlEncoder {
 
     /** Store mappings between accentuated characters and HTML encoded version. */
-    final protected static Map htmlEncodingMap =
+    final protected static Map<String,String> htmlEncodingMap =
         MapExt.create(
             new Object[][]{
-                {"�","&eacute;"}, {"�","&egrave;"}, {"�","&ecirc;"}, {"�","e"}, // � encoding ?
-                {"�","&agrave;"}, {"�","&acirc;"}, {"�","a"},
-                {"�","&ocirc;"}, {"�","o"}, // � encoding ?
-                {"�","&ucirc;"}, {"�","u"}, {"�","u"},
-                {"�","&icirc;"}, {"�","i"}, // � encoding ?
+                {"�","&eacute;"},
+                {"�","&egrave;"},
+                {"�","&ecirc;"},
+                {"�","e"}, // � encoding ?
+                {"�","&agrave;"},
+                {"�","&acirc;"},
+                {"�","a"},
+                {"�","&ocirc;"},
+                {"�","o"}, // � encoding ?
+                {"�","&ucirc;"},
+                {"�","u"},
+                {"�","u"},
+                {"�","&icirc;"},
+                {"�","i"}, // � encoding ?
                 {"�","&ccedil;"},
-                {"<","&lt;"}, {">","&gt;"},
+                {"<","&lt;"},
+                {">","&gt;"},
                 {"&","&amp;"},
-                {"%",""}, {"�",""}, {"�",""}, {"�",""}, // encodings ?
+                {"%",""},
+                {"�",""},
+                {"�",""},
+                {"�",""}, // encodings ?
                 {"#8364;", "E"}, // euro
                 {"\"", ""} // encoding ?
             }

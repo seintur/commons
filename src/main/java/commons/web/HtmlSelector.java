@@ -27,7 +27,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -41,7 +40,7 @@ import java.util.Map;
  * <il>items are presented vertically in a HTML table</li>
  * <li>each item is selectable with a link</li>
  * <li>items can be removed from the list with a single click
- *     on a checkbox</li>
+ *     on a check box</li>
  * </ul>
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
@@ -72,7 +71,7 @@ public abstract class HtmlSelector {
     protected boolean removeConfirmation = true;
 
     /** Parameters to be transmitted when removeURL is invoked. */
-    protected Map removeURLParameters;
+    protected Map<Object,Object> removeURLParameters;
 
     /**
      * Prefix for HTML generated elements (JavaScript functions).
@@ -112,9 +111,9 @@ public abstract class HtmlSelector {
             pw.println("method=\"get\">");
             
             if ( removeURLParameters != null ) {
-                for ( Iterator iter=removeURLParameters.keySet().iterator() ; iter.hasNext() ; ) {
-                    Object key = iter.next();
-                    Object value = removeURLParameters.get(key);
+            	for (Map.Entry<Object,Object> entry : removeURLParameters.entrySet()) {
+                    Object key = entry.getKey();
+                    Object value = entry.getValue();
                     pw.print("<input type=\"hidden\" ");
                         pw.print("name=\""+key+"\" ");
                         pw.println("value=\""+value+"\">");
@@ -160,7 +159,7 @@ public abstract class HtmlSelector {
             return;
         }
         
-        /**
+        /*
          * For now on, we only deal with cases where a confirmation
          * dialog box is requested.
          */
@@ -228,18 +227,20 @@ public abstract class HtmlSelector {
      * @param parameters  the parameters to be transmitted
      *                    when the URL is invoked
      */
-    public void setRemoveURL(String string, Map parameters) {
-        if ( parameters.containsKey("items") )
-            throw new IllegalArgumentException(
-                "Parameters should not contain items");
+    public void setRemoveURL(String string, Map<Object,Object> parameters) {
+        if ( parameters.containsKey("items") ) {
+        	final String msg = "Parameters should not contain items";
+            throw new IllegalArgumentException(msg);
+        }
         removeURL = string;
         removeURLParameters = parameters;
     }
 
     public void setSelectURL(String string) {
-        if ( string.indexOf("name=") != -1 )
-            throw new IllegalArgumentException(
-                "URL <"+string+"> should not contain name");
+        if ( string.indexOf("name=") != -1 ) {
+        	final String msg = "URL <"+string+"> should not contain name";
+            throw new IllegalArgumentException(msg);
+        }
         selectURL = string;
     }
 
@@ -250,5 +251,4 @@ public abstract class HtmlSelector {
     public void setUniqueness(String string) {
         uniqueness = string;
     }
-
 }

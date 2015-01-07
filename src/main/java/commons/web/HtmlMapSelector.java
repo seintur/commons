@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -42,7 +41,7 @@ import java.util.TreeMap;
  * <il>items are presented vertically in a HTML table</li>
  * <li>each item is selectable with a link</li>
  * <li>items can be removed from the list with a single click
- *     on a checkbox</li>
+ *     on a check box</li>
  * </ul>
  * 
  * This class adds the ability to
@@ -87,13 +86,13 @@ public class HtmlMapSelector extends HtmlSelector {
         
         pw.println("<table border=\"1\">");
         
-        /** Table label. */
+        // Table label
         pw.println("<tr><td align=\"center\"><b>"+tableLabel+"</b></td></tr>");
         
-        /** Select table. */
+        // Select table
         renderHTMLForSelect(pw);
         
-        /** Remove script. */
+        // Remove script
         if ( removeURL != null )
             renderHTMLForRemove(pw);
         
@@ -112,20 +111,19 @@ public class HtmlMapSelector extends HtmlSelector {
      */
     private void renderHTMLForSelect( PrintWriter pw ) throws IOException {
 
-        /**
+        /*
          * Inner border-less table to display items.
-         * A form is generated to hold remove checkboxes.
+         * A form is generated to hold remove check boxes.
          */
         pw.println("<tr><td><table width=\"100%\">");
         pw.println("<form name=\""+uniqueness+"ItemsForm\">");
         
-        for ( Iterator iter=items.keySet().iterator() ; iter.hasNext() ; ) {
-            
-            String item = (String) iter.next();
-            pw.println("<tr>");
+        for ( String item : items.keySet() ) {
+
+        	pw.println("<tr>");
             pw.print("<td>");
             
-            /**
+            /*
              * Link for selecting the item
              * if the item is not the current one.
              */
@@ -146,15 +144,15 @@ public class HtmlMapSelector extends HtmlSelector {
             }
             pw.println("</td>");
             
-            /**
+            /*
              * Information column.
              */
             pw.print("<td>");
             pw.print(items.get(item));
             pw.println("</td>");
             
-            /**
-             * Remove item checkbox.
+            /*
+             * Remove item check box.
              */
             if ( removeURL != null ) {
                 pw.println(
@@ -164,7 +162,7 @@ public class HtmlMapSelector extends HtmlSelector {
             }
             pw.println("</tr>");
         }
+        
         pw.println("</form></table></td></tr>");
     }
-    
 }

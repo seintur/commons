@@ -64,7 +64,7 @@ public class MultipartDecoder {
         
         this.is = is;
 
-        /**
+        /*
          * The first line of the multipart gives the separator.
          * For computational purpose, our looked for separator starts with 0xd 0xa
          *
@@ -86,7 +86,7 @@ public class MultipartDecoder {
      *
      * @return  the headers or null if the end of the stream is met
      */
-    public List getHeaders() throws IOException {
+    public List<String> getHeaders() throws IOException {
 
         baos.reset();
         if ( readLine(baos) == -1 ) return null;
@@ -108,7 +108,7 @@ public class MultipartDecoder {
 
     /**
      * Return an input stream instance to read the content of the current part.
-     * The part ends (ie DelimitedInputStream.read() returns -1 )
+     * The part ends (i.e. DelimitedInputStream.read() returns -1 )
      * when the separator is met.
      */
     public InputStream getPart() {

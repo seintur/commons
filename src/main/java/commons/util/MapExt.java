@@ -47,15 +47,19 @@ public class MapExt {
      * and initialize it with the given parameter.
      * The given parameter must be an array of dimension 2 arrays.
      * The 1st element of each element is a key and the 2nd one a value.
+     * 
+     * TODO to be removed - can be replaced by ananymous class
      */
-    public static Map<Object,Object> create( Object[][] values ) {
-        Map<Object,Object> ret = new HashMap<Object,Object>();
+    public static <K,V> Map<K,V> create( Object[][] values ) {
+        Map<K,V> ret = new HashMap<>();
         for ( int i=0 ; i < values.length ; i++ ) {
             if ( values[i].length != 2 ) {
-                throw new IllegalArgumentException(
-                    "The parameter must be an array where each element is an array with exactly 2 elements");
+            	final String msg =
+        			"The parameter must be an array where each element is an "+
+					"array with exactly 2 elements";
+                throw new IllegalArgumentException(msg);
             }
-            ret.put( values[i][0], values[i][1] );
+            ret.put( (K) values[i][0], (V) values[i][1] );
         }
         return ret;
     }

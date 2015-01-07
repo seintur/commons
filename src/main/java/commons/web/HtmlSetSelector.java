@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -43,7 +42,7 @@ import java.util.TreeSet;
  * <il>items are presented vertically in a HTML table</li>
  * <li>each item is selectable with a link</li>
  * <li>items can be removed from the list with a single click
- *     on a checkbox</li>
+ *     on a check box</li>
  * </ul>
  * 
  * This class adds the ability to
@@ -61,7 +60,7 @@ public class HtmlSetSelector extends HtmlSelector {
     private String addURL;
     
     /** Parameters to be transmitted when addURL is invoked. */
-    private Map addURLParameters;
+    private Map<Object,Object> addURLParameters;
     
     /** The items. */
     private Set<String> items;
@@ -78,7 +77,6 @@ public class HtmlSetSelector extends HtmlSelector {
     public void add(String item) { items.add(item); }
     public void addAll(Set<String> dst) { items.addAll(dst); }
     public boolean contains(String item) { return items.contains(item); }
-    public Iterator iterator() { return items.iterator(); }
     public void remove(String item) { items.remove(item); }
     public void select(String item) { current=item; }
     
@@ -99,17 +97,17 @@ public class HtmlSetSelector extends HtmlSelector {
         
         pw.println("<table border=\"1\">");
         
-        /** Table label. */
+        // Table label
         pw.println("<tr><td align=\"center\"><b>"+tableLabel+"</b></td></tr>");
         
-        /** Select table. */
+        // Select table
         renderHTMLForSelect(pw);
         
-        /** Remove script. */
+        // Remove script
         if ( removeURL != null )
             renderHTMLForRemove(pw);
         
-        /** Add input text & button. */
+        // Add input text & button
         if ( addURL != null )
             renderHTMLForAdd(pw);
         
@@ -128,20 +126,19 @@ public class HtmlSetSelector extends HtmlSelector {
      */
     private void renderHTMLForSelect( PrintWriter pw ) throws IOException {
 
-        /**
+        /*
          * Inner border-less table to display items.
-         * A form is generated to hold remove checkboxes.
+         * A form is generated to hold remove check boxes.
          */
         pw.println("<tr><td><table width=\"100%\">");
         pw.println("<form name=\""+uniqueness+"ItemsForm\">");
         
-        for ( Iterator iter=iterator() ; iter.hasNext() ; ) {
-            
-            String item = (String) iter.next();
-            pw.println("<tr>");
+        for (String item : items) {
+
+        	pw.println("<tr>");
             pw.print("<td>");
             
-            /**
+            /*
              * Link for selecting the item
              * if the item is not the current one.
              */
@@ -163,7 +160,7 @@ public class HtmlSetSelector extends HtmlSelector {
             pw.println("</td>");
             
             if ( removeURL != null ) {
-                /** Remove item checkbox. */
+                // Remove item check box
                 pw.println(
                     "<td><input type=\"checkbox\" name=\""+
                     item+"\" onclick=\""+
@@ -191,9 +188,9 @@ public class HtmlSetSelector extends HtmlSelector {
         pw.println("<tr><td>");
         
             if ( addURLParameters != null ) {
-                for ( Iterator iter=addURLParameters.keySet().iterator() ; iter.hasNext() ; ) {
-                    Object key = iter.next();
-                    Object value = addURLParameters.get(key);
+            	for (Map.Entry<Object,Object> entry : addURLParameters.entrySet()) {					
+                    Object key = entry.getKey();
+                    Object value = entry.getValue();
                     pw.print("<input type=\"hidden\" ");
                         pw.print("name=\""+key+"\" ");
                         pw.println("value=\""+value+"\">");
@@ -211,21 +208,17 @@ public class HtmlSetSelector extends HtmlSelector {
 		return addURL;
 	}
 
-//    public Class getSetClass() {
-//        return setClass;
-//    }
-//
 	/**
 	 * @param string      the URL used to add an item
      * @param parameters  the parameters to be transmitted
      *                    when the URL is invoked
 	 */
-	public void setAddURL( String string, Map parameters ) {
-        if ( parameters.containsKey("name") )
-            throw new IllegalArgumentException(
-                "Parameters should not contain name");
+	public void setAddURL( String string, Map<Object,Object> parameters ) {
+        if ( parameters.containsKey("name") ) {
+        	final String msg = "Parameters should not contain name";
+            throw new IllegalArgumentException(msg);
+        }
 		addURL = string;
         addURLParameters = parameters;
 	}
-
 }
