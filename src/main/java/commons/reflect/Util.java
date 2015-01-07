@@ -317,7 +317,8 @@ public class Util {
     	Class<?> annotcl = annot.getClass();
 		try {
 			Method meth = annotcl.getMethod(name);
-	    	T value = (T) meth.invoke(annot);
+	    	@SuppressWarnings("unchecked")
+			T value = (T) meth.invoke(annot);
 	    	return value;
 		}
 		catch (NoSuchMethodException e) {

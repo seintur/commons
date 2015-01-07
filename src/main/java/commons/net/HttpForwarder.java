@@ -56,23 +56,27 @@ public class HttpForwarder {
     }
     
     public void run() {
-        try {
-			_run();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(1);
+    	ServerSocket ss = null;
+    	try {
+            ss = new ServerSocket(srcport);
+            System.out.println("HttpForwarder is ready on port "+srcport);
+            while (true) {
+                Socket client = ss.accept();
+                new HttpForwarderRequest(client).start();
+            }
 		}
-    }
-    
-    private void _run() throws IOException {
-        ServerSocket ss = new ServerSocket(srcport);
-        System.out.println("HttpForwarder is ready on port "+srcport);
-        while (true) {
-            Socket client = ss.accept();
-            new HttpForwarderRequest(client).start();
+        catch( IOException ioe ) {
+        	throw new RuntimeException(ioe);
+		}
+        finally {
+        	try {
+        		ss.close();
+        	}
+        	catch( IOException ioe ) {
+            	throw new RuntimeException(ioe);
+        	}
         }
     }
-    
 }
 
 
