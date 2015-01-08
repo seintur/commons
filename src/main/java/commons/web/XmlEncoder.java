@@ -23,10 +23,10 @@
 
 package commons.web;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import commons.lang.StringExt;
-import commons.util.MapExt;
 
 /**
  * This class provides methods to encode a text according to XML rules.
@@ -37,12 +37,13 @@ public class XmlEncoder {
 
     /** Store mappings between accentuated characters and XML encoded version. */
     final protected static Map<String,String> xmlEncodingMap =
-        MapExt.create(
-            new Object[][]{
-                {"<","&lt;"}, {">","&gt;"},
-                {"&","&amp;"}
-            }
-    );
+		new HashMap<String,String>() {
+			private static final long serialVersionUID = -5603820495087104452L;
+		{
+            put( "<","&lt;" );
+            put( ">","&gt;" );
+            put( "&","&amp;" );
+		}};
 
     /**
      * Encode a string by replacing accentuated characters by their XML version.
@@ -53,5 +54,4 @@ public class XmlEncoder {
     public static String encodeXMLText( String orig ) {
         return StringExt.adapt( orig, xmlEncodingMap );
     }
-
 }

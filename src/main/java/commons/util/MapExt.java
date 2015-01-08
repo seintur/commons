@@ -43,39 +43,6 @@ import java.util.TreeSet;
 public class MapExt {
 
     /**
-     * Construct a new map (actually a hash map)
-     * and initialize it with the given parameter.
-     * The given parameter must be an array of dimension 2 arrays.
-     * The 1st element of each element is a key and the 2nd one a value.
-     * 
-     * TODO to be removed - can be replaced by ananymous class
-     */
-    public static <K,V> Map<K,V> create( Object[][] values ) {
-        Map<K,V> ret = new HashMap<>();
-        for ( int i=0 ; i < values.length ; i++ ) {
-            if ( values[i].length != 2 ) {
-            	final String msg =
-        			"The parameter must be an array where each element is an "+
-					"array with exactly 2 elements";
-                throw new IllegalArgumentException(msg);
-            }
-            ret.put( (K) values[i][0], (V) values[i][1] );
-        }
-        return ret;
-    }
-
-    /**
-     * Construct a new map (actually a hash map)
-     * and initialize it with the given entry.
-     */
-    public static Map<Object,Object> create( Object key, Object value ) {
-        Map<Object,Object> ret = new HashMap<Object,Object>();
-        ret.put(key,value);
-        return ret;
-    }
-
-    
-    /**
      * Search for key strings that match the beginning of a given string.
      *
      * @param map            the source map

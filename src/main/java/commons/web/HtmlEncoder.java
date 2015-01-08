@@ -23,10 +23,10 @@
 
 package commons.web;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import commons.lang.StringExt;
-import commons.util.MapExt;
 
 /**
  * This class provides methods to encode a text according to HTML rules.
@@ -37,34 +37,34 @@ public class HtmlEncoder {
 
     /** Store mappings between accentuated characters and HTML encoded version. */
     final protected static Map<String,String> htmlEncodingMap =
-        MapExt.create(
-            new Object[][]{
-                {"�","&eacute;"},
-                {"�","&egrave;"},
-                {"�","&ecirc;"},
-                {"�","e"}, // � encoding ?
-                {"�","&agrave;"},
-                {"�","&acirc;"},
-                {"�","a"},
-                {"�","&ocirc;"},
-                {"�","o"}, // � encoding ?
-                {"�","&ucirc;"},
-                {"�","u"},
-                {"�","u"},
-                {"�","&icirc;"},
-                {"�","i"}, // � encoding ?
-                {"�","&ccedil;"},
-                {"<","&lt;"},
-                {">","&gt;"},
-                {"&","&amp;"},
-                {"%",""},
-                {"�",""},
-                {"�",""},
-                {"�",""}, // encodings ?
-                {"#8364;", "E"}, // euro
-                {"\"", ""} // encoding ?
-            }
-    );
+		new HashMap<String,String>() {
+			private static final long serialVersionUID = -4204345549342162528L;
+		{
+            put( "�","&eacute;" );  // TODO fix encoding
+            put( "�","&egrave;" );
+            put( "�","&ecirc;" );
+            put( "�","e" );
+            put( "�","&agrave;" );
+            put( "�","&acirc;" );
+            put( "�","a" );
+            put( "�","&ocirc;" );
+            put( "�","o" );
+            put( "�","&ucirc;" );
+            put( "�","u" );
+            put( "�","u" );
+            put( "�","&icirc;" );
+            put( "�","i" );
+            put( "�","&ccedil;" );
+            put( "<","&lt;" );
+            put( ">","&gt;" );
+            put( "&","&amp;" );
+            put( "%","" );
+            put( "�","" );
+            put( "�","" );
+            put( "�","" );
+            put( "#8364;", "E" ); // euro
+            put( "\"", "" );
+		}};
 
     /**
      * Encode a string by replacing accentuated characters by their HTML version.
@@ -75,5 +75,4 @@ public class HtmlEncoder {
     public static String encodeHTMLText( String orig ) {
         return StringExt.adapt( orig, htmlEncodingMap );
     }
-
 }

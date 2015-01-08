@@ -27,8 +27,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import commons.util.MapExt;
-
 /**
  * This class holds string related functionalities not found in
  * java.lang.String (hence the suffix Ext).
@@ -104,17 +102,25 @@ public class StringExt {
 
 
     /** Store mappings between accentuated characters and their non-accentuated version. */
-    final protected static Map<?,?> accentuatedCharMap =
-        MapExt.create(
-            new Object[][]{
-                {"�","e"}, {"�","e"}, {"�","e"}, {"�","e"},
-                {"�","a"}, {"�","a"}, {"�","a"},
-                {"�","o"}, {"�","o"},
-                {"�","u"}, {"�","u"},
-                {"�","i"}, {"�","i"},
-                {"�","c"}
-            }
-    );
+    final protected static Map<String,String> accentuatedCharMap =
+		new HashMap<String,String>() {
+			private static final long serialVersionUID = -7119087625689196461L;
+		{
+            put( "�","e" );  // TODO fix encoding
+            put( "�","e" );
+            put( "�","e" );
+            put( "�","e" );
+            put( "�","a" );
+            put( "�","a" );
+            put( "�","a" );
+            put( "�","o" );
+            put( "�","o" );
+            put( "�","u" );
+            put( "�","u" );
+            put( "�","i" );
+            put( "�","i" );
+            put( "�","c" );
+		}};
 
    /**
     * Replace accents by their corresponding non accentuated character.

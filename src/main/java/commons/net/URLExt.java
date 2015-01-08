@@ -126,15 +126,16 @@ public class URLExt {
     /**
      * Store associations between mime types and file extensions.
      */
-    final public static Map<Object,Object> fileExtensions =
-        MapExt.create(
-            new Object[][]{
-                {"text/html",".html"},
-                {"image/gif",".gif"},
-                {"image/jpeg",".jpg"}, {"image/jpg",".jpg"}, {"image/pjpeg",".jpg"}
-            }
-        );
-    
+    final public static Map<String,String> fileExtensions =
+		new HashMap<String,String>() {
+			private static final long serialVersionUID = 3474986436687996921L;
+		{
+            put( "text/html",".html" );
+            put( "image/gif",".gif" );
+            put( "image/jpeg",".jpg" );
+            put( "image/jpg",".jpg" );
+            put( "image/pjpeg",".jpg" );
+		}};    
 
     /**
      * Recursively get the content of an URL and save it into a directory.
