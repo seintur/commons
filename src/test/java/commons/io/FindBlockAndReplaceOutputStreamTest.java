@@ -27,99 +27,57 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.Collection;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
+@RunWith(Parameterized.class)
 public class FindBlockAndReplaceOutputStreamTest {
 
-    private void testPattern(
-            String input,
-            String begin,
-            String end,
-            String replace,
-            String expectedResult ) throws IOException {
+	private String[] values;
+	private String expected;
+	
+	@Parameters
+	public static Collection<Object[]> data() {
+		return Arrays.asList(
+			new  Object[][]{
+				{new String[]{"abdcdeazyx","dc","zy","---"},"ab---x"},
+				{new String[]{"abdcdeazyxdcazyb","dc","zy","---"},"ab---x---b"},
+				{new String[]{"abdcdeazyxdcabzyb","ab","dea","---"},"---zyxdcabzyb"},
+				{new String[]{"acdeazyxdcabzyb","ab","b","---"},"acdeazyxdc---"}
+			});
+	}
+	
+    public FindBlockAndReplaceOutputStreamTest( String[] values, String expected ) {
+    	Assert.assertEquals(4,values.length);
+		this.values = values;
+		this.expected = expected;
+	}
+	
+	@Test
+    public void testPattern() throws IOException {
+    
+		final String input = values[0];
+		final String begin = values[1];
+		final String end = values[2];
+		final String replace = values[3];
         
         ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
-        
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         OutputStream os =
             new FindBlockAndReplaceOutputStream(baos,begin,end,replace);
-        
         PipedStreams.dump(bais,os);
         os.close();
         
         final String result = baos.toString();
-        
-        System.out.println("Input  : "+input);
-        System.out.println("Begin  : "+begin);
-        System.out.println("End    : "+end);
-        System.out.println("Replace: "+replace);
-        System.out.println("Result : "+result);
-        
-        if ( ! result.equals(expectedResult) )
-            throw new RuntimeException("Bad expected result: "+expectedResult);
-    }
-    
-    @Test
-    public void testSingleFindInTheMiddle() throws IOException {
-
-        System.out.println(
-      "=== FindBlockAndReplaceOutputStreamTest.testSingleFindInTheMiddle ===");
-        
-        final String input = "abdcdeazyx";
-        final String begin = "dc";
-        final String end = "zy";
-        final String replace = "---";
-        final String expectedResult = "ab---x";
-        
-        testPattern(input,begin,end,replace,expectedResult);
-    }
-    
-    @Test
-    public void testMultipleFindInTheMiddle() throws IOException {
-
-        System.out.println(
-      "=== FindBlockAndReplaceOutputStreamTest.testSingleFindInTheMiddle ===");
-        
-        final String input = "abdcdeazyxdcazyb";
-        final String begin = "dc";
-        final String end = "zy";
-        final String replace = "---";
-        final String expectedResult = "ab---x---b";
-        
-        testPattern(input,begin,end,replace,expectedResult);
-    }
-    
-    @Test
-    public void testSingleFindAtTheBeginning() throws IOException {
-
-        System.out.println(
-  "=== FindBlockAndReplaceOutputStreamTest.testSingleFindAtTheBeginning ===");
-        
-        final String input = "abdcdeazyxdcabzyb";
-        final String begin = "ab";
-        final String end = "dea";
-        final String replace = "---";
-        final String expectedResult = "---zyxdcabzyb";
-        
-        testPattern(input,begin,end,replace,expectedResult);
-    }
-    
-    @Test
-    public void testSingleFindAtTheEnd() throws IOException {
-
-        System.out.println(
-  "=== FindBlockAndReplaceOutputStreamTest.testSingleFindAtTheEnd ===");
-        
-        final String input = "acdeazyxdcabzyb";
-        final String begin = "ab";
-        final String end = "b";
-        final String replace = "---";
-        final String expectedResult = "acdeazyxdc---";
-        
-        testPattern(input,begin,end,replace,expectedResult);
+        Assert.assertEquals(expected,result);
     }
 }

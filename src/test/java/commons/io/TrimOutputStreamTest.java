@@ -27,64 +27,53 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.Collection;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
+@RunWith(Parameterized.class)
 public class TrimOutputStreamTest {
 
-    private void testPattern(
-            String input,
-            String begin,
-            String end,
-            String expectedResult ) throws IOException {
+	private String[] values;
+	private String expected;
+	
+	@Parameters
+	public static Collection<Object[]> data() {
+		return Arrays.asList(
+			new  Object[][]{
+				{new String[]{"abdcdeazyx","dc","zy"},"dea"},
+				{new String[]{"abdcdeazyx","abd","yx"},"cdeaz"}
+			});
+	}
+	
+    public TrimOutputStreamTest( String[] values, String expected ) {
+    	Assert.assertEquals(3,values.length);
+		this.values = values;
+		this.expected = expected;
+	}
+	
+    @Test
+    public void testPattern() throws IOException {
         
-        ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
-        
+		final String input = values[0];
+		final String begin = values[1];
+		final String end = values[2];
+
+		ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         OutputStream os = TrimOutputStream.create(baos,begin,end);
-        
         PipedStreams.dump(bais,os);
         os.close();
         
         final String result = baos.toString();
-        
-        System.out.println("Input : "+input);
-        System.out.println("Begin : "+begin);
-        System.out.println("End   : "+end);
-        System.out.println("Result: "+result);
-        
-        if ( ! result.equals(expectedResult) )
-            throw new RuntimeException("Bad expected result: "+expectedResult);
+        Assert.assertEquals(expected,result);
     }
-    
-    @Test
-    public void testMarkersInTheMiddle() throws IOException {
-
-        System.out.println(
-                "=== TrimOutputStreamTest.testMarkersInTheMiddle ===");
-        
-        final String input = "abdcdeazyx";
-        final String begin = "dc";
-        final String end = "zy";
-        final String expectedResult = "dea";
-        
-        testPattern(input,begin,end,expectedResult);
-    }
-    
-    @Test
-    public void testMarkersAtTheEnds() throws IOException {
-
-        System.out.println(
-                "=== TrimOutputStreamTest.testMarkersAtTheEnds ===");
-        
-        final String input = "abdcdeazyx";
-        final String begin = "abd";
-        final String end = "yx";
-        final String expectedResult = "cdeaz";
-        
-        testPattern(input,begin,end,expectedResult);
-    }    
 }

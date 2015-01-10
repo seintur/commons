@@ -26,82 +26,60 @@ package commons.io;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
+@RunWith(Parameterized.class)
 public class SplitOutputStreamTest {
 
-    private void testPattern(
-            String input,
-            String pattern,
-            String expectedBefore,
-            String expectedAfter ) throws IOException {
+	private String[] values;
+	private String[] expecteds;
+	
+	@Parameters
+	public static Collection<Object[]> data() {
+		return Arrays.asList(
+			new  Object[][]{
+				{new String[]{"abdcdzy","dcd"},new String[]{"ab","zy"}},
+				{new String[]{"abdcdzy","abd"},new String[]{"","cdzy"}},
+				{new String[]{"abdcdzy","zy"},new String[]{"abdcd",""}}
+			});
+	}
+
+    public SplitOutputStreamTest( String[] values, String[] expecteds ) {
+    	Assert.assertEquals(2,values.length);
+    	Assert.assertEquals(2,expecteds.length);
+		this.values = values;
+		this.expecteds = expecteds;
+	}
+	
+    @Test
+    public void testPattern() throws IOException {
         
+		final String input = values[0];
+		final String pattern = values[1];
+		final String expectedBefore = expecteds[0];
+		final String expectedAfter = expecteds[1];
+		
         ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
-        
         ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
         ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
         SplitOutputStream sos = new SplitOutputStream(pattern,baos1,baos2);
-        
         PipedStreams.dump(bais,sos);
         sos.close();
         
         final String before = baos1.toString();
         final String after = baos2.toString();
         
-        System.out.println("Input  : "+input);
-        System.out.println("Pattern: "+pattern);
-        System.out.println("Before : "+before);
-        System.out.println("After  : "+after);
-        
-        if ( ! before.equals(expectedBefore) )
-            throw new RuntimeException("Bad expected before: "+expectedBefore);
-        if ( ! after.equals(expectedAfter) )
-            throw new RuntimeException("Bad expected after: "+expectedAfter);
-    }
-    
-    @Test
-    public void testPatternInTheMiddle() throws IOException {
-
-        System.out.println(
-                "=== SplitOutputStreamTest.testPatternInTheMiddle ===");
-        
-        final String input = "abdcdzy";
-        final String pattern = "dcd";
-        final String expectedBefore = "ab";
-        final String expectedAfter = "zy";
-        
-        testPattern(input,pattern,expectedBefore,expectedAfter);
-    }
-    
-    @Test
-    public void testPatternAtTheBeginning() throws IOException {
-
-        System.out.println(
-                "=== SplitOutputStreamTest.testPatternAtTheBeginning ===");
-        
-        final String input = "abdcdzy";
-        final String pattern = "abd";
-        final String expectedBefore = "";
-        final String expectedAfter = "cdzy";
-        
-        testPattern(input,pattern,expectedBefore,expectedAfter);
-    }
-    
-    @Test
-   public void testPatternAtTheEnd() throws IOException {
-
-        System.out.println(
-                "=== SplitOutputStreamTest.testPatternAtTheEnd ===");
-        
-        final String input = "abdcdzy";
-        final String pattern = "zy";
-        final String expectedBefore = "abdcd";
-        final String expectedAfter = "";
-        
-        testPattern(input,pattern,expectedBefore,expectedAfter);
+        Assert.assertEquals(expectedBefore,before);
+        Assert.assertEquals(expectedAfter,after);
     }
 }

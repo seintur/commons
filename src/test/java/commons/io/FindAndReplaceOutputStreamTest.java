@@ -57,10 +57,7 @@ public class FindAndReplaceOutputStreamTest {
 	}
 	
     public FindAndReplaceOutputStreamTest( String[] values, String expected ) {
-		if( values.length != 3 ) {
-			final String msg = "values should be an array of 3 strings";
-			throw new RuntimeException(msg);
-		}
+    	Assert.assertEquals(3,values.length);
 		this.values = values;
 		this.expected = expected;
 	}
@@ -78,7 +75,7 @@ public class FindAndReplaceOutputStreamTest {
         PipedStreams.dump(bais,os);
         os.close();
         
-        final String result = baos.toString();        
-        Assert.assertEquals(expected,result);        
+        final String result = baos.toString();
+        Assert.assertEquals(expected,result);
     }
 }
