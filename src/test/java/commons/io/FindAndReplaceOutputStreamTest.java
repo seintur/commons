@@ -27,92 +27,58 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.Collection;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
+@RunWith(Parameterized.class)
 public class FindAndReplaceOutputStreamTest {
 
-    private void testPattern(
-            String input,
-            String find,
-            String replace,
-            String expectedResult ) throws IOException {
-        
+	private String[] values;
+	private String expected;
+	
+	@Parameters
+	public static Collection<Object[]> data() {
+		return Arrays.asList(
+			new  Object[][]{
+				{new String[]{"abdcdeazyx","dc","zyz"},"abzyzdeazyx"},
+				{new String[]{"abdcdedcazyx","dc","zyz"},"abzyzdezyzazyx"},
+				{new String[]{"abdcdedcabdzyx","abd","z"},"zcdedczzyx"},
+				{new String[]{"yxabdyxcdedcabdzyx","yx","jhd"},"jhdabdjhdcdedcabdzjhd"}
+			});
+	}
+	
+    public FindAndReplaceOutputStreamTest( String[] values, String expected ) {
+		if( values.length != 3 ) {
+			final String msg = "values should be an array of 3 strings";
+			throw new RuntimeException(msg);
+		}
+		this.values = values;
+		this.expected = expected;
+	}
+	
+	@Test
+    public void testPattern() throws IOException {
+    
+		final String input = values[0];
+		final String find = values[1];
+		final String replace = values[2];
+		
         ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
-        
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         OutputStream os = new FindAndReplaceOutputStream(baos,find,replace);
-        
         PipedStreams.dump(bais,os);
         os.close();
         
-        final String result = baos.toString();
-        
-        System.out.println("Input  : "+input);
-        System.out.println("Find   : "+find);
-        System.out.println("Replace: "+replace);
-        System.out.println("Result : "+result);
-        
-        if ( ! result.equals(expectedResult) )
-            throw new RuntimeException("Bad expected result: "+expectedResult);
+        final String result = baos.toString();        
+        Assert.assertEquals(expected,result);        
     }
-    
-    @Test
-    public void testSingleFindInTheMiddle() throws IOException {
-
-        System.out.println(
-           "=== FindAndReplaceOutputStreamTest.testSingleFindInTheMiddle ===");
-        
-        final String input = "abdcdeazyx";
-        final String find = "dc";
-        final String replace = "zyz";
-        final String expectedResult = "abzyzdeazyx";
-        
-        testPattern(input,find,replace,expectedResult);
-    }
-    
-    @Test
-    public void testSingleMultipleInTheMiddle() throws IOException {
-
-        System.out.println(
-       "=== FindAndReplaceOutputStreamTest.testSingleMultipleInTheMiddle ===");
-        
-        final String input = "abdcdedcazyx";
-        final String find = "dc";
-        final String replace = "zyz";
-        final String expectedResult = "abzyzdezyzazyx";
-        
-        testPattern(input,find,replace,expectedResult);
-    }
-    
-    @Test
-    public void testSingleMultipleAtTheBeginning() throws IOException {
-
-        System.out.println(
-              "=== TrimOutputStreamTest.testSingleMultipleInTheBeginning ===");
-        
-        final String input = "abdcdedcabdzyx";
-        final String find = "abd";
-        final String replace = "z";
-        final String expectedResult = "zcdedczzyx";
-        
-        testPattern(input,find,replace,expectedResult);
-    }
-    
-    @Test
-    public void testSingleMultipleAtTheEnd() throws IOException {
-
-        System.out.println(
-          "=== FindAndReplaceOutputStreamTest.testSingleMultipleAtTheEnd ===");
-        
-        final String input = "yxabdyxcdedcabdzyx";
-        final String find = "yx";
-        final String replace = "jhd";
-        final String expectedResult = "jhdabdjhdcdedcabdzjhd";
-        
-        testPattern(input,find,replace,expectedResult);
-    } 
 }
