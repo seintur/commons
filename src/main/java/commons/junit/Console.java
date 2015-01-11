@@ -46,8 +46,6 @@ public class Console {
 	
 	/**
 	 * Factory method for {@link Console}s.
-	 * 
-	 * @since 2.2.6
 	 */
 	public static Console getConsole( String key ) throws IOException {
 		
@@ -61,8 +59,6 @@ public class Console {
 
 	/**
 	 * The map of registered consoles.
-	 * 
-	 * @since 2.2.6
 	 */
 	private static Map<String,Console> consoles = new HashMap<>();
 	

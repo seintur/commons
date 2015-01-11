@@ -321,13 +321,7 @@ public class Util {
 			T value = (T) meth.invoke(annot);
 	    	return value;
 		}
-		catch (NoSuchMethodException e) {
-			return null;
-		}
-		catch (IllegalAccessException e) {
-			return null;
-		}
-		catch (InvocationTargetException e) {
+		catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 			return null;
 		}
     }

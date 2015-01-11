@@ -52,17 +52,6 @@ public class Filters {
 			}
 		}
 		
-		/*
-		 * T[] r = (T[]) result.toArray( (T[]) new Object[result.size()] );
-		 * 
-		 * throws
-		 * java.lang.ClassCastException: [Ljava.lang.Object; cannot be cast to
-		 * [Ljava.lang.reflect.Constructor;
-		 * 
-		 * T[] r = Arrays.copyOf(src,result.size());
-		 * has been introduced in JDK 6
-		 */
-		
 		Class<?> cl = src.getClass().getComponentType();
 		@SuppressWarnings("unchecked")
 		T[] r = (T[]) Array.newInstance(cl,result.size());

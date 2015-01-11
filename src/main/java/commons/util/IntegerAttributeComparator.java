@@ -28,9 +28,9 @@ import java.util.Comparator;
 import commons.reflect.Property;
 
 /**
- * This class provides a comparator based on the value of an field of
- * objects to compare. The field type must be integer.
- * Used for instance by getAttributesOrderedBy(Collection,String,String).
+ * This class provides a comparison function. The ordering is based on the value
+ * of one of the fields declared by the objects to be compared. Fields must be
+ * integers.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
@@ -69,10 +69,5 @@ public class IntegerAttributeComparator<T> implements Comparator<T> {
         if ( r1 == r2 )  return 0;
         else if ( r1 < r2 )  return -1;
              else return 1;
-    }
-    
-    @Override
-    public boolean equals( Object obj ) {
-        throw new UnsupportedOperationException();
     }
 }

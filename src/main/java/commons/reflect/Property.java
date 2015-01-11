@@ -69,8 +69,7 @@ public class Property {
                 try {
                     return methods[i].invoke( obj, new Object[]{} );
                 }
-                catch( InvocationTargetException ite ) {}
-                catch( IllegalAccessException iae ) {}
+                catch( InvocationTargetException | IllegalAccessException iae ) {}
             }
         }
 
@@ -82,8 +81,7 @@ public class Property {
             Field field = cl.getField( attributeName );
             return field.get(obj);
         }
-        catch( NoSuchFieldException nsfe ) {}
-        catch( IllegalAccessException iae ) {}
+        catch( NoSuchFieldException | IllegalAccessException iae ) {}
 
         /*
          * Everything failed.
