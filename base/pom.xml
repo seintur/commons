@@ -17,9 +17,7 @@
   	<developers>
     	<developer>
       		<name>Lionel Seinturier</name>
-      		<roles>
-        		<role>developer</role>
-      		</roles>
+      		<roles><role>developer</role></roles>
     	</developer>
   	</developers>
 
