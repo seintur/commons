@@ -6,7 +6,7 @@
 	<artifactId>base</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-  	<name>Commons-base</name>
+  	<name>Commons-junit</name>
   	<inceptionYear>2015</inceptionYear>
 
   	<issueManagement>
@@ -26,7 +26,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
-			<scope>test</scope>
 		</dependency>
   	</dependencies>
     
