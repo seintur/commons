@@ -156,8 +156,8 @@ public class MapExt {
         for (Map.Entry<K,V> entry : src.entrySet()) {
 			
             K key = entry.getKey();
-
             Class<?> cl = key.getClass();
+            
             try {
             	Method method = cl.getMethod( matcherMethodName, matcherMethodParameterTypes );
                 Object returnedValue = method.invoke( key, target );
@@ -176,10 +176,7 @@ public class MapExt {
                  * The key class does not contain the searched method. Go on.
                  */
             }
-            catch( InvocationTargetException ite ) {
-                // Raised by method.invoke()
-            }
-            catch( IllegalAccessException iae ) {
+            catch( InvocationTargetException | IllegalAccessException e ) {
                 // Raised by method.invoke()
             }
         }

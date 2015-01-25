@@ -109,7 +109,7 @@ public class Form {
 
     /**
      * Parse data encoded with the multipart/form-data encoding rules
-     * (eg data uploaded from an HTML form containing file upload fields).
+     * (e.g. data uploaded from an HTML form containing file upload fields).
      *
      * @param in   the servlet input stream where data is to be read
      * @param dir  the directory where uploaded files are to be saved

@@ -101,12 +101,10 @@ class HttpForwarderRequest extends Thread {
     public void run() {
         try {
             _run();
-        } catch (IOException e) {
+        }
+        catch( IOException | InterruptedException e ) {
             e.printStackTrace();
             System.exit(1);
-        } catch (InterruptedException e) {
-			e.printStackTrace();
-			System.exit(1);
 		}
     }
     
@@ -204,7 +202,8 @@ class HttpForwarderPipe extends Thread {
     public void run() {
         try {
 			_run();
-        } catch( SocketException se ) {
+        }
+        catch( SocketException se ) {
             /*
              * The socket may be closed by HttpForwarderRequest._run().
              * Explanations follow.
@@ -223,7 +222,8 @@ class HttpForwarderPipe extends Thread {
              * Hence this is an excepted exception, and we just want
              * to go on the program.
              */
-		} catch (IOException e) {
+		}
+        catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}

@@ -116,22 +116,6 @@ public class FindAndReplaceOutputStream extends FilterOutputStream {
         super.close();
     }
 
-    
-//  Useless: this seems to be what
-//  super.write(byte[]) or super.write(byte[],int,int) do
-//  public void write( byte[] b ) throws IOException {
-//      for ( int i=0 ; i < b.length ; i++ ) {
-//          write(b[i]);
-//      }
-//  }
-//
-//  public void write( byte[] b, int off, int len ) throws IOException {
-//      for ( int i=off ; i<b.length && i<len ; i++ ) {
-//          write(b[i]);
-//      }
-//  }
-
-    
     // The code of this method must never call
     // super.write(byte[]) or super.write(byte[],int,int).
     // These two methods rely on calls to write(int) which,
@@ -139,6 +123,7 @@ public class FindAndReplaceOutputStream extends FilterOutputStream {
     // is (re)dispatched to this method.
     // Only call super.write(int).
 
+    @Override
     public void write( int b ) throws IOException {
         if ( writeAndFind(b) ) {
             // find has been found
@@ -186,8 +171,8 @@ public class FindAndReplaceOutputStream extends FilterOutputStream {
         }
         else {
             if ( index > 0 ) {
-                /**
-                 * Previous bytes matched the begining of find.
+                /*
+                 * Previous bytes matched the beginning of find.
                  * Write them if needed.
                  *
                  * Caution: we should restart the search

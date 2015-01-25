@@ -63,7 +63,7 @@ public class RangeSet {
      */
     public Set<Integer> getElements() {
         
-        elements = new HashSet<Integer>();
+        elements = new HashSet<>();
         
         // Ignore null and empty strings
         if ( descr==null || descr.length()==0 )
@@ -132,7 +132,7 @@ public class RangeSet {
      */
     public Set<Integer> validate() throws RangeSetFormatException {
         
-        elements = new HashSet<Integer>();
+        elements = new HashSet<>();
         
         // null and empty strings
         if ( descr==null || descr.length()==0 )

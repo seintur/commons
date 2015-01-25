@@ -61,7 +61,7 @@ public class Directories2Packages {
     }
 
     private static void dir( StringBuffer ret, File parent, String dir )
-        throws IOException {
+    throws IOException {
 
         /*
          * Test whether the directory contains only directories.

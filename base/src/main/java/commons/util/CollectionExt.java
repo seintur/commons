@@ -61,8 +61,7 @@ public class CollectionExt {
         	Collection<E> ret = cl.newInstance();
         	return ret;
         }
-        catch (Exception e) {
-            // InstantiationException or IllegalAccessException
+        catch (InstantiationException | IllegalAccessException e) {
         	Collection<E> ret = new ArrayList<>();
         	return ret;
         }

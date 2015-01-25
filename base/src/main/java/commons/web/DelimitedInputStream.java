@@ -56,8 +56,10 @@ public class DelimitedInputStream extends FilterInputStream {
     private int index = 0;
 
 
-    public DelimitedInputStream( InputStream in, byte[] separator ) throws IllegalArgumentException {
-        super(in);
+    public DelimitedInputStream( InputStream in, byte[] separator )
+	throws IllegalArgumentException {
+        
+    	super(in);
 
         for ( int i=1 ; i < separator.length ; i++ ) {
         	if ( separator[i] == separator[0] ) {
@@ -133,7 +135,7 @@ public class DelimitedInputStream extends FilterInputStream {
             
             if ( b == -1 ) {
                 /*
-                 * The end of the stream has been met.
+                 * The end of the stream has been reached.
                  * Test whether bytes have been accumulated in the buffer
                  * before returning -1
                  */

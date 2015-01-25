@@ -254,7 +254,7 @@ public class URLExt {
         	String currentUrl = (String) mapEntryUrlsLoaded.getKey();
             File currentFile = (File) mapEntryUrlsLoaded.getValue();
 
-            /** URLs that contain no data are associated with null File instances. */
+            // URLs that contain no data are associated with null File instances
             if ( currentFile != null ) {
 
                 URL url = new URL(currentUrl);

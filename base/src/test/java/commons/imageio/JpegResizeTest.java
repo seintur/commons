@@ -29,6 +29,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -59,14 +60,18 @@ public class JpegResizeTest {
         int width = b.getWidth();
         int height = b.getHeight();
         
-        if( width != targetWidth )
-            throw new RuntimeException(
-                    "Width ("+width+
-                    ") does not match requested width ("+targetWidth+")");
+        if( width != targetWidth ) {
+        	final String msg =
+    			"Width ("+width+") does not match requested width ("+
+				targetWidth+")";
+        	Assert.fail(msg);
+        }
         
-        if( height != targetHeight )
-            throw new RuntimeException(
-                    "Height ("+height+
-                    ") does not match requested height ("+targetHeight+")");
+        if( height != targetHeight ) {
+            final String msg =
+        		"Height ("+height+") does not match requested height ("+
+				targetHeight+")";
+            Assert.fail(msg);
+        }
     }
 }

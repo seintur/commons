@@ -45,13 +45,10 @@ public class UploadedFile implements Serializable {
     /** The MIME type of the file. */
     public String contentType;
 
-    /**
-     * Data.
-     */
+    /** Data. */
     public byte[] data;
 
     public UploadedFile( String filename, String contentType, byte[] data ) {
-
         this.filename = filename;
         this.contentType = contentType;
         this.data = data;

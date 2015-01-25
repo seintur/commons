@@ -119,7 +119,7 @@ public class MultipartEncoder {
             }
             else {
             	final String msg =
-        			"Map parts values must only contain String or "+
+        			"Map part values must only contain String or "+
 					"UploadedFile instances";
                 throw new Exception(msg);
             }

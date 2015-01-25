@@ -101,7 +101,6 @@ public class MvnChangeProjectVersionNumber {
      * @param pom      the pom.xml file
      * @param find     the original project version number
      * @param replace  the new project version number
-     * @throws IOException 
      */
     private static void changeProjectVersionNumber(
 		File pom, String find, String replace )

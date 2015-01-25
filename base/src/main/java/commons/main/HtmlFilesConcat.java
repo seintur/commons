@@ -54,11 +54,11 @@ public class HtmlFilesConcat {
 
     public static void main( String[] args ) throws Exception {
         
-        /** Get the current user directory. */
+        // Get the current user directory
         String userDirName = System.getProperty("user.dir");
         FileExt userDir = new FileExt(userDirName);
 
-        /** Check for files. */
+        // Check for files
         FileExt beginFile = new FileExt(userDir,defaultBeginFileName);
         FileExt endFile = new FileExt(userDir,defaultEndFileName);
         FileExt replaceFile = new FileExt(userDir,defaultReplaceFileName);

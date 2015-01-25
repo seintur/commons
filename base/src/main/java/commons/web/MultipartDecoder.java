@@ -26,8 +26,8 @@ package commons.web;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * This class provides methods to read a multipart input stream
@@ -92,7 +92,7 @@ public class MultipartDecoder {
         if ( readLine(baos) == -1 ) return null;
         byte[] read = baos.toByteArray();
 
-        Vector<String> headers = new Vector<String>();
+        List<String> headers = new ArrayList<>();
         
         while ( read.length != 0 ) {
             headers.add( new String(read) );

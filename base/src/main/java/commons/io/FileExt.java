@@ -234,7 +234,7 @@ public class FileExt extends File {
      * @param dst  the destination directory
      * @return     the copied file
      */
-    public File moveFile( File dst ) throws java.io.IOException {
+    public File moveFile( File dst ) throws IOException {
 
         if ( ! isFile() ) {
         	throw new IOException( "Current FileExt instance is not a file." );
