@@ -35,10 +35,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import commons.reflect.Filter;
+import commons.reflect.Filters;
+import commons.reflect.SetterMethodFilter;
+import commons.reflect.UnAnnotatedElementFilter;
+
 /**
  * Utility methods.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
+ * @since 2.6
  */
 public class Util {
 
@@ -54,13 +60,13 @@ public class Util {
 
         String name = getter.getName();
         if( ! name.startsWith("get") ) {
-            String msg =
+            final String msg =
                 "The name of a getter method should start with get: "+getter;
             throw new IllegalArgumentException(msg);
         }
         Class<?>[] ptypes = getter.getParameterTypes();
         if( ptypes.length != 0 ) {
-            String msg =
+            final String msg =
                 "A getter method should not define any parameter: "+getter;
             throw new IllegalArgumentException(msg);
         }
@@ -82,7 +88,7 @@ public class Util {
     	String setterPropName = SetterMethodFilter.getSetterPropertyName(setter);
     	String getterPropName = getGetterPropertyName(getter);
     	if( ! setterPropName.equals(getterPropName) ) {
-    		String msg =
+    		final String msg =
     			"Property names differ: "+setterPropName+" vs "+getterPropName;
     		throw new IllegalArgumentException(msg);
     	}
@@ -90,7 +96,7 @@ public class Util {
     	Class<?> setterPropType = SetterMethodFilter.getSetterPropertyType(setter);
     	Class<?> getterPropType = getGetterPropertyType(getter);
     	if( ! setterPropType.equals(getterPropType) ) {
-    		String msg =
+    		final String msg =
     			"Property types differ: "+setterPropType+" vs "+getterPropType;
     		throw new IllegalArgumentException(msg);
     	}
@@ -317,11 +323,17 @@ public class Util {
     	Class<?> annotcl = annot.getClass();
 		try {
 			Method meth = annotcl.getMethod(name);
-	    	@SuppressWarnings("unchecked")
-			T value = (T) meth.invoke(annot);
+			@SuppressWarnings("unchecked")
+	    	T value = (T) meth.invoke(annot);
 	    	return value;
 		}
-		catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+		catch (NoSuchMethodException e) {
+			return null;
+		}
+		catch (IllegalAccessException e) {
+			return null;
+		}
+		catch (InvocationTargetException e) {
 			return null;
 		}
     }
@@ -465,9 +477,9 @@ public class Util {
     }
 
     /**
-     * Load the class whose name is specified with the specified classloader.
+     * Load the class whose name is specified with the specified class loader.
      * 
-     * @throws ClassNotFoundException  if the class can not be loaded
+     * @throws ClassNotFoundException  if the class cannot be loaded
      */
     public static Class<?> loadClass( String name, ClassLoader cl )
     throws ClassNotFoundException {
