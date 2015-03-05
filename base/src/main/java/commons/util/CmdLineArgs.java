@@ -39,7 +39,6 @@ import java.util.Set;
  * characters. Options are followed by a value. 
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
- * @since 1.2
  */
 public class CmdLineArgs< F extends Enum<F>, O extends Enum<O> > {
 
