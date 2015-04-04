@@ -34,13 +34,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * This class holds maps related functionalities found
- * neither in java.util.Map nor in java.util.AbstractMap
- * (hence the suffix Ext).
+ * Utility methods for the {@link Map} interface.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class MapExt {
+public class MapHelper {
 
     /**
      * Search for key strings that match the beginning of a given string.

@@ -26,7 +26,6 @@ package commons.io;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -37,45 +36,52 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
+ * Class for testing the functionalities of the {@link SplitOutputStream} class.
+ * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 @RunWith(Parameterized.class)
-public class FindAndReplaceOutputStreamTest {
+public class SplitOutputStreamTestCase {
 
     private String[] values;
-    private String expected;
+    private String[] expecteds;
     
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(
             new  Object[][]{
-                {new String[]{"abdcdeazyx","dc","zyz"},"abzyzdeazyx"},
-                {new String[]{"abdcdedcazyx","dc","zyz"},"abzyzdezyzazyx"},
-                {new String[]{"abdcdedcabdzyx","abd","z"},"zcdedczzyx"},
-                {new String[]{"yxabdyxcdedcabdzyx","yx","jhd"},"jhdabdjhdcdedcabdzjhd"}
+                {new String[]{"abdcdzy","dcd"},new String[]{"ab","zy"}},
+                {new String[]{"abdcdzy","abd"},new String[]{"","cdzy"}},
+                {new String[]{"abdcdzy","zy"},new String[]{"abdcd",""}}
             });
     }
-    
-    public FindAndReplaceOutputStreamTest( String[] values, String expected ) {
-        Assert.assertEquals(3,values.length);
+
+    public SplitOutputStreamTestCase( String[] values, String[] expecteds ) {
+        Assert.assertEquals(2,values.length);
+        Assert.assertEquals(2,expecteds.length);
         this.values = values;
-        this.expected = expected;
+        this.expecteds = expecteds;
     }
     
     @Test
     public void testPattern() throws IOException {
-    
+        
         final String input = values[0];
-        final String find = values[1];
-        final String replace = values[2];
+        final String pattern = values[1];
+        final String expectedBefore = expecteds[0];
+        final String expectedAfter = expecteds[1];
         
         ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        OutputStream os = new FindAndReplaceOutputStream(baos,find,replace);
-        PipedStreams.dump(bais,os);
-        os.close();
+        ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
+        ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
+        SplitOutputStream sos = new SplitOutputStream(pattern,baos1,baos2);
+        PipedStreams.dump(bais,sos);
+        sos.close();
         
-        final String result = baos.toString();
-        Assert.assertEquals(expected,result);
+        final String before = baos1.toString();
+        final String after = baos2.toString();
+        
+        Assert.assertEquals(expectedBefore,before);
+        Assert.assertEquals(expectedAfter,after);
     }
 }

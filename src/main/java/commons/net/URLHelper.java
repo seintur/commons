@@ -45,16 +45,15 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import commons.io.FindAndReplaceOutputStream;
 import commons.io.PipedStreams;
-import commons.lang.StringExt;
-import commons.util.MapExt;
+import commons.lang.StringHelper;
+import commons.util.MapHelper;
 
 /**
- * This class holds web related functionalities not found in
- * java.net.URL (hence the suffix Ext).
+ * Utility methods for the {@link URL} class.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class URLExt {
+public class URLHelper {
     
     /**
      * Get the content of an URL and save it into a file.
@@ -204,7 +203,7 @@ public class URLExt {
                     // Hence the test with matchKeyWithString
                     // String linkFileExtension = (String) fileExtensions.get(contentType);
                     String linkFileExtension =
-                        MapExt.matchKeyWithString( fileExtensions, contentType );
+                        MapHelper.matchKeyWithString( fileExtensions, contentType );
 
                     // Unless createTempFile() is called, the returned file is not temporary.
                     // The method is used to get an unique file name.
@@ -279,7 +278,7 @@ public class URLExt {
      * @return           the corresponding URL
      */
     public static String toURL( String[] pathNames ) {
-       return StringExt.insert(pathNames,"/");
+       return StringHelper.insert(pathNames,"/");
     }
 
 }

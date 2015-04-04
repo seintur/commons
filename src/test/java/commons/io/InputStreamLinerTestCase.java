@@ -29,9 +29,11 @@ import java.io.InputStream;
 import org.junit.Test;
 
 /**
+ * Class for testing the functionalities of the {@link InputStreamLiner} class.
+ * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class InputStreamLinerTest {
+public class InputStreamLinerTestCase {
 
     @Test
     public void testReadLine() throws IOException {

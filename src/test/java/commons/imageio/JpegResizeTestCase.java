@@ -33,9 +33,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Class for testing the functionalities of the {@link JpegResize} class.
+ * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class JpegResizeTest {
+public class JpegResizeTestCase {
     
     @Test
     public void testResize() throws IOException {

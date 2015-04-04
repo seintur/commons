@@ -24,12 +24,11 @@
 package commons.util;
 
 /**
- * This class holds arrays related functionalities not found in
- * java.util.Arrays (hence the suffix Ext).
+ * Utility methods for arrays.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class ArraysExt {
+public class ArraysHelper {
 
     /**
      * Given a binary mask on the range of indexes of a given array,

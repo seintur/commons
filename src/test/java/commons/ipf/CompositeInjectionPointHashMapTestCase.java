@@ -38,7 +38,7 @@ import org.junit.Test;
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class InjectionPointMapTestCase {
+public class CompositeInjectionPointHashMapTestCase {
 
     private Field targetcpt, srccpt1, targetcpt2;
     private Method targetref, srcref1, targetref2;

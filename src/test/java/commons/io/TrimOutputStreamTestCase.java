@@ -26,6 +26,7 @@ package commons.io;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -36,50 +37,45 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
+ * Class for testing the functionalities of the {@link TrimOutputStream} class.
+ * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 @RunWith(Parameterized.class)
-public class SplitOutputStreamTest {
+public class TrimOutputStreamTestCase {
 
     private String[] values;
-    private String[] expecteds;
+    private String expected;
     
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(
             new  Object[][]{
-                {new String[]{"abdcdzy","dcd"},new String[]{"ab","zy"}},
-                {new String[]{"abdcdzy","abd"},new String[]{"","cdzy"}},
-                {new String[]{"abdcdzy","zy"},new String[]{"abdcd",""}}
+                {new String[]{"abdcdeazyx","dc","zy"},"dea"},
+                {new String[]{"abdcdeazyx","abd","yx"},"cdeaz"}
             });
     }
-
-    public SplitOutputStreamTest( String[] values, String[] expecteds ) {
-        Assert.assertEquals(2,values.length);
-        Assert.assertEquals(2,expecteds.length);
+    
+    public TrimOutputStreamTestCase( String[] values, String expected ) {
+        Assert.assertEquals(3,values.length);
         this.values = values;
-        this.expecteds = expecteds;
+        this.expected = expected;
     }
     
     @Test
     public void testPattern() throws IOException {
         
         final String input = values[0];
-        final String pattern = values[1];
-        final String expectedBefore = expecteds[0];
-        final String expectedAfter = expecteds[1];
-        
+        final String begin = values[1];
+        final String end = values[2];
+
         ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
-        ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
-        ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
-        SplitOutputStream sos = new SplitOutputStream(pattern,baos1,baos2);
-        PipedStreams.dump(bais,sos);
-        sos.close();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        OutputStream os = TrimOutputStream.create(baos,begin,end);
+        PipedStreams.dump(bais,os);
+        os.close();
         
-        final String before = baos1.toString();
-        final String after = baos2.toString();
-        
-        Assert.assertEquals(expectedBefore,before);
-        Assert.assertEquals(expectedAfter,after);
+        final String result = baos.toString();
+        Assert.assertEquals(expected,result);
     }
 }

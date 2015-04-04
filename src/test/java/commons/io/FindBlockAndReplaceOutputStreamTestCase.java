@@ -37,10 +37,13 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
+ * Class for testing the functionalities of the
+ * {@link FindBlockAndReplaceOutputStream} class.
+ * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 @RunWith(Parameterized.class)
-public class TrimOutputStreamTest {
+public class FindBlockAndReplaceOutputStreamTestCase {
 
     private String[] values;
     private String expected;
@@ -49,27 +52,31 @@ public class TrimOutputStreamTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(
             new  Object[][]{
-                {new String[]{"abdcdeazyx","dc","zy"},"dea"},
-                {new String[]{"abdcdeazyx","abd","yx"},"cdeaz"}
+                {new String[]{"abdcdeazyx","dc","zy","---"},"ab---x"},
+                {new String[]{"abdcdeazyxdcazyb","dc","zy","---"},"ab---x---b"},
+                {new String[]{"abdcdeazyxdcabzyb","ab","dea","---"},"---zyxdcabzyb"},
+                {new String[]{"acdeazyxdcabzyb","ab","b","---"},"acdeazyxdc---"}
             });
     }
     
-    public TrimOutputStreamTest( String[] values, String expected ) {
-        Assert.assertEquals(3,values.length);
+    public FindBlockAndReplaceOutputStreamTestCase( String[] values, String expected ) {
+        Assert.assertEquals(4,values.length);
         this.values = values;
         this.expected = expected;
     }
     
     @Test
     public void testPattern() throws IOException {
-        
+    
         final String input = values[0];
         final String begin = values[1];
         final String end = values[2];
-
+        final String replace = values[3];
+        
         ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        OutputStream os = TrimOutputStream.create(baos,begin,end);
+        OutputStream os =
+            new FindBlockAndReplaceOutputStream(baos,begin,end,replace);
         PipedStreams.dump(bais,os);
         os.close();
         

@@ -28,14 +28,11 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
- * This class holds string related functionalities not found in
- * java.lang.String (hence the suffix Ext).
- * This class is simply of holder for static method as String is final
- * and cannot be extended.
+ * Utility methods for the {@link String} class.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class StringExt {
+public class StringHelper {
     
    /**
     * Adapt a string by replacing each character that is a key in the map by its value.
@@ -45,14 +42,14 @@ public class StringExt {
     * @param map   the map for characters and their replacement
     * @return      the modified string
     */
-   public static String adapt( String orig, Map<?,?> map ) {
+   public static String adapt( String orig, Map<String,String> map ) {
    
       if ( orig == null )  return null;
       
       String res = "";
       for ( int i=0 ; i < orig.length() ; i++ ) {
         String c = orig.substring(i,i+1);
-        String replace = (String) map.get(c);
+        String replace = map.get(c);
         res += (replace==null) ? c : replace;
       }
       

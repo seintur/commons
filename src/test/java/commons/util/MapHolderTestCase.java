@@ -32,9 +32,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * Class for testing the functionalities of the {@link MapHolder} class.
+ * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class MapExtTest {
+public class MapHolderTestCase {
 
     @Test
     public void testSubtract() {
@@ -53,7 +55,7 @@ public class MapExtTest {
         dst.add( new Integer(12) );
         dst.add( new Integer(14) );
         
-        Map<Integer,String> result = MapExt.subtract(src,dst);
+        Map<Integer,String> result = MapHelper.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 1 || !result.keySet().contains(new Integer(13)) )
             Assert.fail();
@@ -65,7 +67,7 @@ public class MapExtTest {
         dst.add( new Integer(121) );
         dst.add( new Integer(141) );
         
-        result = MapExt.subtract(src,dst);
+        result = MapHelper.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 3 ||
              !result.keySet().contains(new Integer(13)) ||
@@ -81,7 +83,7 @@ public class MapExtTest {
         dst.add( new Integer(14) );
         dst.add( new Integer(12) );
         
-        result = MapExt.subtract(src,dst);
+        result = MapHelper.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
             Assert.fail();
@@ -95,7 +97,7 @@ public class MapExtTest {
         dst.add( new Integer(12) );
         dst.add( new Integer(11) );
         
-        result = MapExt.subtract(src,dst);
+        result = MapHelper.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
             Assert.fail();
@@ -105,7 +107,7 @@ public class MapExtTest {
          */
         dst = new HashSet<Integer>();
         
-        result = MapExt.subtract(src,dst);
+        result = MapHelper.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 3 ||
              !result.keySet().contains(new Integer(13)) ||
@@ -122,7 +124,7 @@ public class MapExtTest {
         dst.add( new Integer(14) );
         dst.add( new Integer(12) );
         
-        result = MapExt.subtract(src,dst);
+        result = MapHelper.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
             Assert.fail();
@@ -132,7 +134,7 @@ public class MapExtTest {
          */
         dst = new HashSet<Integer>();
         
-        result = MapExt.subtract(src,dst);
+        result = MapHelper.subtract(src,dst);
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
             Assert.fail();

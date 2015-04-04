@@ -39,12 +39,11 @@ import java.util.TreeSet;
 import commons.reflect.Property;
 
 /**
- * This class holds collections related functionalities not found in
- * java.util.Collection (hence the suffix Ext).
+ * Utility methods for the {@link Collection} interface.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class CollectionExt {    
+public class CollectionHelper {    
 
     /**
      * Return an empty collection whose implementation is of the same class as

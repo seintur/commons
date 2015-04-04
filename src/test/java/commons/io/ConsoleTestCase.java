@@ -29,7 +29,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Class for testing the functionalities of {@link Console}s.
+ * Class for testing the functionalities of the {@link Console} class.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */

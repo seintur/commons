@@ -28,9 +28,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * This class holds StringTokenizer related functionalities.
- * not found in java.util.StringTokenizerExt
- * (hence the suffix Ext).
+ * This class extends the {@link StringTokenizer} class with a method to
+ * retrieve all tokens.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
@@ -50,8 +49,6 @@ public class StringTokenizerExt extends StringTokenizer {
         while( hasMoreElements() ) {
             ret.add(nextToken());
         }
-        return ret.toArray(ref);
+        return ret.toArray(new String[ret.size()]);
     }
-    
-    private static final String[] ref = new String[0];
 }

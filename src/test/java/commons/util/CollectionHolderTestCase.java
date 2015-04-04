@@ -30,9 +30,11 @@ import java.util.Collection;
 import org.junit.Test;
 
 /**
+ * Class for testing the functionalities of the {@link CollectionHolder} class.
+ * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class CollectionExtTest {
+public class CollectionHolderTestCase {
 
     @Test
     public void testRecursiveGet() throws Exception {
@@ -63,7 +65,7 @@ public class CollectionExtTest {
     private void testRecursiveGet(
         Model src, String[] methodNames, String expected )
     throws Exception {
-        Collection<?> res = CollectionExt.recursiveGet(src,methodNames);
+        Collection<?> res = CollectionHelper.recursiveGet(src,methodNames);
         System.out.println( expected + " = " + res );
     }
     

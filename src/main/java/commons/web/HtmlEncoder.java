@@ -26,7 +26,7 @@ package commons.web;
 import java.util.HashMap;
 import java.util.Map;
 
-import commons.lang.StringExt;
+import commons.lang.StringHelper;
 
 /**
  * This class provides methods to encode a text according to HTML rules.
@@ -73,6 +73,6 @@ public class HtmlEncoder {
      * @return      the modified string
      */
     public static String encodeHTMLText( String orig ) {
-        return StringExt.adapt( orig, htmlEncodingMap );
+        return StringHelper.adapt( orig, htmlEncodingMap );
     }
 }

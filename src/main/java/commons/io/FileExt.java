@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import commons.lang.StringExt;
+import commons.lang.StringHelper;
 
 /**
  * This class holds file related functionalities not found in.
@@ -299,7 +299,7 @@ public class FileExt extends File {
      * @return           the corresponding file system compliant path name 
      */
     public static String toPath( String[] pathNames ) {
-        return StringExt.insert(pathNames,File.separator);
+        return StringHelper.insert(pathNames,File.separator);
     }
     
     /**

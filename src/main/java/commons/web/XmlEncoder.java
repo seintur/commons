@@ -26,7 +26,7 @@ package commons.web;
 import java.util.HashMap;
 import java.util.Map;
 
-import commons.lang.StringExt;
+import commons.lang.StringHelper;
 
 /**
  * This class provides methods to encode a text according to XML rules.
@@ -52,6 +52,6 @@ public class XmlEncoder {
      * @return      the modified string
      */
     public static String encodeXMLText( String orig ) {
-        return StringExt.adapt( orig, xmlEncodingMap );
+        return StringHelper.adapt( orig, xmlEncodingMap );
     }
 }

@@ -37,10 +37,13 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
+ * Class for testing the functionalities of the
+ * {@link FindAndReplaceOutputStream} class.
+ * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 @RunWith(Parameterized.class)
-public class FindBlockAndReplaceOutputStreamTest {
+public class FindAndReplaceOutputStreamTestCase {
 
     private String[] values;
     private String expected;
@@ -49,15 +52,15 @@ public class FindBlockAndReplaceOutputStreamTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(
             new  Object[][]{
-                {new String[]{"abdcdeazyx","dc","zy","---"},"ab---x"},
-                {new String[]{"abdcdeazyxdcazyb","dc","zy","---"},"ab---x---b"},
-                {new String[]{"abdcdeazyxdcabzyb","ab","dea","---"},"---zyxdcabzyb"},
-                {new String[]{"acdeazyxdcabzyb","ab","b","---"},"acdeazyxdc---"}
+                {new String[]{"abdcdeazyx","dc","zyz"},"abzyzdeazyx"},
+                {new String[]{"abdcdedcazyx","dc","zyz"},"abzyzdezyzazyx"},
+                {new String[]{"abdcdedcabdzyx","abd","z"},"zcdedczzyx"},
+                {new String[]{"yxabdyxcdedcabdzyx","yx","jhd"},"jhdabdjhdcdedcabdzjhd"}
             });
     }
     
-    public FindBlockAndReplaceOutputStreamTest( String[] values, String expected ) {
-        Assert.assertEquals(4,values.length);
+    public FindAndReplaceOutputStreamTestCase( String[] values, String expected ) {
+        Assert.assertEquals(3,values.length);
         this.values = values;
         this.expected = expected;
     }
@@ -66,14 +69,12 @@ public class FindBlockAndReplaceOutputStreamTest {
     public void testPattern() throws IOException {
     
         final String input = values[0];
-        final String begin = values[1];
-        final String end = values[2];
-        final String replace = values[3];
+        final String find = values[1];
+        final String replace = values[2];
         
         ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        OutputStream os =
-            new FindBlockAndReplaceOutputStream(baos,begin,end,replace);
+        OutputStream os = new FindAndReplaceOutputStream(baos,find,replace);
         PipedStreams.dump(bais,os);
         os.close();
         

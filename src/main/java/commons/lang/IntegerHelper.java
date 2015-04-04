@@ -24,12 +24,11 @@
 package commons.lang;
 
 /**
- * This class holds integer related functionalities not found
- * java.lang.Integer (hence the suffix Ext).
+ * Utility methods for the {@link Integer} class.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class IntegerExt {
+public class IntegerHelper {
 
     /**
      * Create an array of Integer instances from a array of integer values.
