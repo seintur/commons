@@ -50,7 +50,7 @@ public class StringTokenizerExt extends StringTokenizer {
         while( hasMoreElements() ) {
             ret.add(nextToken());
         }
-        return (String[]) ret.toArray(ref);
+        return ret.toArray(ref);
     }
     
     private static final String[] ref = new String[0];

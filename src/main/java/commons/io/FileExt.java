@@ -277,7 +277,7 @@ public class FileExt extends File {
 
         List<FileExt> files = new ArrayList<FileExt>();
         recursiveListFiles( fnf, files );
-        return (FileExt[]) files.toArray( new FileExt[]{} );
+        return files.toArray( new FileExt[]{} );
     }
 
     protected void recursiveListFiles( FilenameFilter fnf, List<FileExt> list ) {

@@ -135,7 +135,7 @@ public class Form {
             String filename = null;
 
             for ( int i=0 ; i < headers.size() ; i++ ) {
-                String header = (String) headers.get(i);
+                String header = headers.get(i);
                 name = searchUniqueAttribute(header,"name",name);
                 filename = searchUniqueAttribute(header,"filename",filename);
             }

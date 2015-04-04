@@ -197,7 +197,7 @@ public class CollectionExt {
          * It is supposed to return either a collection
          * or a single element.
          */
-        String methodName = (String) methodNames.get(0);
+        String methodName = methodNames.get(0);
         Class<?> cl = src.getClass();
         Method method = cl.getMethod(methodName,new Class[]{});
         Object ret = method.invoke(src,new Object[]{});

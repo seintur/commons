@@ -39,7 +39,7 @@ public class MethodHelperTestCase {
 	private Method srcinit, srcnot, targetinit, targetnot;
 
 	@Before
-	public void setUp() throws NoSuchMethodException, NoSuchFieldException {
+	public void setUp() throws NoSuchMethodException {
 		
 		srcinit = Src.class.getMethod("init");
 		srcnot = Src.class.getMethod("not",String.class,MethodHelperTestCase.class);

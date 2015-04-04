@@ -163,7 +163,7 @@ public class InputStreamLiner extends FilterInputStream {
     /** Return the content of the buffer as a String. */
     private String bufferContent() {
         
-        Integer[] content = (Integer[]) buffer.toArray(integerArray);
+        Integer[] content = buffer.toArray(integerArray);
         byte[] b = new byte[content.length];
         for (int i = 0; i < b.length; i++) {
 			b[i] = content[i].byteValue();

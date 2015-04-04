@@ -106,7 +106,7 @@ public class URLExt {
 
         // Guess a file name with an extension related to the content type
         String type = conn.getContentType();
-        String fileExtension = (String) fileExtensions.get(type);
+        String fileExtension = fileExtensions.get(type);
         
         // Unless createTempFile() is called, the returned file is not temporary.
         // The method is used to get an unique file name.
@@ -204,7 +204,7 @@ public class URLExt {
                     // Hence the test with matchKeyWithString
                     // String linkFileExtension = (String) fileExtensions.get(contentType);
                     String linkFileExtension =
-                        (String) MapExt.matchKeyWithString( fileExtensions, contentType );
+                        MapExt.matchKeyWithString( fileExtensions, contentType );
 
                     // Unless createTempFile() is called, the returned file is not temporary.
                     // The method is used to get an unique file name.
@@ -239,8 +239,8 @@ public class URLExt {
 
         for ( int i=0 ; i < urls.length ; i++ ) {
             Object fullUrl = fullUrls[urls.length-1-i];
-            urls[i] = (String) urlsAbsolute.get(fullUrl);
-            File file = (File) urlsLoaded.get(fullUrl);
+            urls[i] = urlsAbsolute.get(fullUrl);
+            File file = urlsLoaded.get(fullUrl);
             filenames[i] = (file==null) ? "" : file.getName();
             System.out.println( urls[i] + " -> " + filenames[i] );
         }
@@ -251,8 +251,8 @@ public class URLExt {
         Set<Map.Entry<String,File>> entrySetUrlsLoaded = urlsLoaded.entrySet();
         for (Map.Entry<String,File> mapEntryUrlsLoaded : entrySetUrlsLoaded) {
 
-        	String currentUrl = (String) mapEntryUrlsLoaded.getKey();
-            File currentFile = (File) mapEntryUrlsLoaded.getValue();
+        	String currentUrl = mapEntryUrlsLoaded.getKey();
+            File currentFile = mapEntryUrlsLoaded.getValue();
 
             // URLs that contain no data are associated with null File instances
             if ( currentFile != null ) {

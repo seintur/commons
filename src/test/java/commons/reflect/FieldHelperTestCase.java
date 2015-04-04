@@ -39,7 +39,7 @@ public class FieldHelperTestCase {
 	private Field srccontext, targetcontext, targetctx;
 
 	@Before
-	public void setUp() throws NoSuchMethodException, NoSuchFieldException {
+	public void setUp() throws NoSuchFieldException {
 		
 		srccontext = Src.class.getDeclaredField("context");
 		targetcontext = Target.class.getDeclaredField("context");
