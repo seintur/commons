@@ -82,7 +82,8 @@ public class Directories2Packages {
         ls = current.listFiles(ffDirs);
         for ( int i=0 ; i < ls.length ; i++ ) {
             String lsName = ls[i].getName();
-            String next = dir.length()==0 ? lsName : dir+File.separatorChar+lsName ;
+            String next =
+        		dir.length()==0 ? lsName : dir+File.separatorChar+lsName ;
             dir( ret, parent, next );
         }
         
@@ -92,23 +93,22 @@ public class Directories2Packages {
      * Class for filtering regular files (i.e. that are not directories)
      * and its singleton instance.
      */
-    private static RegularFilesFileFilter ffRegularFiles =
-        new RegularFilesFileFilter();
     private static class RegularFilesFileFilter implements FileFilter {
         public boolean accept( File file ) {
             return ! file.isDirectory();
         }
     }
+    private static RegularFilesFileFilter ffRegularFiles =
+        new RegularFilesFileFilter();
     
     /**
      * Class for filtering directories
      * and its singleton instance.
      */
-    private static DirectoriesFileFilter ffDirs =
-        new DirectoriesFileFilter();
     private static class DirectoriesFileFilter implements FileFilter {
         public boolean accept( File file ) {
             return file.isDirectory();
         }
     }
+    private static DirectoriesFileFilter ffDirs = new DirectoriesFileFilter();
 }

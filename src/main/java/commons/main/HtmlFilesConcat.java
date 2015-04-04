@@ -105,10 +105,11 @@ public class HtmlFilesConcat {
             fis[i].close();
         }
     }   
-}
 
-class HtmlFilesFilter implements FilenameFilter {
-    public boolean accept( File dir, String name ) {
-        return name.endsWith(".html");
+    private static class HtmlFilesFilter implements FilenameFilter {
+        public boolean accept( File dir, String name ) {
+            return name.endsWith(".html");
+        }
     }
 }
+

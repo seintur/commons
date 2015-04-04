@@ -28,7 +28,6 @@ import java.io.CharArrayWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,13 +73,7 @@ public class MvnChangeProjectGroupId {
      */
     private static void findPoms( File dir, List<File> poms ) {
         
-        File[] files =
-            dir.listFiles(
-                new FilenameFilter(){
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        return name.equals("pom.xml");
-                    }});
+        File[] files = dir.listFiles( (d,name) -> name.equals("pom.xml") );
         poms.addAll( Arrays.asList(files) );
         
         /*

@@ -86,7 +86,8 @@ public class MapHelper {
      * @param dst     the destination collection where values associated with matching keys are stored
      * @return        redundantly returns the destination collection
      */
-    public static <K,V> Collection<V> match( Map<K,V> src, Object[] target, Collection<V> dst ) {
+    public static <K,V> Collection<V> match(
+		Map<K,V> src, Object[] target, Collection<V> dst ) {
 
         for (Map.Entry<K,V> entry : src.entrySet()) {
             K key = entry.getKey();
@@ -197,11 +198,8 @@ public class MapHelper {
         try {
             result = cl.newInstance();
         }
-        catch (InstantiationException e) {
-            result = new HashMap<K,V>();
-        }
-        catch (IllegalAccessException e) {
-            result = new HashMap<K,V>();
+        catch( InstantiationException | IllegalAccessException e ) {
+            result = new HashMap<>();
         }
         
         /*

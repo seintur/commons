@@ -168,8 +168,8 @@ public class CollectionHelper {
         NoSuchMethodException,
         IllegalAccessException, InvocationTargetException {
         
-        Set<Object> ret = new HashSet<Object>();
-        recursiveGet( src, Arrays.asList(methodNames), new HashSet<Object>(), ret );
+        Set<Object> ret = new HashSet<>();
+        recursiveGet( src, Arrays.asList(methodNames), new HashSet<>(), ret );
         return ret;
     }
     
@@ -198,8 +198,8 @@ public class CollectionHelper {
          */
         String methodName = methodNames.get(0);
         Class<?> cl = src.getClass();
-        Method method = cl.getMethod(methodName,new Class[]{});
-        Object ret = method.invoke(src,new Object[]{});
+        Method method = cl.getMethod(methodName);
+        Object ret = method.invoke(src);
         
         /*
          * Add the current object to the set of visited objects.
