@@ -40,10 +40,9 @@ import commons.reflect.SetterMethodFilter;
 import commons.reflect.UnAnnotatedElementFilter;
 
 /**
- * Utility methods.
+ * Utility methods for the {@link Class} class.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
- * @since 2.6
  */
 public class ClassHelper {
 
