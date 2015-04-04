@@ -25,15 +25,16 @@ package commons.reflect;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.function.Predicate;
 
 /**
  * Class for filtering setter methods.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class SetterMethodFilter implements Filter<Method> {
+public class SetterMethodFilter implements Predicate<Method> {
 
-    public boolean accept( Method method ) {
+    public boolean test( Method method ) {
         boolean b = isSetterMethod(method);
         return b;
     }

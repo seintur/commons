@@ -25,13 +25,14 @@ package commons.reflect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.util.function.Predicate;
 
 /**
  * Class for filtering annotated code elements.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class AnnotatedElementFilter implements Filter<AnnotatedElement> {
+public class AnnotatedElementFilter implements Predicate<AnnotatedElement> {
 
     private String[] annotClassNames;
     
@@ -39,7 +40,7 @@ public class AnnotatedElementFilter implements Filter<AnnotatedElement> {
         this.annotClassNames = annotClassNames;
     }
     
-    public boolean accept( AnnotatedElement value ) {
+    public boolean test( AnnotatedElement value ) {
         Annotation[] annots = value.getAnnotations();
         for (String annotClassName : annotClassNames) {
             for (Annotation annot : annots) {

@@ -23,23 +23,25 @@
 
 package commons.reflect;
 
+import java.util.function.Predicate;
+
 /**
  * Class for composing filters. Filtered elements are selected as soon as one of
  * the specified filters accepts the element.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class CompositeOrFilter<T> implements Filter<T> {
+public class CompositeOrFilter<T> implements Predicate<T> {
 
-    private Filter<T>[] filters;
+    private Predicate<T>[] filters;
     
-    public CompositeOrFilter( Filter<T>[] filters ) {
+    public CompositeOrFilter( Predicate<T>[] filters ) {
         this.filters = filters;
     }
     
-    public boolean accept( T value ) {
-        for (Filter<T> filter : filters) {
-            if( filter.accept(value) ) {
+    public boolean test( T value ) {
+        for (Predicate<T> filter : filters) {
+            if( filter.test(value) ) {
                 return true;
             }
         }

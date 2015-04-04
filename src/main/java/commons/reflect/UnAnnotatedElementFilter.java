@@ -25,18 +25,19 @@ package commons.reflect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.util.function.Predicate;
 
 /**
  * Class for filtering unannotated code elements.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class UnAnnotatedElementFilter implements Filter<AnnotatedElement> {
+public class UnAnnotatedElementFilter implements Predicate<AnnotatedElement> {
 
     /**
      * Only accept the element if it does not define any annotation.
      */
-    public boolean accept( AnnotatedElement value ) {
+    public boolean test( AnnotatedElement value ) {
         Annotation[] annots = value.getAnnotations();
         boolean b = annots.length == 0;
         return b;

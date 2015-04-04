@@ -26,6 +26,7 @@ package commons.reflect;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Utility methods for filtering arrays and collections.
@@ -42,11 +43,11 @@ public class Filters {
      * @param filter  the filter
      * @return        the elements from src which match the filter
      */
-    public static <F,T extends F> T[] filter( T[] src, Filter<F> filter ) {
+    public static <F,T extends F> T[] filter( T[] src, Predicate<F> filter ) {
         
         List<T> result = new ArrayList<T>();
         for (T t : src) {
-            boolean b = filter.accept(t);
+            boolean b = filter.test(t);
             if(b) {
                 result.add(t);
             }
@@ -68,11 +69,11 @@ public class Filters {
      * @param filter  the filter
      * @return        the elements from src which match the filter
      */
-    public static <F,T extends F> List<T> filter( List<T> src, Filter<F> filter ) {
+    public static <F,T extends F> List<T> filter( List<T> src, Predicate<F> filter ) {
         
         List<T> result = new ArrayList<T>();
         for (T t : src) {
-            boolean b = filter.accept(t);
+            boolean b = filter.test(t);
             if(b) {
                 result.add(t);
             }

@@ -32,9 +32,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import commons.reflect.AnnotatedElementFilter;
-import commons.reflect.Filter;
 import commons.reflect.Filters;
 import commons.reflect.SetterMethodFilter;
 import commons.reflect.UnAnnotatedElementFilter;
@@ -142,7 +142,7 @@ public class ClassHelper {
         // Setter methods
         Method[] methods = getAllMethods(cl);
         Method[] ms0 = Filters.filter(methods,new SetterMethodFilter());
-        Filter<AnnotatedElement> filter =
+        Predicate<AnnotatedElement> filter =
             new AnnotatedElementFilter(annotClassNames);
         Method[] ms1 = Filters.filter(ms0,filter);
         
@@ -173,7 +173,7 @@ public class ClassHelper {
         // Setter methods
         Method[] methods = cl.getMethods();
         Method[] ms0 = Filters.filter(methods,new SetterMethodFilter());
-        Filter<AnnotatedElement> filter =
+        Predicate<AnnotatedElement> filter =
             new AnnotatedElementFilter(annotClassNames);
         Method[] ms1 = Filters.filter(ms0,filter);
         
@@ -239,7 +239,7 @@ public class ClassHelper {
         
         Method[] methods = getAllMethods(cl);
         Method[] ms0 = Filters.filter(methods,new SetterMethodFilter());
-        Filter<AnnotatedElement> filter = new UnAnnotatedElementFilter();
+        Predicate<AnnotatedElement> filter = new UnAnnotatedElementFilter();
         Method[] ms1 = Filters.filter(ms0,filter);
         
         // Create the resulting map
