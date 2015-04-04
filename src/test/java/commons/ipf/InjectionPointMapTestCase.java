@@ -33,10 +33,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Class for testing the functionalities of the {@link CompositeInjectionPointHashMap} class.
+ * Class for testing the functionalities of the
+ * {@link CompositeInjectionPointHashMap} class.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
- * @since 1.3.1
  */
 public class InjectionPointMapTestCase {
 
@@ -94,32 +94,22 @@ public class InjectionPointMapTestCase {
 		Assert.assertEquals(targetref2,m);
 	}
 
-	/**
-	 * @since 1.4.1
-	 */
-	@Test
-	public void putAllDuplicate() {
+	@Test(expected=DuplicationInjectionPointException.class)
+	public void putAllDuplicate() throws DuplicationInjectionPointException {
 		
 		CompositeInjectionPointHashMap ipm =
-			new CompositeInjectionPointHashMap(Duplicate.class,Reference.class.getName());
-		
-		try {
-			ipm.putAll();
-			Assert.fail(
-				"DuplicationInjectionPointException should have been thrown");
-		}
-		catch (DuplicationInjectionPointException e) {}
+			new CompositeInjectionPointHashMap(
+				Duplicate.class, Reference.class.getName() );
+		ipm.putAll();
 	}
 	
-	/**
-	 * @since 1.4.1
-	 */
 	@Test
 	public void put()
 	throws NoSuchInjectionPointException, DuplicationInjectionPointException {
 		
 		CompositeInjectionPointHashMap ipm =
-			new CompositeInjectionPointHashMap(Target.class,Reference.class.getName());
+			new CompositeInjectionPointHashMap(
+				Target.class, Reference.class.getName() );
 		
 		ipm.put("cpt2");
 		InjectionPoint<?> ip = ipm.get("cpt2");
@@ -128,38 +118,24 @@ public class InjectionPointMapTestCase {
 		Assert.assertEquals(targetcpt2,f);
 	}
 	
-	/**
-	 * @since 1.4.1
-	 */
-	@Test
-	public void putNoSuch() throws DuplicationInjectionPointException {
+	@Test(expected=NoSuchInjectionPointException.class)
+	public void putNoSuch()
+	throws DuplicationInjectionPointException, NoSuchInjectionPointException {
 		
 		CompositeInjectionPointHashMap ipm =
-			new CompositeInjectionPointHashMap(Target.class,Reference.class.getName());
-		
-		try {
-			ipm.put("foo");			
-			Assert.fail(
-				"NoSuchInjectionPointException should have been thrown");
-		}
-		catch( NoSuchInjectionPointException nsipe ) {}
+			new CompositeInjectionPointHashMap(
+				Target.class, Reference.class.getName() );
+		ipm.put("foo");			
 	}
 	
-	/**
-	 * @since 1.4.1
-	 */
-	@Test
-	public void putDuplicate() throws NoSuchInjectionPointException {
+	@Test(expected=DuplicationInjectionPointException.class)
+	public void putDuplicate()
+	throws NoSuchInjectionPointException, DuplicationInjectionPointException {
 		
 		CompositeInjectionPointHashMap ipm =
-			new CompositeInjectionPointHashMap(Duplicate.class,Reference.class.getName());
-		
-		try {
-			ipm.put("ref");
-			Assert.fail(
-				"DuplicationInjectionPointException should have been thrown");
-		}
-		catch (DuplicationInjectionPointException e) {}
+			new CompositeInjectionPointHashMap(
+				Duplicate.class, Reference.class.getName() );
+		ipm.put("ref");
 	}
 	
 	@Retention(RetentionPolicy.RUNTIME)

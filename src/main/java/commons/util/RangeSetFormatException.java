@@ -24,10 +24,9 @@
 package commons.util;
 
 /**
- * Thrown to indicate that a badly formatted description
- * has been used while trying to generate a RangeSet instance.
- * Either illegal ranges separator has been used,
- * or range boundaries are not valid non negative integers.
+ * Thrown to indicate that a badly formatted description has been used while
+ * trying to generate a RangeSet instance. Either illegal ranges separator has
+ * been used, or range boundaries are not valid non negative integers.
  *  
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */

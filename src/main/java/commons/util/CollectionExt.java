@@ -67,10 +67,9 @@ public class CollectionExt {
         }
     }
     
-
     /**
-     * Iterate on all the elements of a collection and extract the value
-     * of an attribute. The values are returned as a collection.
+     * Iterate on all the elements of a collection and extract the value of an
+     * attribute. The values are returned as a collection.
      * 
      * @param src            the source collection
      * @param attributeName  the attribute name
@@ -87,12 +86,11 @@ public class CollectionExt {
         return getAttributes( src, attributeName, ret );
     }
 
-
     /**
-     * Iterate on all the elements of a collection and extract the value
-     * of an attribute. The values are returned as a collection.
-     * The collection is ordered according to the value of another attribute
-     * (assumed to be an integer).
+     * Iterate on all the elements of a collection and extract the value of an
+     * attribute. The values are returned as a collection. The collection is
+     * ordered according to the value of another attribute (assumed to be an
+     * integer).
      * 
      * @param src                    the source collection
      * @param attributeName          the attribute name
@@ -106,18 +104,17 @@ public class CollectionExt {
          * TreeSet is the only ordered collection
          * (i.e. implementing the OrderedSet interface), isn't it?
          */
-        Comparator<Object> comp = new IntegerAttributeComparator<>(orderingAttributeName);
+        Comparator<Object> comp =
+    		new IntegerAttributeComparator<>(orderingAttributeName);
         Collection<Object> ret = new TreeSet<>(comp);
         return getAttributes( src, attributeName, ret );
     }
 
-
     /**
-     * Iterate on all the elements of a collection and extract the value
-     * of an attribute. The values are returned as a collection.
-     * The values are extracted first by invoking a getter method,
-     * and if it fails, by getting the value of the field with
-     * the reflection API.
+     * Iterate on all the elements of a collection and extract the value of an
+     * attribute. The values are returned as a collection. The values are
+     * extracted first by invoking a getter method, and if it fails, by getting
+     * the value of the field with the reflection API.
      * 
      * @param src            the source collection
      * @param attributeName  the attribute name
@@ -129,8 +126,8 @@ public class CollectionExt {
         Collection<E> src, String attributeName, Collection<Object> dst ) {
 
         if ( attributeName.length() == 0 ) {
-        	throw new IllegalArgumentException(
-                "Parameter attributeName must be non-empty");
+        	final String msg = "Parameter attributeName must be non-empty";
+        	throw new IllegalArgumentException(msg);
         }
 
         Iterator<E> iterator = src.iterator();
@@ -151,8 +148,7 @@ public class CollectionExt {
         }
 
         return dst;
-    }
-    
+    } 
     
     /**
      * Traverse a graph structure according to a specified path and
@@ -169,8 +165,9 @@ public class CollectionExt {
      * @return             the leaf objects of the path
      */
     public static Set<Object> recursiveGet( Object src, String[] methodNames )
-    throws  NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException {
+    throws
+    	NoSuchMethodException,
+        IllegalAccessException, InvocationTargetException {
         
         Set<Object> ret = new HashSet<Object>();
         recursiveGet( src, Arrays.asList(methodNames), new HashSet<Object>(), ret );
@@ -191,8 +188,9 @@ public class CollectionExt {
     private static void recursiveGet(
         Object src, List<String> methodNames, Set<Object> visited,
         Set<Object> leaf )
-        throws  NoSuchMethodException,
-                IllegalAccessException, InvocationTargetException {
+    throws
+    	NoSuchMethodException, IllegalAccessException,
+    	InvocationTargetException {
             
         /*
          * Invoke the first method whose name is in methodNames.

@@ -60,7 +60,8 @@ public class ParametersString implements Iterable<String> {
             }
             else {
                 String key = token.substring(0,last);
-                String value = last+1 == token.length() ? "" : token.substring(last+1);
+                String value =
+            		last+1 == token.length() ? "" : token.substring(last+1);
                 keys.add(key);
                 values.put(key, value);
             }

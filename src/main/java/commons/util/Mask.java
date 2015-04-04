@@ -42,7 +42,8 @@ public class Mask {
      * @param limit       the end element for unending ranges (e.g. 56-)
      * @return            the corresponding binary mask
      */
-    public static int getMask( String src, int limit ) throws NumberFormatException {
+    public static int getMask( String src, int limit )
+	throws NumberFormatException {
         return getMask( src, ";", "-", limit );
     }
 
@@ -58,7 +59,8 @@ public class Mask {
      * @param limit       the end element for unending ranges (e.g. 56-)
      * @return            the corresponding binary mask
      */
-    public static int getMask( String src, String setDelim, String rangeDelim, int limit )
+    public static int getMask(
+		String src, String setDelim, String rangeDelim, int limit )
     throws NumberFormatException {
 
         int mask = 0;

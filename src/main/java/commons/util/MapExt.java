@@ -61,11 +61,9 @@ public class MapExt {
         return null;
     }
 
-    
     /**
-     * Search for keys implementing the common.util.Selector interface
-     * that match the target parameter.
-     * Return the associated values.
+     * Search for keys implementing the common.util.Selector interface that
+     * match the target parameter. Return the associated values.
      *
      * @param src     the source map
      * @param target  the values used to select keys
@@ -81,11 +79,9 @@ public class MapExt {
         return match( src, target, dst );
     }
 
-
     /**
-     * Search for keys implementing the common.util.Selector interface
-     * that match the target parameter.
-     * Return the associated values.
+     * Search for keys implementing the common.util.Selector interface that
+     * match the target parameter. Return the associated values.
      *
      * @param src     the source map
      * @param target  the values used to select keys
@@ -108,12 +104,11 @@ public class MapExt {
         return dst;
     }
 
-
     /**
-     * Search for keys implementing the common.util.Selector interface
-     * that match the target parameter.
-     * Return the associated values ordered according to
-     * an integer attribute of the values (assumed to all provide this attribute).
+     * Search for keys implementing the common.util.Selector interface that
+     * match the target parameter. Return the associated values ordered
+     * according to an integer attribute of the values (assumed to all provide
+     * this attribute).
      *
      * @param src                    the source map
      * @param target                 the values used to select keys
@@ -131,7 +126,6 @@ public class MapExt {
         Collection<V> ret = new TreeSet<>(comp);
         return match( src, target, ret );
     }
-
 
     /**
      * Search for keys where a given matcher method return <code>true</code>.
@@ -159,7 +153,8 @@ public class MapExt {
             Class<?> cl = key.getClass();
             
             try {
-            	Method method = cl.getMethod( matcherMethodName, matcherMethodParameterTypes );
+            	Method method =
+        			cl.getMethod( matcherMethodName, matcherMethodParameterTypes );
                 Object returnedValue = method.invoke( key, target );
                 if ( returnedValue instanceof Boolean ) {
                 	boolean ret = ((Boolean)returnedValue) . booleanValue();
@@ -195,9 +190,8 @@ public class MapExt {
     public static <K,V> Map<K,V> subtract( Map<K,V> src, Set<K> dst ) {
         
         /*
-         * Construct an empty map of the same class as src
-         * or construct an empty HashMap
-         * if the class of src does not provide an empty constructor. 
+         * Construct an empty map of the same class as src or construct an empty
+         * HashMap if the class of src does not provide an empty constructor. 
          */
         @SuppressWarnings("unchecked")
 		Class<Map<K,V>> cl = (Class<Map<K,V>>) src.getClass();
@@ -213,8 +207,7 @@ public class MapExt {
         }
         
         /*
-         * Add to result the elements of src
-         * whose keys are not found in dst.
+         * Add to result the elements of src whose keys are not found in dst.
          */
         for (Map.Entry<K,V> entry : src.entrySet()) {
             K key = entry.getKey();

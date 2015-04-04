@@ -60,7 +60,8 @@ public class CollectionExtTest {
             "[ cl-co, co-cl, cl-in, in-cl ]");
     }
         
-    private void testRecursiveGet( Model src, String[] methodNames, String expected )
+    private void testRecursiveGet(
+		Model src, String[] methodNames, String expected )
     throws Exception {
 		Collection<?> res = CollectionExt.recursiveGet(src,methodNames);
         System.out.println( expected + " = " + res );
@@ -86,6 +87,7 @@ public class CollectionExtTest {
         public String toString() { return "Model: " + name; }
         
         private static Model model1;
+        
         /**
          * @return  a sample instance of the model with 3 classes and 2 associations.
          */
