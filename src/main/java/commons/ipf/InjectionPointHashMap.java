@@ -29,8 +29,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
+import commons.annotations.AnnotationHelper;
+import commons.lang.ClassHelper;
 import commons.reflect.SetterMethodFilter;
-import commons.reflect.Util;
 
 /**
  * This class manages {@link InjectionPoint}s.  The injection points are stored
@@ -65,7 +66,7 @@ extends HashMap<String,InjectionPoint<A>> {
     public void putAll() throws DuplicationInjectionPointException {
         
         AccessibleObject[] aos =
-        	Util.getAllAnnotatedSettersAndFields(cl,annotClass.getName());        
+        	ClassHelper.getAllAnnotatedSettersAndFields(cl,annotClass.getName());        
         for (AccessibleObject ao : aos) {
             
             /*
@@ -129,7 +130,7 @@ extends HashMap<String,InjectionPoint<A>> {
     throws NoSuchInjectionPointException, DuplicationInjectionPointException {
         
         AccessibleObject[] aos =
-        	Util.getAllAnnotatedSettersAndFields(cl,annotClass.getName());   
+        	ClassHelper.getAllAnnotatedSettersAndFields(cl,annotClass.getName());   
         boolean found = false;
         for (AccessibleObject ao : aos) {
             
@@ -241,7 +242,7 @@ extends HashMap<String,InjectionPoint<A>> {
          * the name from the setter method name or the field.
          */
     	A annot = ao.getAnnotation(annotClass);
-    	String name = Util.getAnnotationParamValue(annot,"name");
+    	String name = AnnotationHelper.getAnnotationParamValue(annot,"name");
         if( name==null || name.length() == 0 ) {
             if( ao instanceof Method ) {
                 Method method = (Method) ao;

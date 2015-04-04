@@ -27,8 +27,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import commons.reflect.MethodHelper;
 import commons.reflect.SetterMethodFilter;
-import commons.reflect.Util;
 
 /**
  * This class represents an injection point which is implemented as a setter
@@ -65,7 +65,7 @@ extends InjectionPointImpl<A> {
         
         super(annot);
     	
-    	Util.checkMatchingSetterGetterMethods(setter,getter);
+    	MethodHelper.checkMatchingSetterGetterMethods(setter,getter);
         this.setter = setter;
         this.getter = getter;
         setter.setAccessible(true);  // Enable access to private methods
@@ -109,7 +109,7 @@ extends InjectionPointImpl<A> {
     		return false;
     	}
     	Method othersetter = ((InjectionPointMethodImpl<?>)other).setter;
-    	boolean b = Util.override(setter,othersetter);
+    	boolean b = MethodHelper.override(setter,othersetter);
     	return b;
     }
 }

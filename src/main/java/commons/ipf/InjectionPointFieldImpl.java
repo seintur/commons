@@ -26,7 +26,7 @@ package commons.ipf;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-import commons.reflect.Util;
+import commons.reflect.FieldHelper;
 
 /**
  * This class represents an injection point which is implemented as a field.
@@ -67,7 +67,7 @@ extends InjectionPointImpl<A> {
     		return false;
     	}
     	Field otherfield = ((InjectionPointFieldImpl<?>)other).field;
-    	boolean b = Util.override(field,otherfield);
+    	boolean b = FieldHelper.override(field,otherfield);
     	return b;
     }
 }

@@ -21,7 +21,7 @@
  * Author: Lionel Seinturier
  */
 
-package commons.ipf;
+package commons.reflect;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
@@ -31,15 +31,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import commons.reflect.Util;
-
 /**
- * Class for testing the functionalities of the {@link Util} class.
+ * Class for testing the functionalities of the {@link AccessibleObjectHelper}
+ * class.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
- * @since 1.3.1
  */
-public class UtilTestCase {
+public class AccessibleObjectHelperTestCase {
 
 	private Field srccontext, targetcontext, targetctx;
 	private Method srcinit, srcnot, targetinit, targetnot;
@@ -52,42 +50,9 @@ public class UtilTestCase {
 		targetctx = Target.class.getDeclaredField("ctx");
 		
 		srcinit = Src.class.getMethod("init");
-		srcnot = Src.class.getMethod("not",String.class,UtilTestCase.class);
+		srcnot = Src.class.getMethod("not",String.class,AccessibleObjectHelperTestCase.class);
 		targetinit = Target.class.getMethod("init");
 		targetnot = Target.class.getMethod("not",String.class);		
-	}
-	
-	@Test
-	public void getShortSignature() {
-		Assert.assertEquals("init()",Util.getShortSignature(srcinit));
-		Assert.assertEquals("init()",Util.getShortSignature(targetinit));
-	}
-	
-	@Test
-	public void sameSignature() {
-		Assert.assertEquals(true,Util.sameSignature(srcinit,targetinit));
-	}
-	
-	@Test
-	public void overrideField() {		
-		Assert.assertEquals(true,Util.override(targetcontext,srccontext));
-		Assert.assertEquals(false,Util.override(srccontext,targetcontext));
-		Assert.assertEquals(false,Util.override(targetctx,srccontext));
-	}
-	
-	@Test
-	public void overrideMethod() {		
-		Assert.assertEquals(true,Util.override(targetinit,srcinit));
-		Assert.assertEquals(false,Util.override(srcinit,targetinit));
-		Assert.assertEquals(false,Util.override(targetnot,srcnot));
-	}
-	
-	@Test
-	public void removeOverridenMethods() {
-		Method[] methods = new Method[]{srcinit,targetinit,srcnot,targetnot};
-		Method[] actuals = Util.removeOverridden(methods);
-		Method[] expecteds = new Method[]{targetinit,srcnot,targetnot};
-		Assert.assertArrayEquals(expecteds,actuals);
 	}
 	
 	@Test
@@ -96,7 +61,7 @@ public class UtilTestCase {
 			new AccessibleObject[]{
 				srccontext,targetcontext,targetctx,srcinit,targetinit,srcnot,
 				targetnot};
-		AccessibleObject[] actuals = Util.removeOverridden(aos);
+		AccessibleObject[] actuals = AccessibleObjectHelper.removeOverridden(aos);
 		AccessibleObject[] expecteds =
 			new AccessibleObject[]{
 				targetcontext,targetctx,targetinit,srcnot,targetnot};
@@ -107,7 +72,9 @@ public class UtilTestCase {
 	private static class Src {
 		protected String context;
 		public void init() throws RuntimeException {}
-		public boolean not( String s, UtilTestCase utc ) { return false; }
+		public boolean not( String s, AccessibleObjectHelperTestCase utc ) {
+			return false;
+		}
 	}
 	
 	@SuppressWarnings("unused")

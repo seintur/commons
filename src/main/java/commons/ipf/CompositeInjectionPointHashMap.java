@@ -29,8 +29,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import commons.annotations.AnnotationHelper;
+import commons.lang.ClassHelper;
+import commons.reflect.AccessibleObjectHelper;
 import commons.reflect.SetterMethodFilter;
-import commons.reflect.Util;
 
 /**
  * This class manages the injection points of a given type for a specified
@@ -64,7 +66,7 @@ extends InjectionPointHashMap<Annotation> {
     public void putAll() throws DuplicationInjectionPointException {
         
         AccessibleObject[] aos =
-        	Util.getAllAnnotatedSettersAndFields(cl,annotClassNames);        
+        	ClassHelper.getAllAnnotatedSettersAndFields(cl,annotClassNames);        
         for (AccessibleObject ao : aos) {
             
             /*
@@ -74,7 +76,7 @@ extends InjectionPointHashMap<Annotation> {
              */
         	String ipname = getInjectionPointName(ao);
             
-            Annotation annot = Util.getAnnotation(ao,annotClassNames);
+            Annotation annot = AccessibleObjectHelper.getAnnotation(ao,annotClassNames);
             InjectionPoint<Annotation> ip =
         		InjectionPointImpl.getInjectionPoint(ao,annot);
 
@@ -129,7 +131,7 @@ extends InjectionPointHashMap<Annotation> {
     throws NoSuchInjectionPointException, DuplicationInjectionPointException {
         
         AccessibleObject[] aos =
-        	Util.getAllAnnotatedSettersAndFields(cl,annotClassNames);   
+        	ClassHelper.getAllAnnotatedSettersAndFields(cl,annotClassNames);   
         boolean found = false;
         for (AccessibleObject ao : aos) {
             
@@ -153,7 +155,7 @@ extends InjectionPointHashMap<Annotation> {
                 	throw new DuplicationInjectionPointException(name,cl,str);
                 }
 
-                Annotation annot = Util.getAnnotation(ao,annotClassNames);
+                Annotation annot = AccessibleObjectHelper.getAnnotation(ao,annotClassNames);
                 InjectionPoint<Annotation> ip =
             		InjectionPointImpl.getInjectionPoint(ao,annot);
                 put(name,ip);
@@ -189,8 +191,8 @@ extends InjectionPointHashMap<Annotation> {
          * parameter. If the 'name' annotation parameter is not found, infer
          * the name from the setter method name or the field.
          */
-    	Annotation annot = Util.getAnnotation(ao,annotClassNames);
-    	String name = Util.getAnnotationParamValue(annot,"name");
+    	Annotation annot = AccessibleObjectHelper.getAnnotation(ao,annotClassNames);
+    	String name = AnnotationHelper.getAnnotationParamValue(annot,"name");
         if( name==null || name.length() == 0 ) {
             if( ao instanceof Method ) {
                 Method method = (Method) ao;

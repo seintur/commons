@@ -28,7 +28,7 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import commons.reflect.Util;
+import commons.reflect.MethodHelper;
 
 /**
  * Default abstract implementation of the {@link InjectionPoint} interface.
@@ -63,7 +63,7 @@ implements InjectionPoint<A> {
 		if( ao instanceof Method ) {
 	        Method setter = (Method) ao;
 	        try {
-				Method getter = Util.getGetterForSetter(setter);
+				Method getter = MethodHelper.getGetterForSetter(setter);
 	            ip = new InjectionPointMethodImpl<>(setter,getter,annot);
 			}
 	        catch (NoSuchMethodException e) {
