@@ -42,33 +42,33 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class FindAndReplaceOutputStreamTest {
 
-	private String[] values;
-	private String expected;
-	
-	@Parameters
-	public static Collection<Object[]> data() {
-		return Arrays.asList(
-			new  Object[][]{
-				{new String[]{"abdcdeazyx","dc","zyz"},"abzyzdeazyx"},
-				{new String[]{"abdcdedcazyx","dc","zyz"},"abzyzdezyzazyx"},
-				{new String[]{"abdcdedcabdzyx","abd","z"},"zcdedczzyx"},
-				{new String[]{"yxabdyxcdedcabdzyx","yx","jhd"},"jhdabdjhdcdedcabdzjhd"}
-			});
-	}
-	
+    private String[] values;
+    private String expected;
+    
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(
+            new  Object[][]{
+                {new String[]{"abdcdeazyx","dc","zyz"},"abzyzdeazyx"},
+                {new String[]{"abdcdedcazyx","dc","zyz"},"abzyzdezyzazyx"},
+                {new String[]{"abdcdedcabdzyx","abd","z"},"zcdedczzyx"},
+                {new String[]{"yxabdyxcdedcabdzyx","yx","jhd"},"jhdabdjhdcdedcabdzjhd"}
+            });
+    }
+    
     public FindAndReplaceOutputStreamTest( String[] values, String expected ) {
-    	Assert.assertEquals(3,values.length);
-		this.values = values;
-		this.expected = expected;
-	}
-	
-	@Test
+        Assert.assertEquals(3,values.length);
+        this.values = values;
+        this.expected = expected;
+    }
+    
+    @Test
     public void testPattern() throws IOException {
     
-		final String input = values[0];
-		final String find = values[1];
-		final String replace = values[2];
-		
+        final String input = values[0];
+        final String find = values[1];
+        final String replace = values[2];
+        
         ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         OutputStream os = new FindAndReplaceOutputStream(baos,find,replace);

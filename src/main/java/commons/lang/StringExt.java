@@ -103,9 +103,9 @@ public class StringExt {
 
     /** Store mappings between accentuated characters and their non-accentuated version. */
     final protected static Map<String,String> accentuatedCharMap =
-		new HashMap<String,String>() {
-			private static final long serialVersionUID = -7119087625689196461L;
-		{
+        new HashMap<String,String>() {
+            private static final long serialVersionUID = -7119087625689196461L;
+        {
             put( "�","e" );  // TODO fix encoding
             put( "�","e" );
             put( "�","e" );
@@ -120,7 +120,7 @@ public class StringExt {
             put( "�","i" );
             put( "�","i" );
             put( "�","c" );
-		}};
+        }};
 
    /**
     * Replace accents by their corresponding non accentuated character.
@@ -170,8 +170,8 @@ public class StringExt {
    public static String replace( String src, char[] pattern, String[] newPattern ) {
     
       if ( src==null || (pattern.length>newPattern.length) ) {
-    	  final String msg =
-			  "Parameters pattern and newPattern should be arrays of same length";
+          final String msg =
+              "Parameters pattern and newPattern should be arrays of same length";
           throw new IllegalArgumentException(msg);
       }
 
@@ -214,8 +214,8 @@ public class StringExt {
    public static String replace( String src, byte[] pattern, String[] newPattern ) {
     
       if ( src==null || (pattern.length>newPattern.length) ) {
-    	  final String msg =
-			  "Parameters pattern and newPattern should be arrays of same length";
+          final String msg =
+              "Parameters pattern and newPattern should be arrays of same length";
           throw new IllegalArgumentException(msg);
       }
       
@@ -293,7 +293,7 @@ public class StringExt {
      * @return                  a hash table containing all the pairs (name,value)
      */
     public static Map<String,Object> split(
-		String src, String elementSeparator, String valueSeparator ) {
+        String src, String elementSeparator, String valueSeparator ) {
 
         Map<String,Object> ret = new HashMap<String,Object>();
         StringTokenizer st = new StringTokenizer(src,elementSeparator);

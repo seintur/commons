@@ -37,13 +37,13 @@ public class XmlEncoder {
 
     /** Store mappings between accentuated characters and XML encoded version. */
     final protected static Map<String,String> xmlEncodingMap =
-		new HashMap<String,String>() {
-			private static final long serialVersionUID = -5603820495087104452L;
-		{
+        new HashMap<String,String>() {
+            private static final long serialVersionUID = -5603820495087104452L;
+        {
             put( "<","&lt;" );
             put( ">","&gt;" );
             put( "&","&amp;" );
-		}};
+        }};
 
     /**
      * Encode a string by replacing accentuated characters by their XML version.

@@ -37,9 +37,9 @@ public class HtmlEncoder {
 
     /** Store mappings between accentuated characters and HTML encoded version. */
     final protected static Map<String,String> htmlEncodingMap =
-		new HashMap<String,String>() {
-			private static final long serialVersionUID = -4204345549342162528L;
-		{
+        new HashMap<String,String>() {
+            private static final long serialVersionUID = -4204345549342162528L;
+        {
             put( "�","&eacute;" );  // TODO fix encoding
             put( "�","&egrave;" );
             put( "�","&ecirc;" );
@@ -64,7 +64,7 @@ public class HtmlEncoder {
             put( "�","" );
             put( "#8364;", "E" ); // euro
             put( "\"", "" );
-		}};
+        }};
 
     /**
      * Encode a string by replacing accentuated characters by their HTML version.

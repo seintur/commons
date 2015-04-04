@@ -38,15 +38,15 @@ import javax.imageio.ImageIO;
  */
 public class JpegResize {
 
-	/**
+    /**
      * Resize a given JPEG file.
      * 
-	 * @param src     the JPEG file to resize
-	 * @param width   the target width
-	 * @param height  the target height
-	 * @param dst     the destination file for the resized image
-	 * @throws IOException
-	 */
+     * @param src     the JPEG file to resize
+     * @param width   the target width
+     * @param height  the target height
+     * @param dst     the destination file for the resized image
+     * @throws IOException
+     */
     public static void resize( File src, int width, int height, File dst )
     throws IOException {
         

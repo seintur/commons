@@ -31,18 +31,18 @@ package commons.reflect;
  */
 public class CompositeOrFilter<T> implements Filter<T> {
 
-	private Filter<T>[] filters;
-	
-	public CompositeOrFilter( Filter<T>[] filters ) {
-		this.filters = filters;
-	}
-	
-	public boolean accept( T value ) {
-		for (Filter<T> filter : filters) {
-			if( filter.accept(value) ) {
-				return true;
-			}
-		}
-		return false;
-	}
+    private Filter<T>[] filters;
+    
+    public CompositeOrFilter( Filter<T>[] filters ) {
+        this.filters = filters;
+    }
+    
+    public boolean accept( T value ) {
+        for (Filter<T> filter : filters) {
+            if( filter.accept(value) ) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

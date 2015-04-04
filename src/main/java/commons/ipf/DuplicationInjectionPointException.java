@@ -31,9 +31,9 @@ package commons.ipf;
  */
 public class DuplicationInjectionPointException extends Exception {
     
-	private static final long serialVersionUID = -7622515465840970313L;
-	
-	private String name;
+    private static final long serialVersionUID = -7622515465840970313L;
+    
+    private String name;
     private Class<?> cl;
     private String annotClassName;
     
@@ -48,7 +48,7 @@ public class DuplicationInjectionPointException extends Exception {
     
     @Override
     public String getMessage() {
-    	final String msg =
+        final String msg =
             "Several fields and/or methods annotated with @"+annotClassName+
             " for reference "+name+" in class "+cl.getName();
         return msg;

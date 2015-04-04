@@ -33,7 +33,7 @@ import org.junit.Test;
  */
 public class InputStreamLinerTest {
 
-	@Test
+    @Test
     public void testReadLine() throws IOException {
         
         final String winFileName = "commons/io/InputStreamLinerTest.win.txt";

@@ -36,36 +36,36 @@ import org.junit.Test;
  */
 public class FieldHelperTestCase {
 
-	private Field srccontext, targetcontext, targetctx;
+    private Field srccontext, targetcontext, targetctx;
 
-	@Before
-	public void setUp() throws NoSuchFieldException {
-		
-		srccontext = Src.class.getDeclaredField("context");
-		targetcontext = Target.class.getDeclaredField("context");
-		targetctx = Target.class.getDeclaredField("ctx");
-	}
-	
-	@Test
-	public void overrideField() {		
-		Assert.assertEquals(true,FieldHelper.override(targetcontext,srccontext));
-		Assert.assertEquals(false,FieldHelper.override(srccontext,targetcontext));
-		Assert.assertEquals(false,FieldHelper.override(targetctx,srccontext));
-	}
-	
-	@SuppressWarnings("unused")
-	private static class Src {
-		protected String context;
-		public void init() throws RuntimeException {}
-		public boolean not( String s, FieldHelperTestCase utc ) { return false; }
-	}
-	
-	@SuppressWarnings("unused")
-	private static class Target extends Src {
-		protected Object context;
-		protected String ctx;
-		@Override
-		public void init() {}
-		public boolean not( String s ) { return false; }
-	}
+    @Before
+    public void setUp() throws NoSuchFieldException {
+        
+        srccontext = Src.class.getDeclaredField("context");
+        targetcontext = Target.class.getDeclaredField("context");
+        targetctx = Target.class.getDeclaredField("ctx");
+    }
+    
+    @Test
+    public void overrideField() {        
+        Assert.assertEquals(true,FieldHelper.override(targetcontext,srccontext));
+        Assert.assertEquals(false,FieldHelper.override(srccontext,targetcontext));
+        Assert.assertEquals(false,FieldHelper.override(targetctx,srccontext));
+    }
+    
+    @SuppressWarnings("unused")
+    private static class Src {
+        protected String context;
+        public void init() throws RuntimeException {}
+        public boolean not( String s, FieldHelperTestCase utc ) { return false; }
+    }
+    
+    @SuppressWarnings("unused")
+    private static class Target extends Src {
+        protected Object context;
+        protected String ctx;
+        @Override
+        public void init() {}
+        public boolean not( String s ) { return false; }
+    }
 }

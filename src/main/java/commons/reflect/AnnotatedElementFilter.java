@@ -33,22 +33,22 @@ import java.lang.reflect.AnnotatedElement;
  */
 public class AnnotatedElementFilter implements Filter<AnnotatedElement> {
 
-	private String[] annotClassNames;
-	
-	public AnnotatedElementFilter( String... annotClassNames ) {
-		this.annotClassNames = annotClassNames;
-	}
-	
-	public boolean accept( AnnotatedElement value ) {
-		Annotation[] annots = value.getAnnotations();
-		for (String annotClassName : annotClassNames) {
-			for (Annotation annot : annots) {
-				String name = annot.annotationType().getName();
-				if( name.equals(annotClassName) ) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+    private String[] annotClassNames;
+    
+    public AnnotatedElementFilter( String... annotClassNames ) {
+        this.annotClassNames = annotClassNames;
+    }
+    
+    public boolean accept( AnnotatedElement value ) {
+        Annotation[] annots = value.getAnnotations();
+        for (String annotClassName : annotClassNames) {
+            for (Annotation annot : annots) {
+                String name = annot.annotationType().getName();
+                if( name.equals(annotClassName) ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

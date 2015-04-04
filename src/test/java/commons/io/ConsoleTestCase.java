@@ -34,54 +34,54 @@ import org.junit.Test;
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 public class ConsoleTestCase {
-	
-	private Console console;
-	
-	@Before
-	public void setUp() {
-		console = Console.getConsole("test");
-	}
+    
+    private Console console;
+    
+    @Before
+    public void setUp() {
+        console = Console.getConsole("test");
+    }
 
-	@After
-	public void tearDown() {
-		console.close();
-	}
+    @After
+    public void tearDown() {
+        console.close();
+    }
 
-	@Test
-	public void testEqualsOneLine() {
-		final String expected = "Hello World!";
-		console.print(expected);
-		console.assertEquals(new String[]{expected});
-	}
+    @Test
+    public void testEqualsOneLine() {
+        final String expected = "Hello World!";
+        console.print(expected);
+        console.assertEquals(new String[]{expected});
+    }
 
-	@Test
-	public void testEqualsSeveralLines() {
-		final String expected0 = "Hello ";
-		final String expected1 = "World!";
-		console.println(expected0);
-		console.println(expected1);
-		console.assertEquals(new String[]{expected0,expected1});
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testDiffersOneLine() {
-		console.print('a');
-		console.assertEquals(new String[]{"b"});
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testDiffersMoreThanExpected() {
-		console.println("ab");
-		console.println("cd");
-		console.assertEquals(new String[]{"ab","c"});
-		Assert.fail();
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testDiffersFewerThanExpected() {
-		console.println("ab");
-		console.println("c");
-		console.assertEquals(new String[]{"ab","cd"});
-		Assert.fail();
-	}
+    @Test
+    public void testEqualsSeveralLines() {
+        final String expected0 = "Hello ";
+        final String expected1 = "World!";
+        console.println(expected0);
+        console.println(expected1);
+        console.assertEquals(new String[]{expected0,expected1});
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testDiffersOneLine() {
+        console.print('a');
+        console.assertEquals(new String[]{"b"});
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testDiffersMoreThanExpected() {
+        console.println("ab");
+        console.println("cd");
+        console.assertEquals(new String[]{"ab","c"});
+        Assert.fail();
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testDiffersFewerThanExpected() {
+        console.println("ab");
+        console.println("c");
+        console.assertEquals(new String[]{"ab","cd"});
+        Assert.fail();
+    }
 }

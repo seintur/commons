@@ -33,12 +33,12 @@ import java.lang.reflect.AnnotatedElement;
  */
 public class UnAnnotatedElementFilter implements Filter<AnnotatedElement> {
 
-	/**
-	 * Only accept the element if it does not define any annotation.
-	 */
-	public boolean accept( AnnotatedElement value ) {
-		Annotation[] annots = value.getAnnotations();
-		boolean b = annots.length == 0;
-		return b;
-	}
+    /**
+     * Only accept the element if it does not define any annotation.
+     */
+    public boolean accept( AnnotatedElement value ) {
+        Annotation[] annots = value.getAnnotations();
+        boolean b = annots.length == 0;
+        return b;
+    }
 }

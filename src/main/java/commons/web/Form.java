@@ -53,7 +53,7 @@ public class Form {
      *            Files are stored in the data field of UploadedFile objects.
      */
     public static Map<String,Object> parseFormData( InputStream in )
-	throws IOException {
+    throws IOException {
 
         MultipartDecoder mpd = new MultipartDecoder(in);
         Map<String,Object> ret = new HashMap<String,Object>();
@@ -118,7 +118,7 @@ public class Form {
      *             either an File object for file upload fields.
      */
     public static Map<String,Object> parseFormData( InputStream in, File dir )
-	throws IOException {
+    throws IOException {
 
         MultipartDecoder mpd = new MultipartDecoder(in);
         Map<String,Object> ret = new HashMap<String,Object>();
@@ -191,7 +191,7 @@ public class Form {
      */
     private static String searchUniqueAttribute(
         String header, String attributeName, String currentValue )
-	throws IOException {
+    throws IOException {
 
         String ret = null;
         int index = header.indexOf(attributeName+"=\"");

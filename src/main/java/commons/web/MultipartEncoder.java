@@ -97,7 +97,7 @@ public class MultipartEncoder {
 
         int i = 0;
         for (Map.Entry<String,Object> entry : parts.entrySet()) {
-			
+            
             String key = entry.getKey();
             Object value = entry.getValue();
             String headers = "Content-Disposition: form-data; name=\"" + key + "\"";
@@ -118,9 +118,9 @@ public class MultipartEncoder {
                 ret[ i*4 + 3 ] = uf.data;
             }
             else {
-            	final String msg =
-        			"Map part values must only contain String or "+
-					"UploadedFile instances";
+                final String msg =
+                    "Map part values must only contain String or "+
+                    "UploadedFile instances";
                 throw new Exception(msg);
             }
 

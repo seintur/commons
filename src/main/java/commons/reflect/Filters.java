@@ -34,50 +34,50 @@ import java.util.List;
  */
 public class Filters {
 
-	/**
-	 * Return the elements from src which match the specified filter.
-	 * 
-	 * @param <T>     the type of the elements
-	 * @param src     the source elements
-	 * @param filter  the filter
-	 * @return        the elements from src which match the filter
-	 */
-	public static <F,T extends F> T[] filter( T[] src, Filter<F> filter ) {
-		
-		List<T> result = new ArrayList<T>();
-		for (T t : src) {
-			boolean b = filter.accept(t);
-			if(b) {
-				result.add(t);
-			}
-		}
-		
-		Class<?> cl = src.getClass().getComponentType();
-		@SuppressWarnings("unchecked")
-		T[] r = (T[]) Array.newInstance(cl,result.size());
-		r = result.toArray(r);
-		
-		return r;
-	}
+    /**
+     * Return the elements from src which match the specified filter.
+     * 
+     * @param <T>     the type of the elements
+     * @param src     the source elements
+     * @param filter  the filter
+     * @return        the elements from src which match the filter
+     */
+    public static <F,T extends F> T[] filter( T[] src, Filter<F> filter ) {
+        
+        List<T> result = new ArrayList<T>();
+        for (T t : src) {
+            boolean b = filter.accept(t);
+            if(b) {
+                result.add(t);
+            }
+        }
+        
+        Class<?> cl = src.getClass().getComponentType();
+        @SuppressWarnings("unchecked")
+        T[] r = (T[]) Array.newInstance(cl,result.size());
+        r = result.toArray(r);
+        
+        return r;
+    }
 
-	/**
-	 * Return the elements from src which match the specified filter.
-	 * 
-	 * @param <T>     the type of the elements
-	 * @param src     the source elements
-	 * @param filter  the filter
-	 * @return        the elements from src which match the filter
-	 */
-	public static <F,T extends F> List<T> filter( List<T> src, Filter<F> filter ) {
-		
-		List<T> result = new ArrayList<T>();
-		for (T t : src) {
-			boolean b = filter.accept(t);
-			if(b) {
-				result.add(t);
-			}
-		}
-		
-		return result;
-	}
+    /**
+     * Return the elements from src which match the specified filter.
+     * 
+     * @param <T>     the type of the elements
+     * @param src     the source elements
+     * @param filter  the filter
+     * @return        the elements from src which match the filter
+     */
+    public static <F,T extends F> List<T> filter( List<T> src, Filter<F> filter ) {
+        
+        List<T> result = new ArrayList<T>();
+        for (T t : src) {
+            boolean b = filter.accept(t);
+            if(b) {
+                result.add(t);
+            }
+        }
+        
+        return result;
+    }
 }

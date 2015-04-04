@@ -42,32 +42,32 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class TrimOutputStreamTest {
 
-	private String[] values;
-	private String expected;
-	
-	@Parameters
-	public static Collection<Object[]> data() {
-		return Arrays.asList(
-			new  Object[][]{
-				{new String[]{"abdcdeazyx","dc","zy"},"dea"},
-				{new String[]{"abdcdeazyx","abd","yx"},"cdeaz"}
-			});
-	}
-	
+    private String[] values;
+    private String expected;
+    
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(
+            new  Object[][]{
+                {new String[]{"abdcdeazyx","dc","zy"},"dea"},
+                {new String[]{"abdcdeazyx","abd","yx"},"cdeaz"}
+            });
+    }
+    
     public TrimOutputStreamTest( String[] values, String expected ) {
-    	Assert.assertEquals(3,values.length);
-		this.values = values;
-		this.expected = expected;
-	}
-	
+        Assert.assertEquals(3,values.length);
+        this.values = values;
+        this.expected = expected;
+    }
+    
     @Test
     public void testPattern() throws IOException {
         
-		final String input = values[0];
-		final String begin = values[1];
-		final String end = values[2];
+        final String input = values[0];
+        final String begin = values[1];
+        final String end = values[2];
 
-		ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
+        ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         OutputStream os = TrimOutputStream.create(baos,begin,end);
         PipedStreams.dump(bais,os);

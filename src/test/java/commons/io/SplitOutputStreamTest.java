@@ -41,34 +41,34 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class SplitOutputStreamTest {
 
-	private String[] values;
-	private String[] expecteds;
-	
-	@Parameters
-	public static Collection<Object[]> data() {
-		return Arrays.asList(
-			new  Object[][]{
-				{new String[]{"abdcdzy","dcd"},new String[]{"ab","zy"}},
-				{new String[]{"abdcdzy","abd"},new String[]{"","cdzy"}},
-				{new String[]{"abdcdzy","zy"},new String[]{"abdcd",""}}
-			});
-	}
+    private String[] values;
+    private String[] expecteds;
+    
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(
+            new  Object[][]{
+                {new String[]{"abdcdzy","dcd"},new String[]{"ab","zy"}},
+                {new String[]{"abdcdzy","abd"},new String[]{"","cdzy"}},
+                {new String[]{"abdcdzy","zy"},new String[]{"abdcd",""}}
+            });
+    }
 
     public SplitOutputStreamTest( String[] values, String[] expecteds ) {
-    	Assert.assertEquals(2,values.length);
-    	Assert.assertEquals(2,expecteds.length);
-		this.values = values;
-		this.expecteds = expecteds;
-	}
-	
+        Assert.assertEquals(2,values.length);
+        Assert.assertEquals(2,expecteds.length);
+        this.values = values;
+        this.expecteds = expecteds;
+    }
+    
     @Test
     public void testPattern() throws IOException {
         
-		final String input = values[0];
-		final String pattern = values[1];
-		final String expectedBefore = expecteds[0];
-		final String expectedAfter = expecteds[1];
-		
+        final String input = values[0];
+        final String pattern = values[1];
+        final String expectedBefore = expecteds[0];
+        final String expectedAfter = expecteds[1];
+        
         ByteArrayInputStream bais = new ByteArrayInputStream(input.getBytes());
         ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
         ByteArrayOutputStream baos2 = new ByteArrayOutputStream();

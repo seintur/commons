@@ -56,25 +56,25 @@ public class HttpForwarder {
     }
     
     public void run() {
-    	ServerSocket ss = null;
-    	try {
+        ServerSocket ss = null;
+        try {
             ss = new ServerSocket(srcport);
             System.out.println("HttpForwarder is ready on port "+srcport);
             while (true) {
                 Socket client = ss.accept();
                 new HttpForwarderRequest(client).start();
             }
-		}
+        }
         catch( IOException ioe ) {
-        	throw new RuntimeException(ioe);
-		}
+            throw new RuntimeException(ioe);
+        }
         finally {
-        	try {
-        		ss.close();
-        	}
-        	catch( IOException ioe ) {
-            	throw new RuntimeException(ioe);
-        	}
+            try {
+                ss.close();
+            }
+            catch( IOException ioe ) {
+                throw new RuntimeException(ioe);
+            }
         }
     }
 }
@@ -105,7 +105,7 @@ class HttpForwarderRequest extends Thread {
         catch( IOException | InterruptedException e ) {
             e.printStackTrace();
             System.exit(1);
-		}
+        }
     }
     
     private void _run() throws IOException, InterruptedException {
@@ -136,13 +136,13 @@ class HttpForwarderRequest extends Thread {
             url = new URL(urlStr);
         }
         catch( MalformedURLException mue ) {
-        	/*
-        	 * The URL may be malformed if a protocol is missing. This happens
-        	 * with HTTPS CONNECT request which are of the form:
-        	 * 		CONNECT adminlip6.lip6.fr:443 HTTP/1.0
-        	 * Add a mock https:// prefix just to make URL.init happy.
-        	 */
-        	url = new URL("https://"+urlStr);
+            /*
+             * The URL may be malformed if a protocol is missing. This happens
+             * with HTTPS CONNECT request which are of the form:
+             *         CONNECT adminlip6.lip6.fr:443 HTTP/1.0
+             * Add a mock https:// prefix just to make URL.init happy.
+             */
+            url = new URL("https://"+urlStr);
         }
         String host = url.getHost();
         int port = url.getPort();
@@ -201,7 +201,7 @@ class HttpForwarderPipe extends Thread {
     @Override
     public void run() {
         try {
-			_run();
+            _run();
         }
         catch( SocketException se ) {
             /*
@@ -222,11 +222,11 @@ class HttpForwarderPipe extends Thread {
              * Hence this is an excepted exception, and we just want
              * to go on the program.
              */
-		}
+        }
         catch (IOException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
     
     private void _run() throws IOException {

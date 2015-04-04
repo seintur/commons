@@ -51,7 +51,7 @@ public class MapExt {
      */
     public static <K,V> V matchKeyWithString( Map<K,V> map, String keyStrToMatch ) {
 
-    	for (Map.Entry<K,V> entry : map.entrySet()) {
+        for (Map.Entry<K,V> entry : map.entrySet()) {
             K key = entry.getKey();
             if ( key instanceof String && keyStrToMatch.startsWith((String)key) ) {
                 return entry.getValue();
@@ -90,13 +90,13 @@ public class MapExt {
      */
     public static <K,V> Collection<V> match( Map<K,V> src, Object[] target, Collection<V> dst ) {
 
-    	for (Map.Entry<K,V> entry : src.entrySet()) {
-    		K key = entry.getKey();
+        for (Map.Entry<K,V> entry : src.entrySet()) {
+            K key = entry.getKey();
             if ( key instanceof Selector ) {
-            	Selector keySel = (Selector) key;
+                Selector keySel = (Selector) key;
                 if ( keySel.equals(target) ) {
-                	V value = entry.getValue();
-                	dst.add(value);
+                    V value = entry.getValue();
+                    dst.add(value);
                 }
             }
         }
@@ -148,24 +148,24 @@ public class MapExt {
         Collection<V> result = new LinkedList<>();
 
         for (Map.Entry<K,V> entry : src.entrySet()) {
-			
+            
             K key = entry.getKey();
             Class<?> cl = key.getClass();
             
             try {
-            	Method method =
-        			cl.getMethod( matcherMethodName, matcherMethodParameterTypes );
+                Method method =
+                    cl.getMethod( matcherMethodName, matcherMethodParameterTypes );
                 Object returnedValue = method.invoke( key, target );
                 if ( returnedValue instanceof Boolean ) {
-                	boolean ret = ((Boolean)returnedValue) . booleanValue();
+                    boolean ret = ((Boolean)returnedValue) . booleanValue();
                     if (ret) {
-                    	V value = entry.getValue();
-                    	result.add(value);
+                        V value = entry.getValue();
+                        result.add(value);
                     }
                 }
             }
             catch( NoSuchMethodException nsme ) {
-            	/*
+                /*
                  * Raised by cl.getMethod()
                  * From a semantical point of view, not really an exception.
                  * The key class does not contain the searched method. Go on.
@@ -194,7 +194,7 @@ public class MapExt {
          * HashMap if the class of src does not provide an empty constructor. 
          */
         @SuppressWarnings("unchecked")
-		Class<Map<K,V>> cl = (Class<Map<K,V>>) src.getClass();
+        Class<Map<K,V>> cl = (Class<Map<K,V>>) src.getClass();
         Map<K,V> result = null;
         try {
             result = cl.newInstance();

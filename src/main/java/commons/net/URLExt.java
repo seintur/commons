@@ -63,7 +63,7 @@ public class URLExt {
      * @param file  the file
      */
     public static void get( String url, File file )
-	throws IOException, MalformedURLException {
+    throws IOException, MalformedURLException {
         get( new URL(url), file );
     }
 
@@ -74,7 +74,7 @@ public class URLExt {
      * @param file  the file
      */
     public static void get( URL url, File file )
-	throws IOException, MalformedURLException {
+    throws IOException, MalformedURLException {
 
         InputStream is = url.openStream();
         FileOutputStream fos = new FileOutputStream(file);
@@ -97,7 +97,7 @@ public class URLExt {
      * @return         the file where the content has been saved
      */
     public static File get( String url, String dirName )
-	throws IOException, MalformedURLException {
+    throws IOException, MalformedURLException {
 
         // Get an input stream to load the content of the URL
         URL u = new URL(url);
@@ -127,15 +127,15 @@ public class URLExt {
      * Store associations between mime types and file extensions.
      */
     final public static Map<String,String> fileExtensions =
-		new HashMap<String,String>() {
-			private static final long serialVersionUID = 3474986436687996921L;
-		{
+        new HashMap<String,String>() {
+            private static final long serialVersionUID = 3474986436687996921L;
+        {
             put( "text/html",".html" );
             put( "image/gif",".gif" );
             put( "image/jpeg",".jpg" );
             put( "image/jpg",".jpg" );
             put( "image/pjpeg",".jpg" );
-		}};    
+        }};    
 
     /**
      * Recursively get the content of an URL and save it into a directory.
@@ -171,7 +171,7 @@ public class URLExt {
 
         HTMLEditorKit.Parser parser = new URLExtHTMLEditorKit().getParser();
         HrefsExtractor hrefsExtractor =
-    		new HrefsExtractor(initialUrl,urlsToGet,urlsLoaded,urlsAbsolute);
+            new HrefsExtractor(initialUrl,urlsToGet,urlsLoaded,urlsAbsolute);
 
         /*
          * Get an URL, parse it to extract its links.
@@ -251,7 +251,7 @@ public class URLExt {
         Set<Map.Entry<String,File>> entrySetUrlsLoaded = urlsLoaded.entrySet();
         for (Map.Entry<String,File> mapEntryUrlsLoaded : entrySetUrlsLoaded) {
 
-        	String currentUrl = mapEntryUrlsLoaded.getKey();
+            String currentUrl = mapEntryUrlsLoaded.getKey();
             File currentFile = mapEntryUrlsLoaded.getValue();
 
             // URLs that contain no data are associated with null File instances
@@ -285,9 +285,9 @@ public class URLExt {
 }
 
 class URLExtHTMLEditorKit extends HTMLEditorKit {
-	static final long serialVersionUID = 8178444825951807423L;
-	@Override
-	public HTMLEditorKit.Parser getParser() {
+    static final long serialVersionUID = 8178444825951807423L;
+    @Override
+    public HTMLEditorKit.Parser getParser() {
         return super.getParser();
     }
 }
@@ -300,23 +300,23 @@ class HrefsExtractor extends HTMLEditorKit.ParserCallback {
     private Map<String,String> urlsAbsolute;
 
     public HrefsExtractor(
-    		String initialUrl, Map<String,File> urlsToGet,
-    		Map<String,File> urlsLoaded, Map<String,String> urlsAbsolute ) {
+            String initialUrl, Map<String,File> urlsToGet,
+            Map<String,File> urlsLoaded, Map<String,String> urlsAbsolute ) {
         this.initialUrl = initialUrl;
         this.urlsToGet = urlsToGet;
         this.urlsLoaded = urlsLoaded;
         this.urlsAbsolute = urlsAbsolute;
     }
     
-	@Override
+    @Override
     public void handleSimpleTag( HTML.Tag t, MutableAttributeSet a, int pos ) {
-		handle(t,a,pos);
-	}
+        handle(t,a,pos);
+    }
 
-	@Override
+    @Override
     public void handleStartTag( HTML.Tag t, MutableAttributeSet a, int pos ) {
-		handle(t,a,pos);
-	}
+        handle(t,a,pos);
+    }
 
     private void handle( HTML.Tag t, MutableAttributeSet a, int pos ) {
 
@@ -326,10 +326,10 @@ class HrefsExtractor extends HTMLEditorKit.ParserCallback {
 
         URI url = null;
         try {
-        	url = new URI(initialUrl);
+            url = new URI(initialUrl);
         }
         catch( URISyntaxException use ) {
-        	return;
+            return;
         }
 
         URI fullUrl = url.resolve(urlStr);

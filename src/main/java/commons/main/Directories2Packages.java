@@ -37,10 +37,10 @@ import java.io.IOException;
 public class Directories2Packages {
 
     public static void main( String[] args ) throws Exception {
-    	
+        
         if ( args.length != 1 ) {
-        	
-        	System.err.println(
+            
+            System.err.println(
                 "Usage: java common.main.Directories2Packages <dir>"
             );
             System.exit(1);
@@ -48,8 +48,8 @@ public class Directories2Packages {
         
         File parent = new File(args[0]);
         if ( ! parent.isDirectory() ) {
-        	System.out.println( "Error: " + args[0] + " must be a directory" );
-        	System.err.println(
+            System.out.println( "Error: " + args[0] + " must be a directory" );
+            System.err.println(
                 "Usage: java common.main.Directories2Packages <dir>"
             );
             System.exit(1);
@@ -72,7 +72,7 @@ public class Directories2Packages {
         File current = new File(parent,dir);
         File[] ls = current.listFiles(ffRegularFiles);
         if ( ls.length != 0 ) {
-        	ret.append( dir.replace(File.separatorChar,'.') );
+            ret.append( dir.replace(File.separatorChar,'.') );
             ret.append( ' ' );
         }
 
@@ -83,7 +83,7 @@ public class Directories2Packages {
         for ( int i=0 ; i < ls.length ; i++ ) {
             String lsName = ls[i].getName();
             String next = dir.length()==0 ? lsName : dir+File.separatorChar+lsName ;
-        	dir( ret, parent, next );
+            dir( ret, parent, next );
         }
         
     }

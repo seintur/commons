@@ -32,9 +32,9 @@ import java.util.Arrays;
  */
 public class NoSuchInjectionPointException extends Exception {
     
-	private static final long serialVersionUID = 8092032071601905620L;
+    private static final long serialVersionUID = 8092032071601905620L;
 
-	private String name;
+    private String name;
     private Class<?> cl;
     private String[] annotClassNames;
     
@@ -49,7 +49,7 @@ public class NoSuchInjectionPointException extends Exception {
 
     @Override
     public String getMessage() {
-    	final String str = Arrays.deepToString(annotClassNames);        
+        final String str = Arrays.deepToString(annotClassNames);        
         final String msg =
             "No field or method annotated with @"+str+" for "+name+" in class "+
             cl.getName();

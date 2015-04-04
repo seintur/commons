@@ -54,9 +54,9 @@ import java.util.List;
  */
 public class InputStreamLiner extends FilterInputStream {
     
-	public InputStreamLiner(InputStream in) {
-		super(in);
-	}
+    public InputStreamLiner(InputStream in) {
+        super(in);
+    }
 
     final static public int UNIX = 0;
     final static public int WIN = 1;
@@ -166,8 +166,8 @@ public class InputStreamLiner extends FilterInputStream {
         Integer[] content = buffer.toArray(integerArray);
         byte[] b = new byte[content.length];
         for (int i = 0; i < b.length; i++) {
-			b[i] = content[i].byteValue();
-		}
+            b[i] = content[i].byteValue();
+        }
         
         return new String(b);
     }

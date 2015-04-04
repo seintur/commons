@@ -32,9 +32,9 @@ package commons.util;
  */
 public class RangeSetFormatException extends Exception {
     
-	static final long serialVersionUID = -4661966246947366741L;
-	
-	public RangeSetFormatException() {
+    static final long serialVersionUID = -4661966246947366741L;
+    
+    public RangeSetFormatException() {
         super();
     }
     

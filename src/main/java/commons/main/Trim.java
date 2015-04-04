@@ -46,7 +46,7 @@ public class Trim {
 "(including the marker itself)" );
     }
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         
         if ( args.length != 2 ) {
             Usage();
@@ -59,5 +59,5 @@ public class Trim {
         OutputStream os = TrimOutputStream.create(System.out,begin,end);
         PipedStreams.dump(System.in,os);
         os.close();
-	}
+    }
 }

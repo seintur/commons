@@ -79,9 +79,9 @@ public class CmdLineArgs< F extends Enum<F>, O extends Enum<O> > {
      *      if one of the flags is already registered as an option
      */
     public void registerFlags( F[] flags ) throws IllegalArgumentException {
-    	for (F flag : flags) {
-			registerFlag(flag);
-		}
+        for (F flag : flags) {
+            registerFlag(flag);
+        }
     }
 
     /**
@@ -108,9 +108,9 @@ public class CmdLineArgs< F extends Enum<F>, O extends Enum<O> > {
      *      if one of the options is already registered as an option
      */
     public void registerOptions( O[] options ) throws IllegalArgumentException {
-    	for (O option : options) {
-			registerOption(option);
-		}
+        for (O option : options) {
+            registerOption(option);
+        }
     }
 
     /**
@@ -126,10 +126,10 @@ public class CmdLineArgs< F extends Enum<F>, O extends Enum<O> > {
     public void setOptionDomain( O option, String[] domain )
     throws IllegalArgumentException {
         String key = "--"+option.toString().toLowerCase();
-    	if( ! options.contains(key) ) {
-    		final String msg = option+" is not an registered option";
-    		throw new IllegalArgumentException(msg);
-    	}
+        if( ! options.contains(key) ) {
+            final String msg = option+" is not an registered option";
+            throw new IllegalArgumentException(msg);
+        }
         List<String> list = Arrays.asList(domain);
         Set<String> set = new HashSet<>(list);
         domains.put(key,set);

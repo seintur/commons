@@ -44,10 +44,10 @@ import commons.lang.StringExt;
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 public class FileExt extends File {
-	
-	static final long serialVersionUID = 1191375325949187094L;
+    
+    static final long serialVersionUID = 1191375325949187094L;
 
-	/** Match File constructors. */
+    /** Match File constructors. */
     public FileExt( String pathname ) { super(pathname); }
     /** Match File constructors. */
     public FileExt( String parent, String child ) { super(parent,child); }
@@ -86,7 +86,7 @@ public class FileExt extends File {
         long dstLength = dst.length();
 
         if ( srcLength != dstLength ) {
-        	return false;
+            return false;
         }
 
         FileInputStream srcfis = new FileInputStream(this);
@@ -237,7 +237,7 @@ public class FileExt extends File {
     public File moveFile( File dst ) throws IOException {
 
         if ( ! isFile() ) {
-        	throw new IOException( "Current FileExt instance is not a file." );
+            throw new IOException( "Current FileExt instance is not a file." );
         }
         if ( ! dst.isDirectory() ) {
             throw new IOException( dst + " is not a directory." );
@@ -254,15 +254,15 @@ public class FileExt extends File {
      * @return     the files or null if the current instance is not a directory
      */
     public FileExt[] recursiveListFiles() {
-    	return recursiveListFiles(allFiles);
+        return recursiveListFiles(allFiles);
     }
     
     final private static FilenameFilter allFiles =
-    	new FilenameFilter() {
-    		public boolean accept( File f, String s ) {
-    			return true;
-    		}
-    	};
+        new FilenameFilter() {
+            public boolean accept( File f, String s ) {
+                return true;
+            }
+        };
     
     /**
      * Recursively list the files contained in the current directory and whose
@@ -292,7 +292,7 @@ public class FileExt extends File {
         }
     }
     
-	/**
+    /**
      * Return a file system compliant path name from an array of directory names.
      *
      * @param pathNames  an array of directory names
@@ -303,54 +303,54 @@ public class FileExt extends File {
     }
     
     /**
-	 * Return the line separator sequence associated to the specified text file.
-	 * Return one of the three sequences {@link #MAC_LS}, {@link #UNIX_LS} or
-	 * {@link #WIN_LS} depending on the text file format. If the file does not
-	 * contain any line separator, return {@link #UNIX_LS}.
-	 * 
-	 * @param f  the text file
-	 * @return   the line separator sequence
-	 */
-	public static char[] getTextFileLineSeparator( File f )
-	throws IOException {
-		
-	    FileReader fr = new FileReader(f);
-	    int b = fr.read();
-	    while( b != -1 ) {
-	    	if( b == 0x0A ) {
-	    		// Unix
-	    	    fr.close();
-	    		return UNIX_LS;
-	    	}
-	    	if( b == 0x0D ) {
-	    		b = fr.read();
-	    		if( b == -1 ) {
-	        		// Mac
-	    		    fr.close();
-	        		return MAC_LS;
-	    		}
-	    		if( b == 0x0A ) {
-	    			// Win
-	    		    fr.close();
-	        		return WIN_LS;
-	    		}
-	    		else {
-	        		// Mac
-	    		    fr.close();
-	        		return MAC_LS;
-	    		}
-	    	}
-	        b = fr.read();
-	    }
-	    fr.close();
-	    
-	    /*
-	     * No line separator. Can not infer the text file format. Assume Unix.
-	     */
-		return UNIX_LS;
-	}
+     * Return the line separator sequence associated to the specified text file.
+     * Return one of the three sequences {@link #MAC_LS}, {@link #UNIX_LS} or
+     * {@link #WIN_LS} depending on the text file format. If the file does not
+     * contain any line separator, return {@link #UNIX_LS}.
+     * 
+     * @param f  the text file
+     * @return   the line separator sequence
+     */
+    public static char[] getTextFileLineSeparator( File f )
+    throws IOException {
+        
+        FileReader fr = new FileReader(f);
+        int b = fr.read();
+        while( b != -1 ) {
+            if( b == 0x0A ) {
+                // Unix
+                fr.close();
+                return UNIX_LS;
+            }
+            if( b == 0x0D ) {
+                b = fr.read();
+                if( b == -1 ) {
+                    // Mac
+                    fr.close();
+                    return MAC_LS;
+                }
+                if( b == 0x0A ) {
+                    // Win
+                    fr.close();
+                    return WIN_LS;
+                }
+                else {
+                    // Mac
+                    fr.close();
+                    return MAC_LS;
+                }
+            }
+            b = fr.read();
+        }
+        fr.close();
+        
+        /*
+         * No line separator. Can not infer the text file format. Assume Unix.
+         */
+        return UNIX_LS;
+    }
 
-	final private static char[] MAC_LS = new char[]{0x0D};
-	final private static char[] UNIX_LS = new char[]{0x0A};
-	final private static char[] WIN_LS = new char[]{0x0D,0x0A};
+    final private static char[] MAC_LS = new char[]{0x0D};
+    final private static char[] UNIX_LS = new char[]{0x0A};
+    final private static char[] WIN_LS = new char[]{0x0D,0x0A};
 }

@@ -82,7 +82,7 @@ public class HtmlSetSelector extends HtmlSelector {
     
     /** Reset the items container. */
     public void reset() {
-		items = new TreeSet<String>();
+        items = new TreeSet<String>();
     }
     
 
@@ -135,7 +135,7 @@ public class HtmlSetSelector extends HtmlSelector {
         
         for (String item : items) {
 
-        	pw.println("<tr>");
+            pw.println("<tr>");
             pw.print("<td>");
             
             /*
@@ -188,7 +188,7 @@ public class HtmlSetSelector extends HtmlSelector {
         pw.println("<tr><td>");
         
             if ( addURLParameters != null ) {
-            	for (Map.Entry<Object,Object> entry : addURLParameters.entrySet()) {					
+                for (Map.Entry<Object,Object> entry : addURLParameters.entrySet()) {                    
                     Object key = entry.getKey();
                     Object value = entry.getValue();
                     pw.print("<input type=\"hidden\" ");
@@ -204,21 +204,21 @@ public class HtmlSetSelector extends HtmlSelector {
         pw.println("</form>");
     }
     
-	public String getAddURL() {
-		return addURL;
-	}
+    public String getAddURL() {
+        return addURL;
+    }
 
-	/**
-	 * @param string      the URL used to add an item
+    /**
+     * @param string      the URL used to add an item
      * @param parameters  the parameters to be transmitted
      *                    when the URL is invoked
-	 */
-	public void setAddURL( String string, Map<Object,Object> parameters ) {
+     */
+    public void setAddURL( String string, Map<Object,Object> parameters ) {
         if ( parameters.containsKey("name") ) {
-        	final String msg = "Parameters should not contain name";
+            final String msg = "Parameters should not contain name";
             throw new IllegalArgumentException(msg);
         }
-		addURL = string;
+        addURL = string;
         addURLParameters = parameters;
-	}
+    }
 }

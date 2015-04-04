@@ -43,7 +43,7 @@ import commons.io.PipedStreams;
 public class ReplaceInFiles {
 
     public static void main( String[] args ) throws Exception {
-    	
+        
         if ( args.length != 4 )
             usage();
 
@@ -54,7 +54,7 @@ public class ReplaceInFiles {
         
         File parent = new File(dir);
         if ( ! parent.isDirectory() ) {
-        	System.out.println( "Error: " + dir + " must be a directory" );
+            System.out.println( "Error: " + dir + " must be a directory" );
             usage();
         }
 
@@ -65,16 +65,14 @@ public class ReplaceInFiles {
         System.out.println(ret);
     }
 
-    private static void usage() {
-        	
-            System.err.println( "Usage: java common.main.ReplaceInFiles <dir> <ext> <pattern> <replacement>" );
-            System.err.println( "Recursively perform string replacements in a hierarchy of files." );
-            System.err.println( "<dir>         : root directory" );
-            System.err.println( "<ext>         : filename extensions" );
-            System.err.println( "<pattern>     : string to find" );
-            System.err.println( "<replacement> : string replacement" );
-            
-            System.exit(1);
+    private static void usage() {    
+        System.err.println( "Usage: java common.main.ReplaceInFiles <dir> <ext> <pattern> <replacement>" );
+        System.err.println( "Recursively perform string replacements in a hierarchy of files." );
+        System.err.println( "<dir>         : root directory" );
+        System.err.println( "<ext>         : filename extensions" );
+        System.err.println( "<pattern>     : string to find" );
+        System.err.println( "<replacement> : string replacement" );
+        System.exit(1);
     }
 
     private static void dir(
@@ -88,7 +86,7 @@ public class ReplaceInFiles {
         File current = new File(parent,dir);
         File[] ls = current.listFiles(ffJavaFiles);
         for ( int i=0 ; i < ls.length ; i++ ) {
-        	patch(ls[i],pattern,replacement);
+            patch(ls[i],pattern,replacement);
         }
 
         /*
@@ -98,7 +96,7 @@ public class ReplaceInFiles {
         for ( int i=0 ; i < ls.length ; i++ ) {
             String lsName = ls[i].getName();
             String next = dir.length()==0 ? lsName : dir+File.separatorChar+lsName ;
-        	dir( ret, parent, next, pattern, replacement );
+            dir( ret, parent, next, pattern, replacement );
         }
     }
 
@@ -106,7 +104,6 @@ public class ReplaceInFiles {
      * Class for filtering regular files (i.e. that are not directories)
      * and its singleton instance.
      */
-    private static FileFilter ffJavaFiles;
     private static class JavaFilesFileFilter implements FileFilter {
         private String extension;
         public JavaFilesFileFilter( String extension ) {
@@ -116,6 +113,7 @@ public class ReplaceInFiles {
             return file.getName().endsWith(extension) && !file.isDirectory();
         }
     }
+    private static FileFilter ffJavaFiles;
 
     private static void patch( File file, String pattern, String replacement )
         throws IOException {
@@ -142,13 +140,12 @@ public class ReplaceInFiles {
     }
     
     /**
-     * Class for filtering directories
-     * and its singleton instance.
+     * Class for filtering directories and its singleton instance.
      */
-    private static FileFilter ffDirs = new DirectoriesFileFilter();
     private static class DirectoriesFileFilter implements FileFilter {
         public boolean accept( File file ) {
             return file.isDirectory();
         }
     }
+    private static FileFilter ffDirs = new DirectoriesFileFilter();
 }

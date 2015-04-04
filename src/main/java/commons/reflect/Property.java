@@ -88,7 +88,7 @@ public class Property {
          * Give up.
          */
         final String msg =
-    		"Cannot get the value of the field " + attributeName;
+            "Cannot get the value of the field " + attributeName;
         throw new IllegalAccessException(msg);
     }
 }

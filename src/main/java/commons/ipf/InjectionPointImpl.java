@@ -41,41 +41,41 @@ implements InjectionPoint<A> {
     private A annot;
 
     public InjectionPointImpl( A annot ) {
-    	this.annot = annot;
+        this.annot = annot;
     }
-	
+    
     public A getAnnotation() {
-    	return annot;
+        return annot;
     }
 
-	/**
-	 * Factory method for injection points.
-	 * 
-	 * @param ao     a setter method or field
-	 * @param annot  the annotation
-	 * @return       the corresponding injection point
-	 */
-	public static <A extends Annotation> InjectionPoint<A> getInjectionPoint(
-		AccessibleObject ao, A annot ) {
-		
-		InjectionPoint<A> ip = null;
-		
-		if( ao instanceof Method ) {
-	        Method setter = (Method) ao;
-	        try {
-				Method getter = MethodHelper.getGetterForSetter(setter);
-	            ip = new InjectionPointMethodImpl<>(setter,getter,annot);
-			}
-	        catch (NoSuchMethodException e) {
-	            ip = new InjectionPointMethodImpl<>(setter,annot);
-			}
-	    }
-	    else {
-	        Field field = (Field) ao;
-	        ip = new InjectionPointFieldImpl<>(field,annot);
-	        return ip;
-	    }
-	
-		return ip;
-	}    
+    /**
+     * Factory method for injection points.
+     * 
+     * @param ao     a setter method or field
+     * @param annot  the annotation
+     * @return       the corresponding injection point
+     */
+    public static <A extends Annotation> InjectionPoint<A> getInjectionPoint(
+        AccessibleObject ao, A annot ) {
+        
+        InjectionPoint<A> ip = null;
+        
+        if( ao instanceof Method ) {
+            Method setter = (Method) ao;
+            try {
+                Method getter = MethodHelper.getGetterForSetter(setter);
+                ip = new InjectionPointMethodImpl<>(setter,getter,annot);
+            }
+            catch (NoSuchMethodException e) {
+                ip = new InjectionPointMethodImpl<>(setter,annot);
+            }
+        }
+        else {
+            Field field = (Field) ao;
+            ip = new InjectionPointFieldImpl<>(field,annot);
+            return ip;
+        }
+    
+        return ip;
+    }    
 }

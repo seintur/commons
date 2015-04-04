@@ -43,16 +43,16 @@ import commons.reflect.SetterMethodFilter;
 public class InjectionPointHashMap<A extends Annotation>
 extends HashMap<String,InjectionPoint<A>> {
     
-	private static final long serialVersionUID = -2199033442372122424L;
+    private static final long serialVersionUID = -2199033442372122424L;
 
-	/** The class. */
+    /** The class. */
     protected Class<?> cl;
     
     /** The annotation. */
     protected Class<A> annotClass;
     
     public InjectionPointHashMap( Class<?> cl, Class<A> annotClass ) {
-    	this.cl = cl;
+        this.cl = cl;
         this.annotClass = annotClass;
     }
     
@@ -61,12 +61,12 @@ extends HashMap<String,InjectionPoint<A>> {
      * this instance. Discard overridden injection points.
      * 
      * @throws DuplicationInjectionPointException
-     * 		if for a given name, more than one injection point exist
+     *         if for a given name, more than one injection point exist
      */
     public void putAll() throws DuplicationInjectionPointException {
         
         AccessibleObject[] aos =
-        	ClassHelper.getAllAnnotatedSettersAndFields(cl,annotClass.getName());        
+            ClassHelper.getAllAnnotatedSettersAndFields(cl,annotClass.getName());        
         for (AccessibleObject ao : aos) {
             
             /*
@@ -74,11 +74,11 @@ extends HashMap<String,InjectionPoint<A>> {
              * parameter. If the 'name' annotation parameter is not found, infer
              * the name from the setter method name or the field.
              */
-        	String ipname = getInjectionPointName(ao);
+            String ipname = getInjectionPointName(ao);
             
-        	A annot = ao.getAnnotation(annotClass);
+            A annot = ao.getAnnotation(annotClass);
             InjectionPoint<A> ip =
-        		InjectionPointImpl.getInjectionPoint(ao,annot);
+                InjectionPointImpl.getInjectionPoint(ao,annot);
 
             /*
              * Check whether the name has already been encountered before. If
@@ -86,34 +86,34 @@ extends HashMap<String,InjectionPoint<A>> {
              * field) exists, which is inconsistent.
              */
             if( containsKey(ipname) ) {
-            	InjectionPoint<?> other = get(ipname);
-            	boolean b = ip.override(other);
-            	if(b) {
-            		/*
-            		 * Another injection point exists for the same name, but the
-            		 * current one overrides the other one. Keep only the
-            		 * current one.
-            		 */
-            		remove(other);
+                InjectionPoint<?> other = get(ipname);
+                boolean b = ip.override(other);
+                if(b) {
+                    /*
+                     * Another injection point exists for the same name, but the
+                     * current one overrides the other one. Keep only the
+                     * current one.
+                     */
+                    remove(other);
                     put(ipname,ip);
-            	}
-            	else {
-        			/*
-        			 * Another injection point exists for the same name. If this
-        			 * other injection points overrides the current one, do
-        			 * nothing, simply retain the other one and discards the
-        			 * current one.
-        			 */
-            		b = other.override(ip);
-            		if(!b) {
-            			/*
-            			 * Another injection point exists for the same name, and
-            			 * none of them overrides the other one.
-            			 */
-                    	throw new DuplicationInjectionPointException(
-                    			ipname,cl,annotClass.getName());            			
-            		}
-            	}
+                }
+                else {
+                    /*
+                     * Another injection point exists for the same name. If this
+                     * other injection points overrides the current one, do
+                     * nothing, simply retain the other one and discards the
+                     * current one.
+                     */
+                    b = other.override(ip);
+                    if(!b) {
+                        /*
+                         * Another injection point exists for the same name, and
+                         * none of them overrides the other one.
+                         */
+                        throw new DuplicationInjectionPointException(
+                                ipname,cl,annotClass.getName());                        
+                    }
+                }
             }
             else {
                 put(ipname,ip);
@@ -130,7 +130,7 @@ extends HashMap<String,InjectionPoint<A>> {
     throws NoSuchInjectionPointException, DuplicationInjectionPointException {
         
         AccessibleObject[] aos =
-        	ClassHelper.getAllAnnotatedSettersAndFields(cl,annotClass.getName());   
+            ClassHelper.getAllAnnotatedSettersAndFields(cl,annotClass.getName());   
         boolean found = false;
         for (AccessibleObject ao : aos) {
             
@@ -139,24 +139,24 @@ extends HashMap<String,InjectionPoint<A>> {
              * parameter. If the 'name' annotation parameter is not found, infer
              * the name from the setter method name or the field.
              */
-        	String ipname = getInjectionPointName(ao);
+            String ipname = getInjectionPointName(ao);
 
-        	if( ipname.equals(name) ) {
-        		
+            if( ipname.equals(name) ) {
+                
                 /*
                  * Check whether the name has already been encountered before.
                  * If so, this means that more than one injection point (setter
                  * or field) exists, which is inconsistent.
                  */
                 if( containsKey(name) ) {
-                	// TODO check for overriding (as for putAll)
-                	throw new DuplicationInjectionPointException(
-                			name,cl,annotClass.getName());
+                    // TODO check for overriding (as for putAll)
+                    throw new DuplicationInjectionPointException(
+                            name,cl,annotClass.getName());
                 }
 
                 A annot = ao.getAnnotation(annotClass);
                 InjectionPoint<A> ip =
-            		InjectionPointImpl.getInjectionPoint(ao,annot);
+                    InjectionPointImpl.getInjectionPoint(ao,annot);
                 put(name,ip);
                 
                 /*
@@ -164,7 +164,7 @@ extends HashMap<String,InjectionPoint<A>> {
                  * for duplicate elements.
                  */
                 found = true;
-        	}
+            }
         }
         
         if(!found) {
@@ -180,20 +180,20 @@ extends HashMap<String,InjectionPoint<A>> {
      */
     public void put( Field field, A annot )
     throws DuplicationInjectionPointException {
-    	
-    	String name = field.getName();
-    	
+        
+        String name = field.getName();
+        
         /*
          * Check whether the name has already been encountered before. If so,
          * this means that more than one injection point exists, which is
          * inconsistent.
          */
         if( containsKey(name) ) {
-        	throw new DuplicationInjectionPointException(
-    			name,cl,annotClass.getName());
+            throw new DuplicationInjectionPointException(
+                name,cl,annotClass.getName());
         }
 
-    	InjectionPoint<A> ip = new InjectionPointFieldImpl<>(field,annot);
+        InjectionPoint<A> ip = new InjectionPointFieldImpl<>(field,annot);
         put(name,ip);
     }
     
@@ -205,21 +205,21 @@ extends HashMap<String,InjectionPoint<A>> {
      */
     public void put( Method setter, A annot )
     throws DuplicationInjectionPointException {
-    	
-    	SetterMethodFilter.checkSetterMethod(setter);
-    	String name = SetterMethodFilter.getSetterPropertyName(setter);
-    	
+        
+        SetterMethodFilter.checkSetterMethod(setter);
+        String name = SetterMethodFilter.getSetterPropertyName(setter);
+        
         /*
          * Check whether the name has already been encountered before. If so,
          * this means that more than one injection point exists, which is
          * inconsistent.
          */
         if( containsKey(name) ) {
-        	throw new DuplicationInjectionPointException(
-    			name,cl,annotClass.getName());
+            throw new DuplicationInjectionPointException(
+                name,cl,annotClass.getName());
         }
 
-    	InjectionPoint<A> ip = new InjectionPointMethodImpl<>(setter,annot);
+        InjectionPoint<A> ip = new InjectionPointMethodImpl<>(setter,annot);
         put(name,ip);
     }
     
@@ -236,13 +236,13 @@ extends HashMap<String,InjectionPoint<A>> {
      */
     private String getInjectionPointName( AccessibleObject ao ) {
         
-    	/*
+        /*
          * Check whether the accessible object has a 'name' annotation
          * parameter. If the 'name' annotation parameter is not found, infer
          * the name from the setter method name or the field.
          */
-    	A annot = ao.getAnnotation(annotClass);
-    	String name = AnnotationHelper.getAnnotationParamValue(annot,"name");
+        A annot = ao.getAnnotation(annotClass);
+        String name = AnnotationHelper.getAnnotationParamValue(annot,"name");
         if( name==null || name.length() == 0 ) {
             if( ao instanceof Method ) {
                 Method method = (Method) ao;

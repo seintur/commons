@@ -38,48 +38,48 @@ import java.util.List;
  */
 public class AccessibleObjectHelper {
 
-	/**
-	 * Return the annotation associated with <code>ao</code> whose type name is
-	 * one of those contained in <code>annotClassNames</code>. Return
-	 * <code>null</code> if no such annotation is found.
-	 */
-	public static Annotation getAnnotation(
-		AccessibleObject ao, String... annotClassNames ) {
-		
-		Annotation[] annots = ao.getAnnotations();
-		for (String annotClassName : annotClassNames) {
-			for (Annotation annot : annots) {
-				String name = annot.annotationType().getName();
-	    		if( name.equals(annotClassName) ) {
-	    			return annot;
-	    		}
-			}
-		}
-		return null;
-	}
+    /**
+     * Return the annotation associated with <code>ao</code> whose type name is
+     * one of those contained in <code>annotClassNames</code>. Return
+     * <code>null</code> if no such annotation is found.
+     */
+    public static Annotation getAnnotation(
+        AccessibleObject ao, String... annotClassNames ) {
+        
+        Annotation[] annots = ao.getAnnotations();
+        for (String annotClassName : annotClassNames) {
+            for (Annotation annot : annots) {
+                String name = annot.annotationType().getName();
+                if( name.equals(annotClassName) ) {
+                    return annot;
+                }
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * Return a copy of the specified array where overridden methods and fields
-	 * have been removed.
-	 */
-	public static AccessibleObject[] removeOverridden( AccessibleObject[] aos ) {
-		List<AccessibleObject> res = new ArrayList<AccessibleObject>();
-		res.addAll(Arrays.asList(aos));
-		for (int i = 0; i < aos.length; i++) {
-			for (int j = 0; j < aos.length; j++) {
-				if(j==i) { continue; }
-				boolean b = false;
-				if( aos[i] instanceof Method && aos[j] instanceof Method ) {
-					b = MethodHelper.override((Method)aos[j],(Method)aos[i]);
-				}
-				else if( aos[i] instanceof Field && aos[j] instanceof Field ) {
-					b = FieldHelper.override((Field)aos[j],(Field)aos[i]);
-				}
-				if(b) {
-					res.remove(aos[i]);
-				}
-			}
-		}
-		return res.toArray(new AccessibleObject[res.size()]);
-	}
+    /**
+     * Return a copy of the specified array where overridden methods and fields
+     * have been removed.
+     */
+    public static AccessibleObject[] removeOverridden( AccessibleObject[] aos ) {
+        List<AccessibleObject> res = new ArrayList<AccessibleObject>();
+        res.addAll(Arrays.asList(aos));
+        for (int i = 0; i < aos.length; i++) {
+            for (int j = 0; j < aos.length; j++) {
+                if(j==i) { continue; }
+                boolean b = false;
+                if( aos[i] instanceof Method && aos[j] instanceof Method ) {
+                    b = MethodHelper.override((Method)aos[j],(Method)aos[i]);
+                }
+                else if( aos[i] instanceof Field && aos[j] instanceof Field ) {
+                    b = FieldHelper.override((Field)aos[j],(Field)aos[i]);
+                }
+                if(b) {
+                    res.remove(aos[i]);
+                }
+            }
+        }
+        return res.toArray(new AccessibleObject[res.size()]);
+    }
 }

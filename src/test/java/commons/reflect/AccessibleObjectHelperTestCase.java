@@ -39,50 +39,50 @@ import org.junit.Test;
  */
 public class AccessibleObjectHelperTestCase {
 
-	private Field srccontext, targetcontext, targetctx;
-	private Method srcinit, srcnot, targetinit, targetnot;
+    private Field srccontext, targetcontext, targetctx;
+    private Method srcinit, srcnot, targetinit, targetnot;
 
-	@Before
-	public void setUp() throws NoSuchMethodException, NoSuchFieldException {
-		
-		srccontext = Src.class.getDeclaredField("context");
-		targetcontext = Target.class.getDeclaredField("context");
-		targetctx = Target.class.getDeclaredField("ctx");
-		
-		srcinit = Src.class.getMethod("init");
-		srcnot = Src.class.getMethod("not",String.class,AccessibleObjectHelperTestCase.class);
-		targetinit = Target.class.getMethod("init");
-		targetnot = Target.class.getMethod("not",String.class);		
-	}
-	
-	@Test
-	public void removeOverridenAccessibleObjects() {
-		AccessibleObject[] aos =
-			new AccessibleObject[]{
-				srccontext,targetcontext,targetctx,srcinit,targetinit,srcnot,
-				targetnot};
-		AccessibleObject[] actuals = AccessibleObjectHelper.removeOverridden(aos);
-		AccessibleObject[] expecteds =
-			new AccessibleObject[]{
-				targetcontext,targetctx,targetinit,srcnot,targetnot};
-		Assert.assertArrayEquals(expecteds,actuals);
-	}
+    @Before
+    public void setUp() throws NoSuchMethodException, NoSuchFieldException {
+        
+        srccontext = Src.class.getDeclaredField("context");
+        targetcontext = Target.class.getDeclaredField("context");
+        targetctx = Target.class.getDeclaredField("ctx");
+        
+        srcinit = Src.class.getMethod("init");
+        srcnot = Src.class.getMethod("not",String.class,AccessibleObjectHelperTestCase.class);
+        targetinit = Target.class.getMethod("init");
+        targetnot = Target.class.getMethod("not",String.class);        
+    }
+    
+    @Test
+    public void removeOverridenAccessibleObjects() {
+        AccessibleObject[] aos =
+            new AccessibleObject[]{
+                srccontext,targetcontext,targetctx,srcinit,targetinit,srcnot,
+                targetnot};
+        AccessibleObject[] actuals = AccessibleObjectHelper.removeOverridden(aos);
+        AccessibleObject[] expecteds =
+            new AccessibleObject[]{
+                targetcontext,targetctx,targetinit,srcnot,targetnot};
+        Assert.assertArrayEquals(expecteds,actuals);
+    }
 
-	@SuppressWarnings("unused")
-	private static class Src {
-		protected String context;
-		public void init() throws RuntimeException {}
-		public boolean not( String s, AccessibleObjectHelperTestCase utc ) {
-			return false;
-		}
-	}
-	
-	@SuppressWarnings("unused")
-	private static class Target extends Src {
-		protected Object context;
-		protected String ctx;
-		@Override
-		public void init() {}
-		public boolean not( String s ) { return false; }
-	}
+    @SuppressWarnings("unused")
+    private static class Src {
+        protected String context;
+        public void init() throws RuntimeException {}
+        public boolean not( String s, AccessibleObjectHelperTestCase utc ) {
+            return false;
+        }
+    }
+    
+    @SuppressWarnings("unused")
+    private static class Target extends Src {
+        protected Object context;
+        protected String ctx;
+        @Override
+        public void init() {}
+        public boolean not( String s ) { return false; }
+    }
 }

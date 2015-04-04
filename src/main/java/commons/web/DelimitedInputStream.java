@@ -57,21 +57,21 @@ public class DelimitedInputStream extends FilterInputStream {
 
 
     public DelimitedInputStream( InputStream in, byte[] separator )
-	throws IllegalArgumentException {
+    throws IllegalArgumentException {
         
-    	super(in);
+        super(in);
 
         for ( int i=1 ; i < separator.length ; i++ ) {
-        	if ( separator[i] == separator[0] ) {
-        		throw new IllegalArgumentException(
+            if ( separator[i] == separator[0] ) {
+                throw new IllegalArgumentException(
                     "byte (" + Byte.toString(separator[0]) +
                     ") at index 0 must be unique in separator" );
-        	}
+            }
         }
 
         this.separator = new int[ separator.length ];
         for ( int i=0 ; i < separator.length ; i++ ) {
-        	this.separator[i] = (separator[i]<0) ? 256+separator[i] : separator[i];
+            this.separator[i] = (separator[i]<0) ? 256+separator[i] : separator[i];
         }
     }
 
@@ -101,7 +101,7 @@ public class DelimitedInputStream extends FilterInputStream {
     public int read() throws IOException {
 
         while (true) {
-        	
+            
             /*
              * Test whether the separator is met.
              * The separator is either followed by 0xd 0xa
@@ -119,14 +119,14 @@ public class DelimitedInputStream extends FilterInputStream {
             }
 
             if ( firstNonMatching != -1 ) {
-            	if ( backIndex < index ) {
+                if ( backIndex < index ) {
                     int ret = separator[backIndex];
-            		backIndex++;
+                    backIndex++;
                     return ret;
-            	}
+                }
                 int ret = firstNonMatching;
                 firstNonMatching = -1;
-            	backIndex = 0;
+                backIndex = 0;
                 index = 0;
                 return ret;
             }
@@ -150,9 +150,9 @@ public class DelimitedInputStream extends FilterInputStream {
             }
 
             if ( b == separator[index] ) {
-            	index++;
+                index++;
                 if ( index == separator.length ) {
-                	separatormet = true;
+                    separatormet = true;
                 }
             }
             else {

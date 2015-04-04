@@ -39,24 +39,24 @@ import commons.reflect.SetterMethodFilter;
 public class InjectionPointMethodImpl<A extends Annotation>
 extends InjectionPointImpl<A> {
 
-	private Method setter;
-	private Method getter;
-	
-	/**
+    private Method setter;
+    private Method getter;
+    
+    /**
      * @throws IllegalArgumentException
      *      if the specified argument is not a setter method
      */
     public InjectionPointMethodImpl( Method setter, A annot )
     throws IllegalArgumentException {
         
-    	super(annot);
-    	
+        super(annot);
+        
         SetterMethodFilter.checkSetterMethod(setter);
         this.setter = setter;
         setter.setAccessible(true);  // Enable access to private methods
     }
     
-	/**
+    /**
      * @throws IllegalArgumentException
      *      if the specified argument is not a setter method
      */
@@ -64,8 +64,8 @@ extends InjectionPointImpl<A> {
     throws IllegalArgumentException {
         
         super(annot);
-    	
-    	MethodHelper.checkMatchingSetterGetterMethods(setter,getter);
+        
+        MethodHelper.checkMatchingSetterGetterMethods(setter,getter);
         this.setter = setter;
         this.getter = getter;
         setter.setAccessible(true);  // Enable access to private methods
@@ -79,37 +79,37 @@ extends InjectionPointImpl<A> {
     
     public Object get( Object target )
     throws
-    	IllegalAccessException, InvocationTargetException,
-    	UnsupportedOperationException {
-    	
-    	if( getter == null ) {
+        IllegalAccessException, InvocationTargetException,
+        UnsupportedOperationException {
+        
+        if( getter == null ) {
             final String msg = "Cannot get the value with a setter method";
             throw new UnsupportedOperationException(msg);
-    	}
-    	
-    	Object value = getter.invoke(target);
-    	return value;
+        }
+        
+        Object value = getter.invoke(target);
+        return value;
     }
     
     public Method getGetterMethod() {
-    	return getter;
+        return getter;
     }
 
     public Method getSetterMethod() {
-    	return setter;
+        return setter;
     }
 
     public Class<?> getType() {
-    	Class<?>[] ptypes = setter.getParameterTypes();
-    	return ptypes[0];
+        Class<?>[] ptypes = setter.getParameterTypes();
+        return ptypes[0];
     }
 
     public boolean override( InjectionPoint<?> other ) {
-    	if( ! (other instanceof InjectionPointMethodImpl) ) {
-    		return false;
-    	}
-    	Method othersetter = ((InjectionPointMethodImpl<?>)other).setter;
-    	boolean b = MethodHelper.override(setter,othersetter);
-    	return b;
+        if( ! (other instanceof InjectionPointMethodImpl) ) {
+            return false;
+        }
+        Method othersetter = ((InjectionPointMethodImpl<?>)other).setter;
+        boolean b = MethodHelper.override(setter,othersetter);
+        return b;
     }
 }

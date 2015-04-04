@@ -71,7 +71,7 @@ public class HtmlMapSelector extends HtmlSelector {
     
     /** Reset the items container. */
     public void reset() {
-		items = new TreeMap<String,String>();
+        items = new TreeMap<String,String>();
     }
     
 
@@ -120,7 +120,7 @@ public class HtmlMapSelector extends HtmlSelector {
         
         for ( String item : items.keySet() ) {
 
-        	pw.println("<tr>");
+            pw.println("<tr>");
             pw.print("<td>");
             
             /*

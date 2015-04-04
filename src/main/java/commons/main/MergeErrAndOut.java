@@ -40,7 +40,7 @@ import commons.io.PipedStreams;
 public class MergeErrAndOut {
 
     public static void main( String[] args )
-	throws InterruptedException, IOException {
+    throws InterruptedException, IOException {
 
         if ( args.length != 1 ) {
             System.out.println( "Usage: java common.lang.MergeErrAndOut file" );

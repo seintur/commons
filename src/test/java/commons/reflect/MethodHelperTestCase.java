@@ -36,56 +36,56 @@ import org.junit.Test;
  */
 public class MethodHelperTestCase {
 
-	private Method srcinit, srcnot, targetinit, targetnot;
+    private Method srcinit, srcnot, targetinit, targetnot;
 
-	@Before
-	public void setUp() throws NoSuchMethodException {
-		
-		srcinit = Src.class.getMethod("init");
-		srcnot = Src.class.getMethod("not",String.class,MethodHelperTestCase.class);
-		targetinit = Target.class.getMethod("init");
-		targetnot = Target.class.getMethod("not",String.class);		
-	}
-	
-	@Test
-	public void getShortSignature() {
-		Assert.assertEquals("init()",MethodHelper.getShortSignature(srcinit));
-		Assert.assertEquals("init()",MethodHelper.getShortSignature(targetinit));
-	}
-	
-	@Test
-	public void sameSignature() {
-		Assert.assertEquals(true,MethodHelper.sameSignature(srcinit,targetinit));
-	}
-	
-	@Test
-	public void overrideMethod() {		
-		Assert.assertEquals(true,MethodHelper.override(targetinit,srcinit));
-		Assert.assertEquals(false,MethodHelper.override(srcinit,targetinit));
-		Assert.assertEquals(false,MethodHelper.override(targetnot,srcnot));
-	}
-	
-	@Test
-	public void removeOverridenMethods() {
-		Method[] methods = new Method[]{srcinit,targetinit,srcnot,targetnot};
-		Method[] actuals = MethodHelper.removeOverridden(methods);
-		Method[] expecteds = new Method[]{targetinit,srcnot,targetnot};
-		Assert.assertArrayEquals(expecteds,actuals);
-	}
-	
-	@SuppressWarnings("unused")
-	private static class Src {
-		protected String context;
-		public void init() throws RuntimeException {}
-		public boolean not( String s, MethodHelperTestCase utc ) { return false; }
-	}
-	
-	@SuppressWarnings("unused")
-	private static class Target extends Src {
-		protected Object context;
-		protected String ctx;
-		@Override
-		public void init() {}
-		public boolean not( String s ) { return false; }
-	}
+    @Before
+    public void setUp() throws NoSuchMethodException {
+        
+        srcinit = Src.class.getMethod("init");
+        srcnot = Src.class.getMethod("not",String.class,MethodHelperTestCase.class);
+        targetinit = Target.class.getMethod("init");
+        targetnot = Target.class.getMethod("not",String.class);        
+    }
+    
+    @Test
+    public void getShortSignature() {
+        Assert.assertEquals("init()",MethodHelper.getShortSignature(srcinit));
+        Assert.assertEquals("init()",MethodHelper.getShortSignature(targetinit));
+    }
+    
+    @Test
+    public void sameSignature() {
+        Assert.assertEquals(true,MethodHelper.sameSignature(srcinit,targetinit));
+    }
+    
+    @Test
+    public void overrideMethod() {        
+        Assert.assertEquals(true,MethodHelper.override(targetinit,srcinit));
+        Assert.assertEquals(false,MethodHelper.override(srcinit,targetinit));
+        Assert.assertEquals(false,MethodHelper.override(targetnot,srcnot));
+    }
+    
+    @Test
+    public void removeOverridenMethods() {
+        Method[] methods = new Method[]{srcinit,targetinit,srcnot,targetnot};
+        Method[] actuals = MethodHelper.removeOverridden(methods);
+        Method[] expecteds = new Method[]{targetinit,srcnot,targetnot};
+        Assert.assertArrayEquals(expecteds,actuals);
+    }
+    
+    @SuppressWarnings("unused")
+    private static class Src {
+        protected String context;
+        public void init() throws RuntimeException {}
+        public boolean not( String s, MethodHelperTestCase utc ) { return false; }
+    }
+    
+    @SuppressWarnings("unused")
+    private static class Target extends Src {
+        protected Object context;
+        protected String ctx;
+        @Override
+        public void init() {}
+        public boolean not( String s ) { return false; }
+    }
 }

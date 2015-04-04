@@ -103,7 +103,7 @@ public class MvnChangeProjectVersionNumber {
      * @param replace  the new project version number
      */
     private static void changeProjectVersionNumber(
-		File pom, String find, String replace )
+        File pom, String find, String replace )
     throws IOException {
         
         boolean fileHasChanged = false;

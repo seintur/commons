@@ -37,7 +37,7 @@ import org.junit.Test;
  */
 public class JpegResizeTest {
     
-	@Test
+    @Test
     public void testResize() throws IOException {
 
         System.out.println(
@@ -61,16 +61,16 @@ public class JpegResizeTest {
         int height = b.getHeight();
         
         if( width != targetWidth ) {
-        	final String msg =
-    			"Width ("+width+") does not match requested width ("+
-				targetWidth+")";
-        	Assert.fail(msg);
+            final String msg =
+                "Width ("+width+") does not match requested width ("+
+                targetWidth+")";
+            Assert.fail(msg);
         }
         
         if( height != targetHeight ) {
             final String msg =
-        		"Height ("+height+") does not match requested height ("+
-				targetHeight+")";
+                "Height ("+height+") does not match requested height ("+
+                targetHeight+")";
             Assert.fail(msg);
         }
     }

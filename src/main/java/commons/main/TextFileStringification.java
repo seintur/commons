@@ -35,9 +35,9 @@ import java.io.FileReader;
 public class TextFileStringification {
 
     public static void main( String[] args ) throws Exception {
-    	
+        
         if ( args.length != 1 ) {
-        	System.err.println( "Usage: java common.main.TextFileStringification <filename>" );
+            System.err.println( "Usage: java common.main.TextFileStringification <filename>" );
             System.exit(1);
         }
 

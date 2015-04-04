@@ -35,7 +35,7 @@ import org.junit.Test;
 public class CollectionExtTest {
 
     @Test
-	public void testRecursiveGet() throws Exception {
+    public void testRecursiveGet() throws Exception {
         
         System.out.println("=== CollectionExtTest.recursiveGet() ===");
 
@@ -61,11 +61,11 @@ public class CollectionExtTest {
     }
         
     private void testRecursiveGet(
-		Model src, String[] methodNames, String expected )
+        Model src, String[] methodNames, String expected )
     throws Exception {
-		Collection<?> res = CollectionExt.recursiveGet(src,methodNames);
+        Collection<?> res = CollectionExt.recursiveGet(src,methodNames);
         System.out.println( expected + " = " + res );
-	}
+    }
     
     /**
      * This class is part of the data model used to test recursiveGet.
@@ -131,18 +131,18 @@ public class CollectionExtTest {
     public static class Clazz {
         private String name;
         private Collection<AssociationEnd> associationEnds =
-        	new ArrayList<AssociationEnd>();
+            new ArrayList<AssociationEnd>();
         
-		public Clazz( String name ) { this.name = name; }
+        public Clazz( String name ) { this.name = name; }
         
         public Collection<AssociationEnd> getAssociationEnds() {
-        	return associationEnds;
+            return associationEnds;
         }
-		public String getName() { return name; }
-		public void addAssociationEnd(AssociationEnd end) {
-			associationEnds.add(end);
-		}
-		@Override
+        public String getName() { return name; }
+        public void addAssociationEnd(AssociationEnd end) {
+            associationEnds.add(end);
+        }
+        @Override
         public String toString() { return "Clazz: " + name; }
     }
 
@@ -162,7 +162,7 @@ public class CollectionExtTest {
         public void setAssociation(Association association) {
             this.association = association;
         }
-		@Override
+        @Override
         public String toString() { return "End: " + name; }
     }
 
@@ -174,7 +174,7 @@ public class CollectionExtTest {
     public static class Association {
         private String name;
         private Collection<AssociationEnd> associationEnds =
-        	new ArrayList<AssociationEnd>();
+            new ArrayList<AssociationEnd>();
         
         public Association(
             String name, AssociationEnd src, AssociationEnd dst ) {
@@ -184,10 +184,10 @@ public class CollectionExtTest {
         }
         
         public Collection<AssociationEnd> getAssociationEnds() {
-        	return associationEnds;
+            return associationEnds;
         }
         public String getName() { return name; }
-		@Override
+        @Override
         public String toString() { return "Association: " + name; }
     }    
 }

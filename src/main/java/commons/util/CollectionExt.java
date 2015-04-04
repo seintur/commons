@@ -56,14 +56,14 @@ public class CollectionExt {
      */
     public static <E> Collection<E> createOfSameClass( Collection<E> src ) {
         @SuppressWarnings("unchecked")
-		Class<Collection<E>> cl = (Class<Collection<E>>) src.getClass();
+        Class<Collection<E>> cl = (Class<Collection<E>>) src.getClass();
         try {
-        	Collection<E> ret = cl.newInstance();
-        	return ret;
+            Collection<E> ret = cl.newInstance();
+            return ret;
         }
         catch (InstantiationException | IllegalAccessException e) {
-        	Collection<E> ret = new ArrayList<>();
-        	return ret;
+            Collection<E> ret = new ArrayList<>();
+            return ret;
         }
     }
     
@@ -105,7 +105,7 @@ public class CollectionExt {
          * (i.e. implementing the OrderedSet interface), isn't it?
          */
         Comparator<Object> comp =
-    		new IntegerAttributeComparator<>(orderingAttributeName);
+            new IntegerAttributeComparator<>(orderingAttributeName);
         Collection<Object> ret = new TreeSet<>(comp);
         return getAttributes( src, attributeName, ret );
     }
@@ -126,16 +126,16 @@ public class CollectionExt {
         Collection<E> src, String attributeName, Collection<Object> dst ) {
 
         if ( attributeName.length() == 0 ) {
-        	final String msg = "Parameter attributeName must be non-empty";
-        	throw new IllegalArgumentException(msg);
+            final String msg = "Parameter attributeName must be non-empty";
+            throw new IllegalArgumentException(msg);
         }
 
         Iterator<E> iterator = src.iterator();
         while ( iterator.hasNext() ) {
-        	
+            
             E element = iterator.next();
             try {
-            	Object value =
+                Object value =
                     Property.getAttributeValue( element, attributeName );
                 dst.add( value );
             }
@@ -166,7 +166,7 @@ public class CollectionExt {
      */
     public static Set<Object> recursiveGet( Object src, String[] methodNames )
     throws
-    	NoSuchMethodException,
+        NoSuchMethodException,
         IllegalAccessException, InvocationTargetException {
         
         Set<Object> ret = new HashSet<Object>();
@@ -189,8 +189,8 @@ public class CollectionExt {
         Object src, List<String> methodNames, Set<Object> visited,
         Set<Object> leaf )
     throws
-    	NoSuchMethodException, IllegalAccessException,
-    	InvocationTargetException {
+        NoSuchMethodException, IllegalAccessException,
+        InvocationTargetException {
             
         /*
          * Invoke the first method whose name is in methodNames.

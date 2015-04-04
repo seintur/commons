@@ -111,7 +111,7 @@ public abstract class HtmlSelector {
             pw.println("method=\"get\">");
             
             if ( removeURLParameters != null ) {
-            	for (Map.Entry<Object,Object> entry : removeURLParameters.entrySet()) {
+                for (Map.Entry<Object,Object> entry : removeURLParameters.entrySet()) {
                     Object key = entry.getKey();
                     Object value = entry.getValue();
                     pw.print("<input type=\"hidden\" ");
@@ -229,7 +229,7 @@ public abstract class HtmlSelector {
      */
     public void setRemoveURL(String string, Map<Object,Object> parameters) {
         if ( parameters.containsKey("items") ) {
-        	final String msg = "Parameters should not contain items";
+            final String msg = "Parameters should not contain items";
             throw new IllegalArgumentException(msg);
         }
         removeURL = string;
@@ -238,7 +238,7 @@ public abstract class HtmlSelector {
 
     public void setSelectURL(String string) {
         if ( string.indexOf("name=") != -1 ) {
-        	final String msg = "URL <"+string+"> should not contain name";
+            final String msg = "URL <"+string+"> should not contain name";
             throw new IllegalArgumentException(msg);
         }
         selectURL = string;

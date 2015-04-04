@@ -32,8 +32,8 @@ import java.io.Serializable;
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 public class UploadedFile implements Serializable {
-	
-	static final long serialVersionUID = 7991317690591327202L;
+    
+    static final long serialVersionUID = 7991317690591327202L;
     
     /**
      * The remote file name as transmitted by the browser.

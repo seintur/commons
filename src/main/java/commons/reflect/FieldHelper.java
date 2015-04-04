@@ -32,33 +32,33 @@ import java.lang.reflect.Field;
  */
 public class FieldHelper {
 
-	/**
-	 * Return <code>true</code> if the source field overrides the target field.
-	 * 
-	 * @param src     the source field
-	 * @param target  the target field
-	 */
-	public static boolean override( Field src, Field target ) {
-		
-		String srcname = src.getName();
-		String targetname = target.getName();
-		boolean b = srcname.equals(targetname);
-		if(!b) {
-			return false;
-		}
-		
-		Class<?> srccl = src.getDeclaringClass();
-		Class<?> targetcl = target.getDeclaringClass();
-		
-		if( targetcl.isAssignableFrom(srccl) ) {
-			/*
-			 * If targetcl is assignable from srccl, this means that src (the
-			 * declaring class of) is a subtype of target (idem.) Then, since
-			 * target and src share the same name, src overrides target.
-			 */
-			return true;
-		}
-		
-		return false;
-	}
+    /**
+     * Return <code>true</code> if the source field overrides the target field.
+     * 
+     * @param src     the source field
+     * @param target  the target field
+     */
+    public static boolean override( Field src, Field target ) {
+        
+        String srcname = src.getName();
+        String targetname = target.getName();
+        boolean b = srcname.equals(targetname);
+        if(!b) {
+            return false;
+        }
+        
+        Class<?> srccl = src.getDeclaringClass();
+        Class<?> targetcl = target.getDeclaringClass();
+        
+        if( targetcl.isAssignableFrom(srccl) ) {
+            /*
+             * If targetcl is assignable from srccl, this means that src (the
+             * declaring class of) is a subtype of target (idem.) Then, since
+             * target and src share the same name, src overrides target.
+             */
+            return true;
+        }
+        
+        return false;
+    }
 }

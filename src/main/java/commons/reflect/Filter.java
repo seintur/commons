@@ -32,8 +32,8 @@ package commons.reflect;
  */
 public interface Filter<T> {
 
-	/**
-	 * Return <code>true</code> if the specified value is to be accepted.
-	 */
-	public boolean accept( T value );
+    /**
+     * Return <code>true</code> if the specified value is to be accepted.
+     */
+    public boolean accept( T value );
 }

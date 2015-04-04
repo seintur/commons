@@ -36,8 +36,8 @@ import org.junit.Test;
  */
 public class MapExtTest {
 
-	@Test
-	public void testSubtract() {
+    @Test
+    public void testSubtract() {
 
         System.out.println("=== MapExtTest.subtract() ===");
 
@@ -136,5 +136,5 @@ public class MapExtTest {
         System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
             Assert.fail();
-	}
+    }
 }

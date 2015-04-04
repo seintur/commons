@@ -54,9 +54,9 @@ public class ClassHelper {
      * @param cl  the class
      */
     public static Field[] getAllFields( Class<?> cl ) {
-    	List<Field> result = new ArrayList<Field>();
-    	addAllFields(cl,result);
-    	return result.toArray(new Field[result.size()]);
+        List<Field> result = new ArrayList<Field>();
+        addAllFields(cl,result);
+        return result.toArray(new Field[result.size()]);
     }
     
     /**
@@ -69,21 +69,21 @@ public class ClassHelper {
      * @param list  the list where fields are to be added
      */
     public static void addAllFields( Class<?> cl, List<Field> list ) {
-    	
-    	// Stop when java.lang.Object is reached
-    	if( cl.equals(Object.class) ) {
-    		return;
-    	}
+        
+        // Stop when java.lang.Object is reached
+        if( cl.equals(Object.class) ) {
+            return;
+        }
 
-    	// Declared fields
-    	Field[] fields = cl.getDeclaredFields();
-    	for (Field field : fields) {
-			list.add(field);
-		}
-    	
-    	// Recurse in the parent class
-    	Class<?> supercl = cl.getSuperclass();
-    	addAllFields(supercl,list);
+        // Declared fields
+        Field[] fields = cl.getDeclaredFields();
+        for (Field field : fields) {
+            list.add(field);
+        }
+        
+        // Recurse in the parent class
+        Class<?> supercl = cl.getSuperclass();
+        addAllFields(supercl,list);
     }
     
     /**
@@ -95,9 +95,9 @@ public class ClassHelper {
      * @param cl  the class
      */
     public static Method[] getAllMethods( Class<?> cl ) {
-    	List<Method> result = new ArrayList<Method>();
-    	addAllMethods(cl,result);
-    	return result.toArray(new Method[result.size()]);
+        List<Method> result = new ArrayList<Method>();
+        addAllMethods(cl,result);
+        return result.toArray(new Method[result.size()]);
     }
     
     /**
@@ -110,21 +110,21 @@ public class ClassHelper {
      * @param list  the list where methods are to be added
      */
     public static void addAllMethods( Class<?> cl, List<Method> list ) {
-    	
-    	// Stop when java.lang.Object is reached
-    	if( cl.equals(Object.class) ) {
-    		return;
-    	}
+        
+        // Stop when java.lang.Object is reached
+        if( cl.equals(Object.class) ) {
+            return;
+        }
 
-    	// Declared methods
-    	Method[] methods = cl.getDeclaredMethods();
-    	for (Method method : methods) {
-			list.add(method);
-		}
-    	
-    	// Recurse in the parent class
-    	Class<?> supercl = cl.getSuperclass();
-		addAllMethods(supercl,list);
+        // Declared methods
+        Method[] methods = cl.getDeclaredMethods();
+        for (Method method : methods) {
+            list.add(method);
+        }
+        
+        // Recurse in the parent class
+        Class<?> supercl = cl.getSuperclass();
+        addAllMethods(supercl,list);
     }
     
     /**
@@ -137,26 +137,26 @@ public class ClassHelper {
      * @param annotClassNames  the annotation class names
      */
     public static AccessibleObject[] getAllAnnotatedSettersAndFields(
-		Class<?> cl, String... annotClassNames ) {
-    	
-    	// Setter methods
-    	Method[] methods = getAllMethods(cl);
-    	Method[] ms0 = Filters.filter(methods,new SetterMethodFilter());
-    	Filter<AnnotatedElement> filter =
-    		new AnnotatedElementFilter(annotClassNames);
-    	Method[] ms1 = Filters.filter(ms0,filter);
-    	
-    	// Fields
-    	Field[] fields = getAllFields(cl);
-    	Field[] fs0 = Filters.filter(fields,filter);
+        Class<?> cl, String... annotClassNames ) {
+        
+        // Setter methods
+        Method[] methods = getAllMethods(cl);
+        Method[] ms0 = Filters.filter(methods,new SetterMethodFilter());
+        Filter<AnnotatedElement> filter =
+            new AnnotatedElementFilter(annotClassNames);
+        Method[] ms1 = Filters.filter(ms0,filter);
+        
+        // Fields
+        Field[] fields = getAllFields(cl);
+        Field[] fs0 = Filters.filter(fields,filter);
 
-    	// Result
-    	AccessibleObject[] aos =
-    		new AccessibleObject[ ms1.length + fs0.length ];
-    	System.arraycopy(ms1,0,aos,0,ms1.length);
-    	System.arraycopy(fs0,0,aos,ms1.length,fs0.length);
-    	
-    	return aos;
+        // Result
+        AccessibleObject[] aos =
+            new AccessibleObject[ ms1.length + fs0.length ];
+        System.arraycopy(ms1,0,aos,0,ms1.length);
+        System.arraycopy(fs0,0,aos,ms1.length,fs0.length);
+        
+        return aos;
     }
     
     /**
@@ -168,26 +168,26 @@ public class ClassHelper {
      * @param annotClassNames  the annotation class names
      */
     public static AccessibleObject[] getAnnotatedSettersAndFields(
-		Class<?> cl, String... annotClassNames ) {
-    	
-    	// Setter methods
-    	Method[] methods = cl.getMethods();
-    	Method[] ms0 = Filters.filter(methods,new SetterMethodFilter());
-    	Filter<AnnotatedElement> filter =
-    		new AnnotatedElementFilter(annotClassNames);
-    	Method[] ms1 = Filters.filter(ms0,filter);
-    	
-    	// Fields
-    	Field[] fields = cl.getFields();
-    	Field[] fs0 = Filters.filter(fields,filter);
+        Class<?> cl, String... annotClassNames ) {
+        
+        // Setter methods
+        Method[] methods = cl.getMethods();
+        Method[] ms0 = Filters.filter(methods,new SetterMethodFilter());
+        Filter<AnnotatedElement> filter =
+            new AnnotatedElementFilter(annotClassNames);
+        Method[] ms1 = Filters.filter(ms0,filter);
+        
+        // Fields
+        Field[] fields = cl.getFields();
+        Field[] fs0 = Filters.filter(fields,filter);
 
-    	// Result
-    	AccessibleObject[] aos =
-    		new AccessibleObject[ ms1.length + fs0.length ];
-    	System.arraycopy(ms1,0,aos,0,ms1.length);
-    	System.arraycopy(fs0,0,aos,ms1.length,fs0.length);
-    	
-    	return aos;
+        // Result
+        AccessibleObject[] aos =
+            new AccessibleObject[ ms1.length + fs0.length ];
+        System.arraycopy(ms1,0,aos,0,ms1.length);
+        System.arraycopy(fs0,0,aos,ms1.length,fs0.length);
+        
+        return aos;
     }
     
     /**
@@ -198,32 +198,32 @@ public class ClassHelper {
      * found.
      */
     public static Annotation getAnnotation(
-		Class<?> cl, String... annotClassNames ) {
+        Class<?> cl, String... annotClassNames ) {
 
-    	// No annotation on Object.class
-    	if( cl.equals(Object.class) ) {
-    		return null;
-    	}
+        // No annotation on Object.class
+        if( cl.equals(Object.class) ) {
+            return null;
+        }
 
-    	Annotation[] annots = cl.getAnnotations();
-    	for (String annotClassName : annotClassNames) {
-    		for (Annotation annot : annots) {
-				String name = annot.annotationType().getName();
-				if( name.equals(annotClassName) ) {
-					return annot;
-				}
-			}
-		}
-    	
-    	// Recurse in the parent class up to java.lang.Object
-    	Class<?> supercl = cl.getSuperclass();
-    	if( supercl!=null && !supercl.equals(Object.class) ) {
-    		Annotation annot = getAnnotation(supercl,annotClassNames);
-    		return annot;
-    	}
-    	
-    	// No such annotation found
-    	return null;
+        Annotation[] annots = cl.getAnnotations();
+        for (String annotClassName : annotClassNames) {
+            for (Annotation annot : annots) {
+                String name = annot.annotationType().getName();
+                if( name.equals(annotClassName) ) {
+                    return annot;
+                }
+            }
+        }
+        
+        // Recurse in the parent class up to java.lang.Object
+        Class<?> supercl = cl.getSuperclass();
+        if( supercl!=null && !supercl.equals(Object.class) ) {
+            Annotation annot = getAnnotation(supercl,annotClassNames);
+            return annot;
+        }
+        
+        // No such annotation found
+        return null;
     }
         
     /**
@@ -235,19 +235,19 @@ public class ClassHelper {
      *            (the property set by the method)
      */
     public static Map<String,Method> getAllUnAnnotatedSetterMethods(
-		Class<?> cl ) {
+        Class<?> cl ) {
         
-    	Method[] methods = getAllMethods(cl);
-    	Method[] ms0 = Filters.filter(methods,new SetterMethodFilter());
-    	Filter<AnnotatedElement> filter = new UnAnnotatedElementFilter();
-    	Method[] ms1 = Filters.filter(ms0,filter);
+        Method[] methods = getAllMethods(cl);
+        Method[] ms0 = Filters.filter(methods,new SetterMethodFilter());
+        Filter<AnnotatedElement> filter = new UnAnnotatedElementFilter();
+        Method[] ms1 = Filters.filter(ms0,filter);
         
-    	// Create the resulting map
+        // Create the resulting map
         Map<String,Method> result = new HashMap<String,Method>();
         for (Method setter : ms1) {
-			String propName = SetterMethodFilter.getSetterPropertyName(setter);
-			result.put(propName,setter);
-		}
+            String propName = SetterMethodFilter.getSetterPropertyName(setter);
+            result.put(propName,setter);
+        }
 
         return result;
     }
@@ -260,9 +260,9 @@ public class ClassHelper {
      * <code>false</code> if no such annotation is found.
      */
     public static boolean isAnnotationPresent(
-		Class<?> cl, String... annotClassNames ) {
-    	
-    	Annotation annot = getAnnotation(cl,annotClassNames);
-    	return annot != null;
+        Class<?> cl, String... annotClassNames ) {
+        
+        Annotation annot = getAnnotation(cl,annotClassNames);
+        return annot != null;
     }
 }

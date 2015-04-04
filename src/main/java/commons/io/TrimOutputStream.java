@@ -41,9 +41,7 @@ import java.io.OutputStream;
 public class TrimOutputStream {
 
     public static OutputStream create(
-            OutputStream os,
-            byte[] begin,
-            byte[] end ) {
+        OutputStream os, byte[] begin, byte[] end ) {
         
         DevNullOutputStream devnull = new DevNullOutputStream();
         SplitOutputStream sos1 = new SplitOutputStream(end,os,devnull);
@@ -53,9 +51,7 @@ public class TrimOutputStream {
     }
 
     public static OutputStream create(
-            OutputStream os,
-            String begin,
-            String end ) {
+        OutputStream os, String begin, String end ) {
         
         return create(os,begin.getBytes(),end.getBytes());
     }

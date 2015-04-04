@@ -39,8 +39,8 @@ extends InjectionPointImpl<A> {
     private Field field;
 
     public InjectionPointFieldImpl( Field field, A annot ) {
-    	super(annot);
-    	this.field = field;
+        super(annot);
+        this.field = field;
         field.setAccessible(true);  // Enable access to private fields
     }
     
@@ -55,19 +55,19 @@ extends InjectionPointImpl<A> {
     }
     
     public Field getField() {
-    	return field;
+        return field;
     }
 
     public Class<?> getType() {
-    	return field.getType();
+        return field.getType();
     }
     
     public boolean override( InjectionPoint<?> other ) {
-    	if( ! (other instanceof InjectionPointFieldImpl) ) {
-    		return false;
-    	}
-    	Field otherfield = ((InjectionPointFieldImpl<?>)other).field;
-    	boolean b = FieldHelper.override(field,otherfield);
-    	return b;
+        if( ! (other instanceof InjectionPointFieldImpl) ) {
+            return false;
+        }
+        Field otherfield = ((InjectionPointFieldImpl<?>)other).field;
+        boolean b = FieldHelper.override(field,otherfield);
+        return b;
     }
 }

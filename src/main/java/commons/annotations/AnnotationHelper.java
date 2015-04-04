@@ -34,39 +34,39 @@ import java.lang.reflect.Method;
  */
 public class AnnotationHelper {
 
-	/**
-	 * Return the value of the parameter associated with the specified
-	 * annotation.
-	 * 
-	 * @param annot  the annotation
-	 * @param name   the parameter name
-	 * @return
-	 * 		the parameter value or <code>null</code> if the annotation is
-	 * 		<code>null</code> or if the annotation does not define the specified
-	 * 		parameter name 
-	 */
-	public static <T> T getAnnotationParamValue(
-		Annotation annot, String name ) {
-		
-		if( annot == null ) {
-			return null;
-		}
-		
-		Class<?> annotcl = annot.getClass();
-		try {
-			Method meth = annotcl.getMethod(name);
-			@SuppressWarnings("unchecked")
-	    	T value = (T) meth.invoke(annot);
-	    	return value;
-		}
-		catch (NoSuchMethodException e) {
-			return null;
-		}
-		catch (IllegalAccessException e) {
-			return null;
-		}
-		catch (InvocationTargetException e) {
-			return null;
-		}
-	}
+    /**
+     * Return the value of the parameter associated with the specified
+     * annotation.
+     * 
+     * @param annot  the annotation
+     * @param name   the parameter name
+     * @return
+     *         the parameter value or <code>null</code> if the annotation is
+     *         <code>null</code> or if the annotation does not define the specified
+     *         parameter name 
+     */
+    public static <T> T getAnnotationParamValue(
+        Annotation annot, String name ) {
+        
+        if( annot == null ) {
+            return null;
+        }
+        
+        Class<?> annotcl = annot.getClass();
+        try {
+            Method meth = annotcl.getMethod(name);
+            @SuppressWarnings("unchecked")
+            T value = (T) meth.invoke(annot);
+            return value;
+        }
+        catch (NoSuchMethodException e) {
+            return null;
+        }
+        catch (IllegalAccessException e) {
+            return null;
+        }
+        catch (InvocationTargetException e) {
+            return null;
+        }
+    }
 }
