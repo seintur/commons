@@ -55,7 +55,7 @@ public class HttpForwarder {
         this.srcport = srcport;
     }
     
-    public void run() {
+    public void run() throws IOException {
         ServerSocket ss = null;
         try {
             ss = new ServerSocket(srcport);
@@ -65,16 +65,8 @@ public class HttpForwarder {
                 new HttpForwarderRequest(client).start();
             }
         }
-        catch( IOException ioe ) {
-            throw new RuntimeException(ioe);
-        }
         finally {
-            try {
-                ss.close();
-            }
-            catch( IOException ioe ) {
-                throw new RuntimeException(ioe);
-            }
+            ss.close();
         }
     }
 }
@@ -103,8 +95,7 @@ class HttpForwarderRequest extends Thread {
             _run();
         }
         catch( IOException | InterruptedException e ) {
-            e.printStackTrace();
-            System.exit(1);
+        	throw new RuntimeException(e);
         }
     }
     
@@ -224,14 +215,14 @@ class HttpForwarderPipe extends Thread {
              */
         }
         catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
+        	throw new RuntimeException(e);
         }
     }
     
     private void _run() throws IOException {
         int b;
-        while ( (b=from.read()) != -1 )
+        while ( (b=from.read()) != -1 ) {
             to.write(b);
+        }
     }
 }

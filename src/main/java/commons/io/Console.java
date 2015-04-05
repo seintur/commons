@@ -58,7 +58,7 @@ public class Console extends PrintWriter {
     /**
      * The map of registered consoles.
      */
-    private static Map<String,Console> consoles = new HashMap<String,Console>();
+    private static Map<String,Console> consoles = new HashMap<>();
     
     
     // --------------------------------------------------------------------
@@ -158,7 +158,7 @@ public class Console extends PrintWriter {
     }
     
     /**
-     * Remove it from the map of registered consoles.
+     * Remove the console from the map of registered consoles.
      */
     @Override
     public void close() {
