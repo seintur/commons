@@ -28,7 +28,7 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import commons.reflect.MethodHelper;
+import commons.lang.reflect.MethodHelper;
 
 /**
  * Default abstract implementation of the {@link InjectionPoint} interface.

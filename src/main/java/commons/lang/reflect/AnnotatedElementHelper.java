@@ -21,35 +21,39 @@
  * Author: Lionel Seinturier
  */
 
-package commons.reflect;
+package commons.lang.reflect;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.AnnotatedElement;
-import java.util.function.Predicate;
 
 /**
- * Class for filtering annotated code elements.
+ * Utility method for the {@link AccessibleObject} class.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class AnnotatedElementFilter implements Predicate<AnnotatedElement> {
+public class AnnotatedElementHelper {
 
-    private String[] annotClassNames;
-    
-    public AnnotatedElementFilter( String... annotClassNames ) {
-        this.annotClassNames = annotClassNames;
-    }
-    
-    public boolean test( AnnotatedElement value ) {
-        Annotation[] annots = value.getAnnotations();
-        for (String annotClassName : annotClassNames) {
-            for (Annotation annot : annots) {
-                String name = annot.annotationType().getName();
-                if( name.equals(annotClassName) ) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+	/**
+	 * Return the annotation associated with the specified annotated element
+	 * whose type name is one of those contained in the specified varargs.
+	 * Return <code>null</code> if no such annotation is found.
+	 * 
+	 * @param ae               the annotated element
+	 * @param annotClassNames  the varargs of annotation type names
+	 */
+	public static Annotation getAnnotation(
+	    AnnotatedElement ae, String... annotClassNames ) {
+	    
+	    Annotation[] annots = ae.getAnnotations();
+	    for (String annotClassName : annotClassNames) {
+	        for (Annotation annot : annots) {
+	            String name = annot.annotationType().getName();
+	            if( name.equals(annotClassName) ) {
+	                return annot;
+	            }
+	        }
+	    }
+	    return null;
+	}
 }

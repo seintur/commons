@@ -21,28 +21,33 @@
  * Author: Lionel Seinturier
  */
 
-package commons.reflect;
+package commons.lang.reflect;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.util.function.Predicate;
 
 /**
- * Class for composing filters. Filtered elements are selected as soon as one of
- * the specified filters accepts the element.
+ * Class for filtering annotated code elements.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class CompositeOrFilter<T> implements Predicate<T> {
+public class AnnotatedElementFilter implements Predicate<AnnotatedElement> {
 
-    private Predicate<T>[] filters;
+    private String[] annotClassNames;
     
-    public CompositeOrFilter( Predicate<T>[] filters ) {
-        this.filters = filters;
+    public AnnotatedElementFilter( String... annotClassNames ) {
+        this.annotClassNames = annotClassNames;
     }
     
-    public boolean test( T value ) {
-        for (Predicate<T> filter : filters) {
-            if( filter.test(value) ) {
-                return true;
+    public boolean test( AnnotatedElement value ) {
+        Annotation[] annots = value.getAnnotations();
+        for (String annotClassName : annotClassNames) {
+            for (Annotation annot : annots) {
+                String name = annot.annotationType().getName();
+                if( name.equals(annotClassName) ) {
+                    return true;
+                }
             }
         }
         return false;

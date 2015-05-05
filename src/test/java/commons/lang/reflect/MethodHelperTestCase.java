@@ -21,60 +21,65 @@
  * Author: Lionel Seinturier
  */
 
-package commons.reflect;
+package commons.lang.reflect;
 
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import commons.lang.reflect.MethodHelper;
+
 /**
- * Class for testing the functionalities of the {@link AccessibleObjectHelper}
- * class.
+ * Class for testing the functionalities of the {@link MethodHelper} class.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class AccessibleObjectHelperTestCase {
+public class MethodHelperTestCase {
 
-    private Field srccontext, targetcontext, targetctx;
     private Method srcinit, srcnot, targetinit, targetnot;
 
     @Before
-    public void setUp() throws NoSuchMethodException, NoSuchFieldException {
-        
-        srccontext = Src.class.getDeclaredField("context");
-        targetcontext = Target.class.getDeclaredField("context");
-        targetctx = Target.class.getDeclaredField("ctx");
+    public void setUp() throws NoSuchMethodException {
         
         srcinit = Src.class.getMethod("init");
-        srcnot = Src.class.getMethod("not",String.class,AccessibleObjectHelperTestCase.class);
+        srcnot = Src.class.getMethod("not",String.class,MethodHelperTestCase.class);
         targetinit = Target.class.getMethod("init");
         targetnot = Target.class.getMethod("not",String.class);        
     }
     
     @Test
-    public void removeOverridenAccessibleObjects() {
-        AccessibleObject[] aos =
-            new AccessibleObject[]{
-                srccontext,targetcontext,targetctx,srcinit,targetinit,srcnot,
-                targetnot};
-        AccessibleObject[] actuals = AccessibleObjectHelper.removeOverridden(aos);
-        AccessibleObject[] expecteds =
-            new AccessibleObject[]{
-                targetcontext,targetctx,targetinit,srcnot,targetnot};
+    public void getShortSignature() {
+        Assert.assertEquals("init()",MethodHelper.getShortSignature(srcinit));
+        Assert.assertEquals("init()",MethodHelper.getShortSignature(targetinit));
+    }
+    
+    @Test
+    public void sameSignature() {
+        Assert.assertEquals(true,MethodHelper.sameSignature(srcinit,targetinit));
+    }
+    
+    @Test
+    public void overrideMethod() {        
+        Assert.assertEquals(true,MethodHelper.override(targetinit,srcinit));
+        Assert.assertEquals(false,MethodHelper.override(srcinit,targetinit));
+        Assert.assertEquals(false,MethodHelper.override(targetnot,srcnot));
+    }
+    
+    @Test
+    public void removeOverridenMethods() {
+        Method[] methods = new Method[]{srcinit,targetinit,srcnot,targetnot};
+        Method[] actuals = MethodHelper.removeOverridden(methods);
+        Method[] expecteds = new Method[]{targetinit,srcnot,targetnot};
         Assert.assertArrayEquals(expecteds,actuals);
     }
-
+    
     @SuppressWarnings("unused")
     private static class Src {
         protected String context;
         public void init() throws RuntimeException {}
-        public boolean not( String s, AccessibleObjectHelperTestCase utc ) {
-            return false;
-        }
+        public boolean not( String s, MethodHelperTestCase utc ) { return false; }
     }
     
     @SuppressWarnings("unused")

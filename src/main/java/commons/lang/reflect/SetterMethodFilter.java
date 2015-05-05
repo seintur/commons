@@ -21,7 +21,7 @@
  * Author: Lionel Seinturier
  */
 
-package commons.reflect;
+package commons.lang.reflect;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

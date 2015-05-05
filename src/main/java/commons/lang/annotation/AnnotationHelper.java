@@ -21,7 +21,7 @@
  * Author: Lionel Seinturier
  */
 
-package commons.annotations;
+package commons.lang.annotation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;

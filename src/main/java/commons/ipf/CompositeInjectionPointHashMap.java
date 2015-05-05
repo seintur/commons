@@ -29,10 +29,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-import commons.annotations.AnnotationHelper;
 import commons.lang.ClassHelper;
-import commons.reflect.AccessibleObjectHelper;
-import commons.reflect.SetterMethodFilter;
+import commons.lang.annotation.AnnotationHelper;
+import commons.lang.reflect.AnnotatedElementHelper;
+import commons.lang.reflect.SetterMethodFilter;
 
 /**
  * This class manages the injection points of a given type for a specified
@@ -77,7 +77,7 @@ extends InjectionPointHashMap<Annotation> {
             String ipname = getInjectionPointName(ao);
             
             Annotation annot =
-                    AccessibleObjectHelper.getAnnotation(ao,annotClassNames);
+                    AnnotatedElementHelper.getAnnotation(ao,annotClassNames);
             InjectionPoint<Annotation> ip =
                 InjectionPointImpl.getInjectionPoint(ao,annot);
 
@@ -157,7 +157,7 @@ extends InjectionPointHashMap<Annotation> {
                 }
 
                 Annotation annot =
-                    AccessibleObjectHelper.getAnnotation(ao,annotClassNames);
+                    AnnotatedElementHelper.getAnnotation(ao,annotClassNames);
                 InjectionPoint<Annotation> ip =
                     InjectionPointImpl.getInjectionPoint(ao,annot);
                 put(name,ip);
@@ -193,7 +193,7 @@ extends InjectionPointHashMap<Annotation> {
          * parameter. If the 'name' annotation parameter is not found, infer
          * the name from the setter method name or the field.
          */
-        Annotation annot = AccessibleObjectHelper.getAnnotation(ao,annotClassNames);
+        Annotation annot = AnnotatedElementHelper.getAnnotation(ao,annotClassNames);
         String name = AnnotationHelper.getAnnotationParamValue(annot,"name");
         if( name==null || name.length() == 0 ) {
             if( ao instanceof Method ) {

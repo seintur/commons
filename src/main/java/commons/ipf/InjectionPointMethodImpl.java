@@ -27,8 +27,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import commons.reflect.MethodHelper;
-import commons.reflect.SetterMethodFilter;
+import commons.lang.reflect.MethodHelper;
+import commons.lang.reflect.SetterMethodFilter;
 
 /**
  * This class represents an injection point which is implemented as a setter

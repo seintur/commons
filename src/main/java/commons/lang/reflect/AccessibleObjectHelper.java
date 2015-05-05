@@ -21,9 +21,8 @@
  * Author: Lionel Seinturier
  */
 
-package commons.reflect;
+package commons.lang.reflect;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -37,26 +36,6 @@ import java.util.List;
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 public class AccessibleObjectHelper {
-
-    /**
-     * Return the annotation associated with <code>ao</code> whose type name is
-     * one of those contained in <code>annotClassNames</code>. Return
-     * <code>null</code> if no such annotation is found.
-     */
-    public static Annotation getAnnotation(
-        AccessibleObject ao, String... annotClassNames ) {
-        
-        Annotation[] annots = ao.getAnnotations();
-        for (String annotClassName : annotClassNames) {
-            for (Annotation annot : annots) {
-                String name = annot.annotationType().getName();
-                if( name.equals(annotClassName) ) {
-                    return annot;
-                }
-            }
-        }
-        return null;
-    }
 
     /**
      * Return a copy of the specified array where overridden methods and fields

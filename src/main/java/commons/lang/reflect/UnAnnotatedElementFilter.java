@@ -21,7 +21,7 @@
  * Author: Lionel Seinturier
  */
 
-package commons.reflect;
+package commons.lang.reflect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;

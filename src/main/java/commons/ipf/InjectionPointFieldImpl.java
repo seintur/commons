@@ -26,7 +26,7 @@ package commons.ipf;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-import commons.reflect.FieldHelper;
+import commons.lang.reflect.FieldHelper;
 
 /**
  * This class represents an injection point which is implemented as a field.

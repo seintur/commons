@@ -29,9 +29,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
-import commons.annotations.AnnotationHelper;
 import commons.lang.ClassHelper;
-import commons.reflect.SetterMethodFilter;
+import commons.lang.annotation.AnnotationHelper;
+import commons.lang.reflect.SetterMethodFilter;
 
 /**
  * This class manages {@link InjectionPoint}s.  The injection points are stored

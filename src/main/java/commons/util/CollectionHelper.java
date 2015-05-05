@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import commons.reflect.Property;
+import commons.lang.reflect.Property;
 
 /**
  * Utility methods for the {@link Collection} interface.

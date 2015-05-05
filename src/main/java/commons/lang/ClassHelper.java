@@ -34,10 +34,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import commons.reflect.AnnotatedElementFilter;
-import commons.reflect.Filters;
-import commons.reflect.SetterMethodFilter;
-import commons.reflect.UnAnnotatedElementFilter;
+import commons.lang.reflect.AnnotatedElementFilter;
+import commons.lang.reflect.Filters;
+import commons.lang.reflect.SetterMethodFilter;
+import commons.lang.reflect.UnAnnotatedElementFilter;
 
 /**
  * Utility methods for the {@link Class} class.

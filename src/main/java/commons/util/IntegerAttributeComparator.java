@@ -25,7 +25,7 @@ package commons.util;
 
 import java.util.Comparator;
 
-import commons.reflect.Property;
+import commons.lang.reflect.Property;
 
 /**
  * This class provides a comparison function. The ordering is based on the value
