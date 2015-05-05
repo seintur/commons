@@ -23,28 +23,40 @@
 
 package commons.lang.reflect;
 
-import java.util.function.Predicate;
+import java.lang.reflect.Member;
+import java.lang.reflect.Modifier;
 
 /**
- * Class for composing filters. Filtered elements are selected as soon as one of
- * the specified filters accepts the element.
+ * This class provides helper methods for the {@link Member} class.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
-public class CompositeOrFilter<T> implements Predicate<T> {
+public class MemberHelper {
 
-    private Predicate<T>[] filters;
-    
-    public CompositeOrFilter( Predicate<T>[] filters ) {
-        this.filters = filters;
-    }
-    
-    public boolean test( T value ) {
-        for (Predicate<T> filter : filters) {
-            if( filter.test(value) ) {
-                return true;
-            }
-        }
-        return false;
-    }
+	/**
+	 * Return <code>true</code> if the specified member is statically accessible
+	 * from the specified type name.
+	 * 
+	 * @param member  the member
+	 * @param name    the fully qualified name of the source type
+	 */
+	public static boolean isAccessibleWithStaticInvocation(
+		Member member, String name ) {
+		
+		int mod = member.getModifiers();
+		
+		if( Modifier.isPrivate(mod) ) { return false; }
+		if( Modifier.isPublic(mod) ) { return true; }
+		
+		/*
+		 * protected or package public. Check that the declaring class of the
+		 * member is in the same package as the type.
+		 */
+		int l = name.lastIndexOf('.');
+		String pname = name.substring(0,l);
+		
+		String fpname = member.getDeclaringClass().getPackage().getName();
+		boolean b = fpname.equals(pname);
+		return b;
+	}
 }

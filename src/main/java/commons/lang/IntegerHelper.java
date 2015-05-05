@@ -24,7 +24,7 @@
 package commons.lang;
 
 /**
- * Utility methods for the {@link Integer} class.
+ * This class provides helper methods for the {@link Integer} class.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */

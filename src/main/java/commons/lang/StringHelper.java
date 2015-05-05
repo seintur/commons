@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
- * Utility methods for the {@link String} class.
+ * This class provides helper methods for the {@link String} class.
  *
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
@@ -56,6 +56,26 @@ public class StringHelper {
       return res;
    }
 
+	/**
+	 * Split the specified string using the first encountered delimiter
+	 * character and return the substrings before and after in an array of
+	 * size 2. If there is no such delimiter character, return an array of size
+	 * 0.
+	 * 
+	 * @param str        the input string
+	 * @param index  the delimiter character
+	 * @return           the array
+	 */
+	public static String[] around( String str, char delimiter ) {
+		int index = str.indexOf(delimiter);
+		if( index == -1 ) {
+			return new String[0];
+		}
+		String[] ret = new String[2];
+		ret[0] = str.substring(0,index);
+		ret[1] = str.substring(index+1);
+		return ret;
+	}
 
    /**
     * Insert the given separator sep between each element and at the end of the
@@ -308,4 +328,39 @@ public class StringHelper {
         }
         return ret;
     }
+    
+	/**
+	 * Return a copy of the specified string, with leading and trailing blank
+	 * characters (whitespace, tab and newline) omitted.
+	 */
+	public static String trimHeadingAndTrailingBlanks( String src ) {
+	    
+	    if( src == null ) {
+	        return null;
+	    }
+	    
+	    // i is the index of the first non blank character
+	    int i=-1 , len=src.length();
+	    char c;
+	    do {
+	        i++;
+	        if( i == len ) {
+	            // Either the string is empty or contains only blank characters
+	            return "";
+	        }
+	        c = src.charAt(i);
+	    }
+	    while( c==' ' || c=='\t' || c=='\n' );
+	    
+	    // j is the index of the first non blank character from the end of src
+	    int j = src.length();
+	    do {
+	        j--;
+	        c = src.charAt(j);
+	    }
+	    while( c==' ' || c=='\t' || c=='\n' );
+	
+	    String trim = src.substring(i,j+1);
+	    return trim;
+	}
 }

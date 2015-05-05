@@ -24,9 +24,12 @@
 package commons.lang.reflect;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * Utility method for the {@link Field} class.
+ * This class provides helper methods for the {@link Field} class.
  * 
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
@@ -61,4 +64,23 @@ public class FieldHelper {
         
         return false;
     }
+
+	/**
+	 * Return a copy of the specified array where overridden fields have been
+	 * removed.
+	 */
+	public static Field[] removeOverridden( Field[] fields ) {
+		List<Field> res = new ArrayList<Field>();
+		res.addAll(Arrays.asList(fields));
+		for (int i = 0; i < fields.length; i++) {
+			for (int j = 0; j < fields.length; j++) {
+				if(j==i) continue;
+				boolean b = override(fields[j],fields[i]);
+				if(b) {
+					res.remove(fields[i]);
+				}
+			}
+		}
+		return res.toArray(new Field[res.size()]);
+	}
 }

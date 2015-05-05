@@ -21,7 +21,7 @@
  * Author: Lionel Seinturier
  */
 
-package commons.lang.reflect;
+package commons.util.function;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
