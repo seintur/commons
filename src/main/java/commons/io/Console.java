@@ -111,7 +111,6 @@ public class Console extends PrintWriter {
 
                 // Check whether there is fewer characters in the console than expected
                 if( idx >= array.length ) {
-                    dumpFails(expecteds);
                     final String msg =
                         "Unexpected end of log at line "+(line+1)+", column"+
                         (col+1);
@@ -126,7 +125,6 @@ public class Console extends PrintWriter {
                 // Check whether the current character in the console differs
                 // from the expected one 
                 if( actual != expected ) {
-                    dumpFails(expecteds);
                     final String msg =
                         "Unexpected character '"+actual+"' instead of '"+
                         expected+"' at line "+(line+1)+", column "+(col+1);
@@ -139,7 +137,6 @@ public class Console extends PrintWriter {
         
         // Check whether there is more character in the console than expected 
         if( idx < array.length ) {
-            dumpFails(expecteds);
             final String msg =
                 "Extra characters in log at line "+expecteds.length+", column"+
                 expecteds[expecteds.length-1].length();
@@ -147,16 +144,6 @@ public class Console extends PrintWriter {
         }
     }
 
-    private void dumpFails( String[] expecteds ) {
-        System.err.println("Output is: ");
-        dump(System.err);
-        System.err.println();
-        System.err.println("Expected output is: ");
-        for (String expected : expecteds) {
-            System.err.println(expected);
-        }
-    }
-    
     /**
      * Remove the console from the map of registered consoles.
      */

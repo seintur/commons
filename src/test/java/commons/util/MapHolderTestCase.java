@@ -41,8 +41,6 @@ public class MapHolderTestCase {
     @Test
     public void testSubtract() {
 
-        System.out.println("=== MapExtTest.subtract() ===");
-
         /*
          * [13, 14, 12] - [14, 12] =? [13]
          */
@@ -56,7 +54,6 @@ public class MapHolderTestCase {
         dst.add( new Integer(14) );
         
         Map<Integer,String> result = MapHelper.subtract(src,dst);
-        System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 1 || !result.keySet().contains(new Integer(13)) )
             Assert.fail();
 
@@ -68,7 +65,6 @@ public class MapHolderTestCase {
         dst.add( new Integer(141) );
         
         result = MapHelper.subtract(src,dst);
-        System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 3 ||
              !result.keySet().contains(new Integer(13)) ||
              !result.keySet().contains(new Integer(14)) ||
@@ -84,7 +80,6 @@ public class MapHolderTestCase {
         dst.add( new Integer(12) );
         
         result = MapHelper.subtract(src,dst);
-        System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
             Assert.fail();
 
@@ -98,7 +93,6 @@ public class MapHolderTestCase {
         dst.add( new Integer(11) );
         
         result = MapHelper.subtract(src,dst);
-        System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
             Assert.fail();
         
@@ -108,7 +102,6 @@ public class MapHolderTestCase {
         dst = new HashSet<Integer>();
         
         result = MapHelper.subtract(src,dst);
-        System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 3 ||
              !result.keySet().contains(new Integer(13)) ||
              !result.keySet().contains(new Integer(14)) ||
@@ -125,7 +118,6 @@ public class MapHolderTestCase {
         dst.add( new Integer(12) );
         
         result = MapHelper.subtract(src,dst);
-        System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
             Assert.fail();
 
@@ -135,7 +127,6 @@ public class MapHolderTestCase {
         dst = new HashSet<Integer>();
         
         result = MapHelper.subtract(src,dst);
-        System.out.println(src+" - "+dst+" = "+result);
         if ( result.size() != 0 )
             Assert.fail();
     }

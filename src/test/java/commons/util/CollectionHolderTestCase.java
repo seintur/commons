@@ -23,6 +23,7 @@
 
 package commons.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,10 +38,11 @@ import org.junit.Test;
 public class CollectionHolderTestCase {
 
     @Test
-    public void testRecursiveGet() throws Exception {
+    public void testRecursiveGet()
+    throws
+	    NoSuchMethodException,
+	    IllegalAccessException, InvocationTargetException {
         
-        System.out.println("=== CollectionExtTest.recursiveGet() ===");
-
         Model src = Model.getSampleModel1();
         
         testRecursiveGet(
@@ -64,9 +66,11 @@ public class CollectionHolderTestCase {
         
     private void testRecursiveGet(
         Model src, String[] methodNames, String expected )
-    throws Exception {
-        Collection<?> res = CollectionHelper.recursiveGet(src,methodNames);
-        System.out.println( expected + " = " + res );
+    throws
+	    NoSuchMethodException,
+	    IllegalAccessException, InvocationTargetException {
+
+    	CollectionHelper.recursiveGet(src,methodNames);
     }
     
     /**

@@ -42,9 +42,6 @@ public class JpegResizeTestCase {
     @Test
     public void testResize() throws IOException {
 
-        System.out.println(
-           "=== JpegResizeTest.testResize ===");
-        
         final String srcFileName = "src/test/resources/commons/imageio/src.jpg";
         final String dstFileName = "target/classes/commons/imageio/dst.jpg";
         

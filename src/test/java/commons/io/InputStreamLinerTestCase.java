@@ -50,25 +50,15 @@ public class InputStreamLinerTestCase {
     
     private void testReadLine( String name, int type ) throws IOException {
         
-        System.out.println(
-            "=== InputStreamLinerTest.testReadLine("+
-            type+") ===" );
-            
-        System.out.println("Reading: "+name);
         InputStream is = ClassLoader.getSystemResourceAsStream(name);
         InputStreamLiner isl = new InputStreamLiner(is);
         
-        String line = isl.readLine(type);
-        System.out.println("Line 0 ("+line.length()+" bytes): "+line);
-        line = isl.readLine(type);
-        System.out.println("Line 1 ("+line.length()+" bytes): "+line);
+        isl.readLine(type);
+        isl.readLine(type);
         
-        int b = is.read();
-        System.out.println("Line 2, byte 0: "+b+" "+new String(new byte[]{(byte)b}));
-        b = is.read();
-        System.out.println("Line 2, byte 1: "+b+" "+new String(new byte[]{(byte)b}));
-        line = isl.readLine(type);
-        System.out.println("Line 2 ("+line.length()+" bytes): "+line);
+        is.read();
+        is.read();
+        isl.readLine(type);
         
         isl.close();
     }
