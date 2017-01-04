@@ -41,15 +41,13 @@ import commons.io.InputStreamLiner;
  * e.g. <code>GET http://some.host.com/some/file.html HTTP/1.0</code><br>
  * and forwards the request to the URL.
  * 
- * Most of the job is delegated to {@link HttpForwarderRequest}.
- *  
  * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
  */
 public class HttpForwarder {
 
     /**
-	 * This class reads data from an input stream and sends them to
-	 * an output stream.
+	 * This class reads data from an input stream and sends it to an output
+	 * stream.
 	 * 
 	 * @author Lionel Seinturier <Lionel.Seinturier@univ-lille1.fr>
 	 */
@@ -157,8 +155,8 @@ public class HttpForwarder {
 	        }
 	        catch( MalformedURLException mue ) {
 	            /*
-	             * The URL may be malformed if a protocol is missing. This happens
-	             * with HTTPS CONNECT request which are of the form:
+	             * The URL may be malformed if a protocol is missing. This
+	             * happends with HTTPS CONNECT request which are of the form:
 	             *         CONNECT adminlip6.lip6.fr:443 HTTP/1.0
 	             * Add a mock https:// prefix just to make URL.init happy.
 	             */
@@ -202,7 +200,7 @@ public class HttpForwarder {
 	    }
 	}
 
-	/** The port number where data is to be listen. */
+	/** The port number where data is to be listened. */
     private int srcport;
     
     public HttpForwarder( int srcport ) {
@@ -223,4 +221,19 @@ public class HttpForwarder {
             ss.close();
         }
     }
+    
+    public static void main( String[] args ) throws IOException {
+		
+    	if( args.length == 0 ) {
+    		System.out.print("Usage: java ");
+    		System.out.print(HttpForwarder.class.getName());
+    		System.out.println(" port");
+    		System.out.print("where port is the TCP port on which to listen ");
+    		System.out.println("for HTTP requests to be forwarded");
+    		System.exit(0);
+    	}
+    	
+    	int port = Integer.parseInt(args[0]);
+    	new HttpForwarder(port).run();
+	}
 }
