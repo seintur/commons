@@ -89,7 +89,7 @@ public class RangeSet {
                 
                 try {
                     int value = Integer.parseInt(pairs[0]);
-                    elements.add( new Integer(value) );
+                    elements.add( Integer.valueOf(value) );
                 }
                 catch( NumberFormatException nfe ) {
                     // Ignore errors in number formats
@@ -110,7 +110,7 @@ public class RangeSet {
                     int start = Integer.parseInt(pairs[0]);
                     int end = Integer.parseInt(pairs[1]);
                     for ( int j=start ; j <= end ; j++ ) {
-                        elements.add( new Integer(j) );
+                        elements.add( Integer.valueOf(j) );
                     }
                 }
                 catch( NumberFormatException nfe ) {
@@ -160,7 +160,7 @@ public class RangeSet {
                 
                 try {
                     int value = Integer.parseInt(pairs[0]);
-                    elements.add( new Integer(value) );
+                    elements.add( Integer.valueOf(value) );
                 }
                 catch( NumberFormatException nfe ) {
                     throw new RangeSetFormatException(
@@ -204,7 +204,7 @@ public class RangeSet {
                 }
 
                 for ( int j=start ; j <= end ; j++ ) {
-                    elements.add( new Integer(j) );
+                    elements.add( Integer.valueOf(j) );
                 }
             }
         }

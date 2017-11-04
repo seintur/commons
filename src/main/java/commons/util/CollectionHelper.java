@@ -57,10 +57,11 @@ public class CollectionHelper {
         @SuppressWarnings("unchecked")
         Class<Collection<E>> cl = (Class<Collection<E>>) src.getClass();
         try {
-            Collection<E> ret = cl.newInstance();
+            Collection<E> ret = cl.getConstructor().newInstance();
             return ret;
         }
-        catch (InstantiationException | IllegalAccessException e) {
+        catch (	NoSuchMethodException | InstantiationException |
+        			InvocationTargetException | IllegalAccessException e ) {
             Collection<E> ret = new ArrayList<>();
             return ret;
         }

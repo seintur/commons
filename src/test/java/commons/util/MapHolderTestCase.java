@@ -45,39 +45,39 @@ public class MapHolderTestCase {
          * [13, 14, 12] - [14, 12] =? [13]
          */
         Map<Integer,String> src = new HashMap<Integer,String>();
-        src.put( new Integer(12), "s12" );
-        src.put( new Integer(13), "s13" );
-        src.put( new Integer(14), "s14" );
+        src.put( Integer.valueOf(12), "s12" );
+        src.put( Integer.valueOf(13), "s13" );
+        src.put( Integer.valueOf(14), "s14" );
         
         Set<Integer> dst = new HashSet<Integer>();
-        dst.add( new Integer(12) );
-        dst.add( new Integer(14) );
+        dst.add( Integer.valueOf(12) );
+        dst.add( Integer.valueOf(14) );
         
         Map<Integer,String> result = MapHelper.subtract(src,dst);
-        if ( result.size() != 1 || !result.keySet().contains(new Integer(13)) )
+        if ( result.size() != 1 || !result.keySet().contains(Integer.valueOf(13)) )
             Assert.fail();
 
         /*
          * [13, 14, 12] - [141, 121] =? [13, 14, 12]
          */
         dst = new HashSet<Integer>();
-        dst.add( new Integer(121) );
-        dst.add( new Integer(141) );
+        dst.add( Integer.valueOf(121) );
+        dst.add( Integer.valueOf(141) );
         
         result = MapHelper.subtract(src,dst);
         if ( result.size() != 3 ||
-             !result.keySet().contains(new Integer(13)) ||
-             !result.keySet().contains(new Integer(14)) ||
-             !result.keySet().contains(new Integer(12)) )
+             !result.keySet().contains(Integer.valueOf(13)) ||
+             !result.keySet().contains(Integer.valueOf(14)) ||
+             !result.keySet().contains(Integer.valueOf(12)) )
             Assert.fail();
 
         /*
          * [13, 14, 12] - [13, 14, 12] =? []
          */
         dst = new HashSet<Integer>();
-        dst.add( new Integer(13) );
-        dst.add( new Integer(14) );
-        dst.add( new Integer(12) );
+        dst.add( Integer.valueOf(13) );
+        dst.add( Integer.valueOf(14) );
+        dst.add( Integer.valueOf(12) );
         
         result = MapHelper.subtract(src,dst);
         if ( result.size() != 0 )
@@ -87,10 +87,10 @@ public class MapHolderTestCase {
          * [13, 14, 12] - [13, 14, 12, 11] =? []
          */
         dst = new HashSet<Integer>();
-        dst.add( new Integer(13) );
-        dst.add( new Integer(14) );
-        dst.add( new Integer(12) );
-        dst.add( new Integer(11) );
+        dst.add( Integer.valueOf(13) );
+        dst.add( Integer.valueOf(14) );
+        dst.add( Integer.valueOf(12) );
+        dst.add( Integer.valueOf(11) );
         
         result = MapHelper.subtract(src,dst);
         if ( result.size() != 0 )
@@ -103,9 +103,9 @@ public class MapHolderTestCase {
         
         result = MapHelper.subtract(src,dst);
         if ( result.size() != 3 ||
-             !result.keySet().contains(new Integer(13)) ||
-             !result.keySet().contains(new Integer(14)) ||
-             !result.keySet().contains(new Integer(12)) )
+             !result.keySet().contains(Integer.valueOf(13)) ||
+             !result.keySet().contains(Integer.valueOf(14)) ||
+             !result.keySet().contains(Integer.valueOf(12)) )
             Assert.fail();
 
         /*
@@ -113,9 +113,9 @@ public class MapHolderTestCase {
          */
         src = new HashMap<Integer,String>();
         dst = new HashSet<Integer>();
-        dst.add( new Integer(13) );
-        dst.add( new Integer(14) );
-        dst.add( new Integer(12) );
+        dst.add( Integer.valueOf(13) );
+        dst.add( Integer.valueOf(14) );
+        dst.add( Integer.valueOf(12) );
         
         result = MapHelper.subtract(src,dst);
         if ( result.size() != 0 )

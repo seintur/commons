@@ -106,11 +106,11 @@ public class InputStreamLiner extends FilterInputStream {
                 b = read();
                 if ( b==-1 || b==0x0A )
                     return bufferContent();
-                buffer.add(new Integer(0x0D));
-                buffer.add(new Integer(b));
+                buffer.add(Integer.valueOf(0x0D));
+                buffer.add(Integer.valueOf(b));
             }
             else
-                buffer.add(new Integer(b));
+                buffer.add(Integer.valueOf(b));
         }
     }
     
@@ -129,7 +129,7 @@ public class InputStreamLiner extends FilterInputStream {
         
         buffer.clear();
         while ( b!=-1 && b!=0x0A ) {
-            buffer.add(new Integer(b));
+            buffer.add(Integer.valueOf(b));
             b = read();
         }
         return bufferContent();
@@ -150,7 +150,7 @@ public class InputStreamLiner extends FilterInputStream {
         
         buffer.clear();
         while ( b!=-1 && b!=0x0D ) {
-            buffer.add(new Integer(b));
+            buffer.add(Integer.valueOf(b));
             b = read();
         }
         return bufferContent();

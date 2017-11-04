@@ -196,9 +196,10 @@ public class MapHelper {
         Class<Map<K,V>> cl = (Class<Map<K,V>>) src.getClass();
         Map<K,V> result = null;
         try {
-            result = cl.newInstance();
+            result = cl.getConstructor().newInstance();
         }
-        catch( InstantiationException | IllegalAccessException e ) {
+        catch(	InstantiationException | IllegalAccessException |
+        			InvocationTargetException | NoSuchMethodException e ) {
             result = new HashMap<>();
         }
         
