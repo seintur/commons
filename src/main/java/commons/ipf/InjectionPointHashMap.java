@@ -94,7 +94,6 @@ extends HashMap<String,InjectionPoint<A>> {
                      * current one overrides the other one. Keep only the
                      * current one.
                      */
-                    remove(other);
                     put(ipname,ip);
                 }
                 else {
